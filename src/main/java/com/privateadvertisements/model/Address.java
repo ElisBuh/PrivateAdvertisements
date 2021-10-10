@@ -1,5 +1,6 @@
 package com.privateadvertisements.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -27,10 +28,12 @@ public class Address {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "country_id", nullable = false)
+//    @JsonIgnore
     private Country country;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "city_id", nullable = false)
+//    @JsonIgnore
     private City city;
 
     @Column(name = "post_index")

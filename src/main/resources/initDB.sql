@@ -69,7 +69,7 @@ CREATE TABLE personal_info
     number_phone  integer    NOT NULL,
     sex           text NOT NULL,
     PRIMARY KEY (id),
-    CHECK (sex IN ('WOMAN', 'MAN'))
+    CHECK (sex IN ('FEMALE', 'MALE'))
 );
 
 CREATE TABLE users
