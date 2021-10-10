@@ -43,7 +43,7 @@ public class UserDto {
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate dateRegistered;
 
-//    private Address address;
+    private AddressDto addressDto;
 //    private List<CreditCard> creditCards;
 //    private List<Messages> messages;
     private PersonalUserInfoDto personalUserInfoDto;

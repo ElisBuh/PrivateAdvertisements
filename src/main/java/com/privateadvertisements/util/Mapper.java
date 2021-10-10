@@ -1,8 +1,14 @@
 package com.privateadvertisements.util;
 
+import com.privateadvertisements.model.Address;
+import com.privateadvertisements.model.City;
+import com.privateadvertisements.model.Country;
 import com.privateadvertisements.model.PersonalUserInfo;
 import com.privateadvertisements.model.Role;
 import com.privateadvertisements.model.User;
+import com.privateadvertisements.model.dto.AddressDto;
+import com.privateadvertisements.model.dto.CityDto;
+import com.privateadvertisements.model.dto.CountryDto;
 import com.privateadvertisements.model.dto.PersonalUserInfoDto;
 import com.privateadvertisements.model.dto.RoleDto;
 import com.privateadvertisements.model.dto.UserDto;
@@ -27,13 +33,27 @@ public class Mapper {
         UserDto userDto = modelMapper.map(user, UserDto.class);
         Set<RoleDto> roleDtoSet = convertSet(user.getRoles(), this::convertRoleToRoleDto);
         userDto.setRoles(roleDtoSet);
-        System.out.println(user.getPersonalUserInfo());
         userDto.setPersonalUserInfoDto(convertPersonalUserInfoToPersonalUserIndoDTO(user.getPersonalUserInfo()));
+        userDto.setAddressDto(convertAddressToAddressDto(user.getAddress()));
         return userDto;
     }
 
     public PersonalUserInfoDto convertPersonalUserInfoToPersonalUserIndoDTO(PersonalUserInfo personalUserInfo){
        return modelMapper.map(personalUserInfo, PersonalUserInfoDto.class);
+    }
+
+    public CityDto convertCityToCityDTO(City city){
+        return modelMapper.map(city, CityDto.class);
+    }
+    public CountryDto convertCountryToCountryDto(Country country){
+        return modelMapper.map(country, CountryDto.class);
+    }
+
+    public AddressDto convertAddressToAddressDto(Address address){
+        AddressDto addressDto = modelMapper.map(address, AddressDto.class);
+        addressDto.setCountryDto(convertCountryToCountryDto(address.getCountry()));
+        addressDto.setCityDto(convertCityToCityDTO(address.getCity()));
+        return addressDto;
     }
 
 
