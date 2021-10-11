@@ -68,7 +68,6 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Messages> messages;
 
-//    @Column(name = "personal_info_id")
     @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "personal_info_id")
     private PersonalUserInfo personalUserInfo;

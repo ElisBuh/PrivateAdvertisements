@@ -20,6 +20,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -38,7 +39,7 @@ public class Advertisement {
     private User user;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "advertisement")
-    private Set<Comment> comments;
+    private List<Comment> comments;
 
     @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
@@ -59,6 +60,9 @@ public class Advertisement {
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private StatusAd statusAd;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "advertisement")
+    private List<Photograph> photographs;
 
     public Advertisement() {
 

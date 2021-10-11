@@ -44,10 +44,10 @@ public class UserDto {
     private LocalDate dateRegistered;
 
     private AddressDto addressDto;
-//    private List<CreditCard> creditCards;
+    private List<CreditCardDto> creditCardsDto;
 //    private List<Messages> messages;
     private PersonalUserInfoDto personalUserInfoDto;
-//    private Set<Chat> chats;
-//    private List<Comment> comments;
-//    private List<Advertisement> advertisements;
+    private Set<ChatDto> chats;
+    private List<CommentDto> commentDtoList;
+    private List<AdvertisementDto> advertisementDtoList;
 }
