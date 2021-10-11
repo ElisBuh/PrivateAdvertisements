@@ -2,16 +2,11 @@ package com.privateadvertisements.controller;
 
 import com.privateadvertisements.api.dao.IAdvertisementDao;
 import com.privateadvertisements.model.Advertisement;
-import com.privateadvertisements.model.User;
 import com.privateadvertisements.model.dto.AdvertisementDto;
-import com.privateadvertisements.model.dto.UserDto;
 import com.privateadvertisements.util.Mapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,7 +27,7 @@ public class AdvertisementController {
     @GetMapping("/{id}")
     public ResponseEntity<AdvertisementDto> read(@PathVariable(name = "id") Integer id) {
 //        log.info("read");
-        Advertisement advertisement = advertisementDao.findById(id).get();
+        Advertisement advertisement = advertisementDao.get(id);
 //        UserDto userDto = mapper.convertUserToUserDto(user);
         AdvertisementDto advertisementDto = mapper.convertAdvertisementToAdvertisementDto(advertisement);
         return new ResponseEntity<>(advertisementDto, HttpStatus.OK);

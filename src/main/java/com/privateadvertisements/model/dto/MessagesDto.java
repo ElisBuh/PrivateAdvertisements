@@ -7,7 +7,6 @@ import com.privateadvertisements.util.LocalDateTimeSerializer;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
 import java.time.LocalDateTime;
 
 @Data

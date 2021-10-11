@@ -12,16 +12,13 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Data
 @AllArgsConstructor
 @Entity
 @Table(name = "roles")
-public class Role {
+public class Role extends AEntity {
 
     @Id
     @Column(name = "id")

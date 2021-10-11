@@ -18,7 +18,7 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @Entity
 @Table(name = "photographs")
-public class Photograph {
+public class Photograph extends AEntity {
     @Id
     @Column(name = "id")
     @SequenceGenerator(name = "ad_seq", sequenceName = "ad_seq", allocationSize = 1)

@@ -21,13 +21,12 @@ import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 
 @Data
 @AllArgsConstructor
 @Entity
 @Table(name = "advertisements")
-public class Advertisement {
+public class Advertisement extends AEntity {
     @Id
     @Column(name = "id")
     @SequenceGenerator(name = "ad_seq", sequenceName = "ad_seq", allocationSize = 1)
@@ -38,7 +37,7 @@ public class Advertisement {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "advertisement")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "advertisement", cascade = CascadeType.REMOVE)
     private List<Comment> comments;
 
     @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
@@ -61,7 +60,7 @@ public class Advertisement {
     @Enumerated(EnumType.STRING)
     private StatusAd statusAd;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "advertisement")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "advertisement", cascade = CascadeType.REMOVE)
     private List<Photograph> photographs;
 
     public Advertisement() {

@@ -169,8 +169,8 @@ CREATE TABLE users_chats
 (
     chat_id integer NOT NULL,
     user_id integer NOT NULL,
-    FOREIGN KEY (chat_id) REFERENCES chats (id),
-    FOREIGN KEY (user_id) REFERENCES users (id)
+    FOREIGN KEY (chat_id) REFERENCES chats (id) ON DELETE CASCADE ,
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 
 CREATE TABLE messages

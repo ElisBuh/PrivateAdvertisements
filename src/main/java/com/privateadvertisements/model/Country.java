@@ -18,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "countries")
-public class Country {
+public class Country extends AEntity {
 
     @Id
     @Column(name = "id")

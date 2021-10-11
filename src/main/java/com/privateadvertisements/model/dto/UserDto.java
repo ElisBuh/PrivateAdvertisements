@@ -2,27 +2,11 @@ package com.privateadvertisements.model.dto;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.privateadvertisements.model.Address;
-import com.privateadvertisements.model.Advertisement;
-import com.privateadvertisements.model.Chat;
-import com.privateadvertisements.model.Comment;
-import com.privateadvertisements.model.CreditCard;
-import com.privateadvertisements.model.Messages;
-import com.privateadvertisements.model.PersonalUserInfo;
-import com.privateadvertisements.model.Role;
 import com.privateadvertisements.util.LocalDateDeserializer;
 import com.privateadvertisements.util.LocalDateSerializer;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
@@ -45,7 +29,7 @@ public class UserDto {
 
     private AddressDto addressDto;
     private List<CreditCardDto> creditCardsDto;
-//    private List<Messages> messages;
+    //    private List<Messages> messages;
     private PersonalUserInfoDto personalUserInfoDto;
     private Set<ChatDto> chats;
     private List<CommentDto> commentDtoList;

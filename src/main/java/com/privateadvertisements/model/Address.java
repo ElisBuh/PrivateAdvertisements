@@ -1,6 +1,5 @@
 package com.privateadvertisements.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -19,7 +18,7 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @Entity
 @Table(name = "addresses")
-public class Address {
+public class Address extends AEntity {
     @Id
     @Column(name = "id")
     @SequenceGenerator(name = "user_seq", sequenceName = "user_seq", allocationSize = 1)

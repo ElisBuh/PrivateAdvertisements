@@ -18,7 +18,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Entity
 @Table(name = "personal_info")
-public class PersonalUserInfo {
+public class PersonalUserInfo extends AEntity {
 
     @Id
     @Column(name = "id")

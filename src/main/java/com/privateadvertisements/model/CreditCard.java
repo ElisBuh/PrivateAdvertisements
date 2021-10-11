@@ -2,9 +2,6 @@ package com.privateadvertisements.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.Column;
@@ -25,7 +22,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Entity
 @Table(name = "credit_cards")
-public class CreditCard {
+public class CreditCard extends AEntity {
 
     @Id
     @Column(name = "id")

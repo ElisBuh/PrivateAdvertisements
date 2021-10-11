@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Entity
 @Table(name = "comments")
-public class Comment {
+public class Comment extends AEntity {
     @Id
     @Column(name = "id")
     @SequenceGenerator(name = "ad_seq", sequenceName = "ad_seq", allocationSize = 1)

@@ -2,10 +2,7 @@ package com.privateadvertisements.controller;
 
 import com.privateadvertisements.api.dao.IChatDao;
 import com.privateadvertisements.model.Chat;
-import com.privateadvertisements.model.User;
-import com.privateadvertisements.model.dto.ChatDto;
 import com.privateadvertisements.model.dto.ChatDtoWithUser;
-import com.privateadvertisements.model.dto.UserDto;
 import com.privateadvertisements.util.Mapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +27,7 @@ public class ChatController {
     public ResponseEntity<ChatDtoWithUser> read(@PathVariable(name = "id") Integer id) {
 //        log.info("read");
 //        User user = userDao.findById(id).get();
-        Chat chat = chatDao.findById(id).get();
+        Chat chat = chatDao.get(id);
 //        UserDto userDto = mapper.convertUserToUserDto(user);
         ChatDtoWithUser chatDto = mapper.convertChatToChatDtoWithUser(chat);
         return new ResponseEntity<>(chatDto, HttpStatus.OK);

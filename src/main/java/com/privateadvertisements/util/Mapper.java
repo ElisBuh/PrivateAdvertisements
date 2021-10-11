@@ -44,7 +44,7 @@ public class Mapper {
         this.modelMapper = modelMapper;
     }
 
-    public UserDto convertUserToUserDto(User user){
+    public UserDto convertUserToUserDto(User user) {
         UserDto userDto = modelMapper.map(user, UserDto.class);
         Set<RoleDto> roleDtoSet = convertSet(user.getRoles(), this::convertRoleToRoleDto);
         userDto.setRoles(roleDtoSet);
@@ -53,76 +53,79 @@ public class Mapper {
         userDto.setCreditCardsDto(convertList(user.getCreditCards(), this::convertCreditCardToCreditCardDto));
         userDto.setAdvertisementDtoList(convertList(user.getAdvertisements(), this::convertAdvertisementToAdvertisementDto));
         userDto.setCommentDtoList(convertList(user.getComments(), this::convertCommentToConvertDto));
-        userDto.setChats(convertSet(user.getChats(),this::convertChatToChatDto));
+        userDto.setChats(convertSet(user.getChats(), this::convertChatToChatDto));
         return userDto;
     }
 
-    public PersonalUserInfoDto convertPersonalUserInfoToPersonalUserIndoDTO(PersonalUserInfo personalUserInfo){
-       return modelMapper.map(personalUserInfo, PersonalUserInfoDto.class);
+    public PersonalUserInfoDto convertPersonalUserInfoToPersonalUserIndoDTO(PersonalUserInfo personalUserInfo) {
+        return modelMapper.map(personalUserInfo, PersonalUserInfoDto.class);
     }
 
-    public CityDto convertCityToCityDTO(City city){
+    public CityDto convertCityToCityDTO(City city) {
         return modelMapper.map(city, CityDto.class);
     }
-    public CountryDto convertCountryToCountryDto(Country country){
+
+    public CountryDto convertCountryToCountryDto(Country country) {
         return modelMapper.map(country, CountryDto.class);
     }
 
-    public AddressDto convertAddressToAddressDto(Address address){
+    public AddressDto convertAddressToAddressDto(Address address) {
         AddressDto addressDto = modelMapper.map(address, AddressDto.class);
         addressDto.setCountryDto(convertCountryToCountryDto(address.getCountry()));
         addressDto.setCityDto(convertCityToCityDTO(address.getCity()));
         return addressDto;
     }
 
-    public CreditCardDto convertCreditCardToCreditCardDto(CreditCard creditCard){
+    public CreditCardDto convertCreditCardToCreditCardDto(CreditCard creditCard) {
         return modelMapper.map(creditCard, CreditCardDto.class);
     }
 
-    public RoleDto convertRoleToRoleDto(Role role){
+    public RoleDto convertRoleToRoleDto(Role role) {
         return modelMapper.map(role, RoleDto.class);
     }
 
-
-    public AdvertisementDto convertAdvertisementToAdvertisementDto(Advertisement advertisement){
+    public AdvertisementDto convertAdvertisementToAdvertisementDto(Advertisement advertisement) {
         AdvertisementDto advertisementDto = modelMapper.map(advertisement, AdvertisementDto.class);
-        advertisementDto.setComments(convertList(advertisement.getComments(),this::convertCommentToConvertDto));
+        advertisementDto.setComments(convertList(advertisement.getComments(), this::convertCommentToConvertDto));
         advertisementDto.setCategoryDto(convertCategoryToCategoryDto(advertisement.getCategory()));
         advertisementDto.setPhotographs(convertList(advertisement.getPhotographs(), this::convertPhotographToPhotographDto));
         return advertisementDto;
     }
 
-    public CommentDto convertCommentToConvertDto(Comment comment){
+    public CommentDto convertCommentToConvertDto(Comment comment) {
         return modelMapper.map(comment, CommentDto.class);
     }
 
-    public CategoryDto convertCategoryToCategoryDto(Category category){return modelMapper.map(category, CategoryDto.class);}
+    public CategoryDto convertCategoryToCategoryDto(Category category) {
+        return modelMapper.map(category, CategoryDto.class);
+    }
 
-    public PhotographDto convertPhotographToPhotographDto(Photograph photograph){return modelMapper.map(photograph, PhotographDto.class);}
+    public PhotographDto convertPhotographToPhotographDto(Photograph photograph) {
+        return modelMapper.map(photograph, PhotographDto.class);
+    }
 
-
-    public ChatDtoWithUser convertChatToChatDtoWithUser(Chat chat){
+    public ChatDtoWithUser convertChatToChatDtoWithUser(Chat chat) {
         ChatDtoWithUser chatDto = modelMapper.map(chat, ChatDtoWithUser.class);
         chatDto.setUsers(convertList(chat.getUsers(), this::convertUserToUserDto));
         chatDto.setMessagesDtoList(convertList(chat.getMessages(), this::convertMessageToMessageDto));
         return chatDto;
     }
-    public ChatDto convertChatToChatDto(Chat chat){
+
+    public ChatDto convertChatToChatDto(Chat chat) {
         ChatDto chatDto = modelMapper.map(chat, ChatDto.class);
         chatDto.setMessagesDtoList(convertList(chat.getMessages(), this::convertMessageToMessageDto));
         return chatDto;
     }
 
-    public MessagesDto convertMessageToMessageDto(Messages messages){return modelMapper.map(messages, MessagesDto.class);}
-
-
-
-
+    public MessagesDto convertMessageToMessageDto(Messages messages) {
+        return modelMapper.map(messages, MessagesDto.class);
+    }
 
 
     public static <R, E> List<R> convertList(List<E> list, Function<E, R> converter) {
         return list.stream().map(converter).collect(Collectors.toList());
     }
+
     public static <R, E> Set<R> convertSet(Set<E> list, Function<E, R> converter) {
         return list.stream().map(converter).collect(Collectors.toSet());
     }

@@ -3,6 +3,7 @@ package com.privateadvertisements.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,7 +20,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "chats")
-public class Chat {
+public class Chat extends AEntity {
 
     @Id
     @Column(name = "id")
@@ -30,7 +31,7 @@ public class Chat {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "chat")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "chat", cascade = CascadeType.REMOVE)
     private List<Messages> messages;
 
     @ManyToMany(mappedBy = "chats")
