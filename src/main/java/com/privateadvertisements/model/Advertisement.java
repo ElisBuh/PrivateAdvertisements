@@ -47,7 +47,7 @@ public class Advertisement {
     @ToString.Exclude
     private List<Comment> comments;
 
-    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
     @ToString.Exclude
     private Category category;

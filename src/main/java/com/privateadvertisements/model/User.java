@@ -2,8 +2,6 @@ package com.privateadvertisements.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -29,12 +27,13 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "users")
-@NoArgsConstructor
 public class User {
+
+    public User() {
+    }
 
     @Id
     @Column(name = "id")
