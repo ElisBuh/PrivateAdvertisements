@@ -1,6 +1,7 @@
 package com.privateadvertisements.controller;
 
-import com.privateadvertisements.api.dao.IAbstractDao;
+
+import com.privateadvertisements.api.dataJpa.CrudAdvertisement;
 import com.privateadvertisements.model.Advertisement;
 import com.privateadvertisements.model.dto.AdvertisementDto;
 import com.privateadvertisements.util.Mapper;
@@ -17,17 +18,17 @@ public class AdvertisementController {
 //    private static final Logger log = LoggerFactory.getLogger(AdvertisementController.class);
 
     private final Mapper mapper;
-    private final IAbstractDao<Advertisement> advertisementDao;
+    private final CrudAdvertisement crudAdvertisement;
 
-    public AdvertisementController(Mapper mapper, IAbstractDao<Advertisement> advertisementDao) {
+    public AdvertisementController(Mapper mapper, CrudAdvertisement crudAdvertisement) {
         this.mapper = mapper;
-        this.advertisementDao = advertisementDao;
+        this.crudAdvertisement = crudAdvertisement;
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<AdvertisementDto> read(@PathVariable(name = "id") Integer id) {
 //        log.info("read");
-        Advertisement advertisement = advertisementDao.get(id);
+        Advertisement advertisement = crudAdvertisement.getById(id);
 //        UserDto userDto = mapper.convertUserToUserDto(user);
         AdvertisementDto advertisementDto = mapper.convertAdvertisementToAdvertisementDto(advertisement);
         return new ResponseEntity<>(advertisementDto, HttpStatus.OK);

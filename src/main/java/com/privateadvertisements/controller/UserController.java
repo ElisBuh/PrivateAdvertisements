@@ -1,6 +1,6 @@
 package com.privateadvertisements.controller;
 
-import com.privateadvertisements.api.dao.IUserDao;
+import com.privateadvertisements.api.dataJpa.CrudUser;
 import com.privateadvertisements.model.User;
 import com.privateadvertisements.model.dto.UserDto;
 import com.privateadvertisements.util.Mapper;
@@ -17,17 +17,17 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/users")
 public class UserController {
-    private IUserDao userDao;
+    private CrudUser crudUser;
     private Mapper mapper;
 
-    public UserController(IUserDao userDao, Mapper mapper) {
-        this.userDao = userDao;
+    public UserController(CrudUser userDao, Mapper mapper) {
+        this.crudUser = userDao;
         this.mapper = mapper;
     }
 
     @GetMapping("/")
     public ResponseEntity<List<UserDto>> readAll() {
-        List<User> users = userDao.getAll();
+        List<User> users = crudUser.findAll();
         List<UserDto> userDtoList = Mapper.convertList(users, mapper::convertUserToUserDto);
         return new ResponseEntity<>(userDtoList, HttpStatus.OK);
     }
@@ -35,7 +35,7 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> read(@PathVariable(name = "id") Integer id) {
 //        log.info("read");
-        User user = userDao.get(id);
+        User user = crudUser.getById(id);
         UserDto userDto = mapper.convertUserToUserDto(user);
         return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
@@ -43,7 +43,7 @@ public class UserController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable(name = "id") Integer id) {
 //        log.info("delete");
-        userDao.delete(id);
+        crudUser.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

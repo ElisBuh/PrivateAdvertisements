@@ -1,6 +1,7 @@
 package com.privateadvertisements.controller;
 
-import com.privateadvertisements.api.dao.IAbstractDao;
+
+import com.privateadvertisements.api.dataJpa.CrudComment;
 import com.privateadvertisements.model.Comment;
 import com.privateadvertisements.model.User;
 import com.privateadvertisements.model.dto.CommentDto;
@@ -18,17 +19,17 @@ import java.util.List;
 @RequestMapping(value = "/comments")
 public class CommentController {
 
-    private final IAbstractDao<Comment> abstractDao;
+    private final CrudComment crudComment;
     private final Mapper mapper;
 
-    public CommentController(IAbstractDao<Comment> abstractDao, Mapper mapper) {
-        this.abstractDao = abstractDao;
+    public CommentController(CrudComment crudComment, Mapper mapper) {
+        this.crudComment = crudComment;
         this.mapper = mapper;
     }
 
     @GetMapping("/")
     public ResponseEntity<List<CommentDto>> readAll() {
-        List<Comment> comments = abstractDao.getAll();
+        List<Comment> comments = crudComment.findAll();
         List<CommentDto> commentDtoList = Mapper.convertList(comments, mapper::convertCommentToConvertDto);
 //        List<UserDto> userDtoList = Mapper.convertList(users, mapper::convertUserToUserDto);convertUserToUserDto
         return new ResponseEntity<>(commentDtoList, HttpStatus.OK);
