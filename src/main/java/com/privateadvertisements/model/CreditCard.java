@@ -2,7 +2,11 @@ package com.privateadvertisements.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.Hibernate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,12 +21,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.math.BigDecimal;
+import java.util.Objects;
 
-@Data
+@Getter
+@Setter
+@ToString
 @AllArgsConstructor
 @Entity
 @Table(name = "credit_cards")
-public class CreditCard extends AEntity {
+public class CreditCard {
 
     @Id
     @Column(name = "id")
@@ -44,5 +51,18 @@ public class CreditCard extends AEntity {
 
     public CreditCard() {
 
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CreditCard that = (CreditCard) o;
+        return Objects.equals(id, that.id) && Objects.equals(user, that.user) && typeCreditCard == that.typeCreditCard && Objects.equals(number, that.number);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, user, typeCreditCard, number);
     }
 }

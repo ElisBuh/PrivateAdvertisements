@@ -2,7 +2,12 @@ package com.privateadvertisements.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.Hibernate;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,14 +25,18 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "users")
 @NoArgsConstructor
-public class User extends AEntity {
+public class User {
 
     @Id
     @Column(name = "id")
@@ -59,13 +68,16 @@ public class User extends AEntity {
 
     @OneToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     @JoinColumn(name = "address_id")
+    @ToString.Exclude
     private Address address;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.REMOVE)
+    @ToString.Exclude
     private List<CreditCard> creditCards;
 
     @OneToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     @JoinColumn(name = "personal_info_id")
+    @ToString.Exclude
     private PersonalUserInfo personalUserInfo;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
@@ -75,11 +87,27 @@ public class User extends AEntity {
     private Set<Chat> chats;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @ToString.Exclude
     private List<Messages> messages;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.REMOVE)
+    @ToString.Exclude
     private List<Comment> comments;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.REMOVE)
+    @ToString.Exclude
     private List<Advertisement> advertisements;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) && Objects.equals(login, user.login) && Objects.equals(passwords, user.passwords) && Objects.equals(rating, user.rating) && Objects.equals(enabled, user.enabled) && Objects.equals(dateRegistered, user.dateRegistered) && Objects.equals(address, user.address) && Objects.equals(personalUserInfo, user.personalUserInfo);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, login, passwords, rating, enabled, dateRegistered, address, personalUserInfo);
+    }
 }

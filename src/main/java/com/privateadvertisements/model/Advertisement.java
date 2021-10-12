@@ -2,6 +2,10 @@ package com.privateadvertisements.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -21,12 +25,15 @@ import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
-@Data
+@Getter
+@Setter
+@ToString
 @AllArgsConstructor
 @Entity
 @Table(name = "advertisements")
-public class Advertisement extends AEntity {
+public class Advertisement {
     @Id
     @Column(name = "id")
     @SequenceGenerator(name = "ad_seq", sequenceName = "ad_seq", allocationSize = 1)
@@ -35,13 +42,16 @@ public class Advertisement extends AEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
+    @ToString.Exclude
     private User user;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "advertisement", cascade = CascadeType.REMOVE)
+    @ToString.Exclude
     private List<Comment> comments;
 
     @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
+    @ToString.Exclude
     private Category category;
 
     @Column(name = "title")
@@ -61,9 +71,23 @@ public class Advertisement extends AEntity {
     private StatusAd statusAd;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "advertisement", cascade = CascadeType.REMOVE)
+    @ToString.Exclude
     private List<Photograph> photographs;
 
     public Advertisement() {
 
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Advertisement that = (Advertisement) o;
+        return id.equals(that.id) && Objects.equals(user, that.user) && Objects.equals(category, that.category) && Objects.equals(title, that.title) && Objects.equals(content, that.content) && Objects.equals(cost, that.cost) && Objects.equals(datePublication, that.datePublication) && statusAd == that.statusAd;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, user, category, title, content, cost, datePublication, statusAd);
     }
 }

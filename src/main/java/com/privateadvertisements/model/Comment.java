@@ -2,6 +2,11 @@ package com.privateadvertisements.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.Hibernate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,12 +19,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
-@Data
+@Getter
+@Setter
+@ToString
 @AllArgsConstructor
 @Entity
 @Table(name = "comments")
-public class Comment extends AEntity {
+public class Comment {
     @Id
     @Column(name = "id")
     @SequenceGenerator(name = "ad_seq", sequenceName = "ad_seq", allocationSize = 1)
@@ -28,10 +36,12 @@ public class Comment extends AEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
+    @ToString.Exclude
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ad_id", nullable = false)
+    @ToString.Exclude
     private Advertisement advertisement;
 
     @Column(name = "content")
@@ -42,5 +52,18 @@ public class Comment extends AEntity {
 
     public Comment() {
 
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Comment comment = (Comment) o;
+        return Objects.equals(id, comment.id) && Objects.equals(user, comment.user) && Objects.equals(advertisement, comment.advertisement) && Objects.equals(content, comment.content) && Objects.equals(dateCreate, comment.dateCreate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, user, advertisement, content, dateCreate);
     }
 }
