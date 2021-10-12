@@ -1,6 +1,6 @@
 package com.privateadvertisements.dao;
 
-import com.privateadvertisements.api.dao.IAdvertisementDao;
+import com.privateadvertisements.api.dao.IAbstractDao;
 import com.privateadvertisements.api.dataJpa.CrudAdvertisement;
 import com.privateadvertisements.model.Advertisement;
 import org.springframework.stereotype.Repository;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class AdvertisementDao implements IAdvertisementDao {
+public class AdvertisementDao implements IAbstractDao<Advertisement> {
 
     private final CrudAdvertisement crudAdvertisement;
 

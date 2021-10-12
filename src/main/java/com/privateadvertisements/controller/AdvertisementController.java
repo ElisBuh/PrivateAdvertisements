@@ -1,6 +1,6 @@
 package com.privateadvertisements.controller;
 
-import com.privateadvertisements.api.dao.IAdvertisementDao;
+import com.privateadvertisements.api.dao.IAbstractDao;
 import com.privateadvertisements.model.Advertisement;
 import com.privateadvertisements.model.dto.AdvertisementDto;
 import com.privateadvertisements.util.Mapper;
@@ -17,9 +17,9 @@ public class AdvertisementController {
 //    private static final Logger log = LoggerFactory.getLogger(AdvertisementController.class);
 
     private final Mapper mapper;
-    private final IAdvertisementDao advertisementDao;
+    private final IAbstractDao<Advertisement> advertisementDao;
 
-    public AdvertisementController(Mapper mapper, IAdvertisementDao advertisementDao) {
+    public AdvertisementController(Mapper mapper, IAbstractDao<Advertisement> advertisementDao) {
         this.mapper = mapper;
         this.advertisementDao = advertisementDao;
     }

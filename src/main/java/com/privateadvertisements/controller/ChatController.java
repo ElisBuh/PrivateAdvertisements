@@ -1,6 +1,6 @@
 package com.privateadvertisements.controller;
 
-import com.privateadvertisements.api.dao.IChatDao;
+import com.privateadvertisements.api.dao.IAbstractDao;
 import com.privateadvertisements.model.Chat;
 import com.privateadvertisements.model.dto.ChatDtoWithUser;
 import com.privateadvertisements.util.Mapper;
@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class ChatController {
 
     private final Mapper mapper;
-    private final IChatDao chatDao;
+    private final IAbstractDao<Chat> chatDao;
 
-    public ChatController(Mapper mapper, IChatDao chatDao) {
+    public ChatController(Mapper mapper, IAbstractDao<Chat> chatDao) {
         this.mapper = mapper;
         this.chatDao = chatDao;
     }

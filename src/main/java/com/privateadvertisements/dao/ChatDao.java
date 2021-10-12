@@ -1,6 +1,6 @@
 package com.privateadvertisements.dao;
 
-import com.privateadvertisements.api.dao.IChatDao;
+import com.privateadvertisements.api.dao.IAbstractDao;
 import com.privateadvertisements.api.dataJpa.CrudChat;
 import com.privateadvertisements.model.Chat;
 import org.springframework.stereotype.Repository;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class ChatDao implements IChatDao {
+public class ChatDao implements IAbstractDao<Chat> {
 
     private final CrudChat crudChat;
 
