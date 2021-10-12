@@ -3,9 +3,7 @@ package com.privateadvertisements.controller;
 
 import com.privateadvertisements.api.dataJpa.CrudComment;
 import com.privateadvertisements.model.Comment;
-import com.privateadvertisements.model.User;
 import com.privateadvertisements.model.dto.CommentDto;
-import com.privateadvertisements.model.dto.UserDto;
 import com.privateadvertisements.util.Mapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
