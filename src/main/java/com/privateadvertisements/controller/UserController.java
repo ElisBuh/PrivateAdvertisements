@@ -4,6 +4,9 @@ import com.privateadvertisements.api.dataJpa.CrudUser;
 import com.privateadvertisements.model.User;
 import com.privateadvertisements.model.dto.UserDto;
 import com.privateadvertisements.util.Mapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,8 +30,9 @@ public class UserController {
 
     @GetMapping("/")
     public ResponseEntity<List<UserDto>> readAll() {
-        List<User> users = crudUser.findAll();
-        List<UserDto> userDtoList = Mapper.convertList(users, mapper::convertUserToUserDto);
+        Pageable pageable = PageRequest.of(0,10);
+        Page<User> page = crudUser.findAll(pageable);
+        List<UserDto> userDtoList = Mapper.convertList(page.getContent(), mapper::convertUserToUserDto);
         return new ResponseEntity<>(userDtoList, HttpStatus.OK);
     }
 
