@@ -83,7 +83,7 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "chat_id"))
     private Set<Chat> chats;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.REMOVE)
     @ToString.Exclude
     private List<Messages> messages;
 
