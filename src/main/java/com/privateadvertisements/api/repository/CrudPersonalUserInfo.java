@@ -1,4 +1,4 @@
-package com.privateadvertisements.api.dataJpa;
+package com.privateadvertisements.api.repository;
 
 import com.privateadvertisements.model.PersonalUserInfo;
 import org.springframework.data.jpa.repository.JpaRepository;

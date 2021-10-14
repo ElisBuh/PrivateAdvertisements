@@ -1,6 +1,6 @@
 package com.privateadvertisements.controller;
 
-import com.privateadvertisements.api.dataJpa.CrudUser;
+import com.privateadvertisements.api.repository.CrudUser;
 import com.privateadvertisements.model.User;
 import com.privateadvertisements.model.dto.UserDto;
 import com.privateadvertisements.util.Mapper;

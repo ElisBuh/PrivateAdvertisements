@@ -1,4 +1,4 @@
-package com.privateadvertisements.api.dataJpa;
+package com.privateadvertisements.api.repository;
 
 import com.privateadvertisements.model.CreditCard;
 import org.springframework.data.jpa.repository.JpaRepository;

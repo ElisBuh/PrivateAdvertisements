@@ -1,7 +1,7 @@
 package com.privateadvertisements.controller;
 
 
-import com.privateadvertisements.api.dataJpa.CrudAdvertisement;
+import com.privateadvertisements.api.repository.CrudAdvertisement;
 import com.privateadvertisements.model.Advertisement;
 import com.privateadvertisements.model.dto.AdvertisementDto;
 import com.privateadvertisements.util.Mapper;

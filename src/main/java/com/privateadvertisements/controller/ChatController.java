@@ -1,6 +1,6 @@
 package com.privateadvertisements.controller;
 
-import com.privateadvertisements.api.dataJpa.CrudChat;
+import com.privateadvertisements.api.repository.CrudChat;
 import com.privateadvertisements.model.Chat;
 import com.privateadvertisements.model.dto.ChatDtoWithUser;
 import com.privateadvertisements.util.Mapper;
