@@ -27,6 +27,7 @@ import com.privateadvertisements.model.dto.PersonalUserInfoDto;
 import com.privateadvertisements.model.dto.PhotographDto;
 import com.privateadvertisements.model.dto.RoleDto;
 import com.privateadvertisements.model.dto.UserDto;
+import com.privateadvertisements.model.dto.UserNewDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
@@ -57,6 +58,10 @@ public class Mapper {
         return userDto;
     }
 
+    public User convertUserNewDtoToUser(UserNewDto userNewDto){
+        return modelMapper.map(userNewDto, User.class);
+    }
+
     public PersonalUserInfoDto convertPersonalUserInfoToPersonalUserIndoDTO(PersonalUserInfo personalUserInfo) {
         return modelMapper.map(personalUserInfo, PersonalUserInfoDto.class);
     }
@@ -74,6 +79,12 @@ public class Mapper {
         addressDto.setCountryDto(convertCountryToCountryDto(address.getCountry()));
         addressDto.setCityDto(convertCityToCityDTO(address.getCity()));
         return addressDto;
+    }
+    public Address convertAddressDtoToAddress(AddressDto addressDto){
+        Address address = modelMapper.map(addressDto, Address.class);
+        address.setCity(modelMapper.map(addressDto.getCityDto(),City.class));
+        address.setCountry(modelMapper.map(addressDto.getCountryDto(), Country.class));
+        return address;
     }
 
     public CreditCardDto convertCreditCardToCreditCardDto(CreditCard creditCard) {

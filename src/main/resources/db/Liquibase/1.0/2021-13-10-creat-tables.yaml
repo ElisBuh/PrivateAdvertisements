@@ -204,12 +204,12 @@ databaseChangeLog:
             type: TIMESTAMP WITHOUT TIME ZONE
         - column:
             constraints:
-              nullable: false
+              nullable: true
             name: address_id
             type: INTEGER
         - column:
             constraints:
-              nullable: false
+              nullable: true
             name: personal_info_id
             type: INTEGER
         tableName: users
