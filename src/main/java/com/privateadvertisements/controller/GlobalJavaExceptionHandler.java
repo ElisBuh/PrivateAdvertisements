@@ -1,9 +1,7 @@
 package com.privateadvertisements.controller;
 
 import com.privateadvertisements.exception.ApiError;
-import com.privateadvertisements.exception.ControllerException;
 import com.privateadvertisements.exception.NotEntityException;
-import com.privateadvertisements.exception.ServiceException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +35,6 @@ public class GlobalJavaExceptionHandler extends ResponseEntityExceptionHandler {
         ApiError apiError = new ApiError("Malformed JSON Request", ex.getMessage());
         return new ResponseEntity(apiError, status);
     }
-
 
 
     @Override

@@ -64,6 +64,9 @@ public class Advertisement {
     @Column(name = "date_publication")
     private LocalDateTime datePublication;
 
+    @Column(name = "date_publication_off")
+    private LocalDateTime datePublicationOff;
+
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private StatusAd statusAd;

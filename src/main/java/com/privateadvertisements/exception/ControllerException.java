@@ -1,6 +1,6 @@
 package com.privateadvertisements.exception;
 
-public class ControllerException extends RuntimeException{
+public class ControllerException extends RuntimeException {
     public ControllerException(String message) {
         super(message);
     }

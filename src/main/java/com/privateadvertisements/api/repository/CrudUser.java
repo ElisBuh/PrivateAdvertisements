@@ -13,5 +13,4 @@ public interface CrudUser extends JpaRepository<User, Integer> {
     User getWithAdvertisement(int id);
 
 
-
 }

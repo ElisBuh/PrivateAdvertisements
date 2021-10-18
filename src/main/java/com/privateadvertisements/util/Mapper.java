@@ -58,12 +58,16 @@ public class Mapper {
         return userDto;
     }
 
-    public User convertUserNewDtoToUser(UserNewDto userNewDto){
+    public User convertUserNewDtoToUser(UserNewDto userNewDto) {
         return modelMapper.map(userNewDto, User.class);
     }
 
     public PersonalUserInfoDto convertPersonalUserInfoToPersonalUserIndoDTO(PersonalUserInfo personalUserInfo) {
         return modelMapper.map(personalUserInfo, PersonalUserInfoDto.class);
+    }
+
+    public PersonalUserInfo convertPersonalUserInfoDtoToPersonalUserInfo(PersonalUserInfoDto personalUserInfoDto) {
+        return modelMapper.map(personalUserInfoDto, PersonalUserInfo.class);
     }
 
     public CityDto convertCityToCityDTO(City city) {
@@ -80,15 +84,20 @@ public class Mapper {
         addressDto.setCityDto(convertCityToCityDTO(address.getCity()));
         return addressDto;
     }
-    public Address convertAddressDtoToAddress(AddressDto addressDto){
+
+    public Address convertAddressDtoToAddress(AddressDto addressDto) {
         Address address = modelMapper.map(addressDto, Address.class);
-        address.setCity(modelMapper.map(addressDto.getCityDto(),City.class));
+        address.setCity(modelMapper.map(addressDto.getCityDto(), City.class));
         address.setCountry(modelMapper.map(addressDto.getCountryDto(), Country.class));
         return address;
     }
 
     public CreditCardDto convertCreditCardToCreditCardDto(CreditCard creditCard) {
         return modelMapper.map(creditCard, CreditCardDto.class);
+    }
+
+    public CreditCard convertCreditCardDtoToCreditCard(CreditCardDto creditCardDto) {
+        return modelMapper.map(creditCardDto, CreditCard.class);
     }
 
     public RoleDto convertRoleToRoleDto(Role role) {

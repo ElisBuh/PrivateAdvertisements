@@ -341,6 +341,9 @@ databaseChangeLog:
             name: date_publication
             type: TIMESTAMP WITHOUT TIME ZONE
         - column:
+            name: date_publication_off
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
             defaultValue: NEW
             name: status
             type: TEXT
@@ -787,4 +790,3 @@ databaseChangeLog:
         minValue: 1
         sequenceName: global_seq
         startValue: 100000
-

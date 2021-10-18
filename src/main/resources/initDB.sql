@@ -63,11 +63,11 @@ CREATE TABLE addresses
 CREATE TABLE personal_info
 (
     id            integer DEFAULT nextval('user_seq'),
-    first_name     text       NOT NULL,
-    last_name     text       NOT NULL,
-    date_birthday timestamp  NOT NULL,
-    number_phone  integer    NOT NULL,
-    sex           text NOT NULL,
+    first_name    text      NOT NULL,
+    last_name     text      NOT NULL,
+    date_birthday timestamp NOT NULL,
+    number_phone  integer   NOT NULL,
+    sex           text      NOT NULL,
     PRIMARY KEY (id),
     CHECK (sex IN ('FEMALE', 'MALE'))
 );
@@ -123,14 +123,15 @@ CREATE TABLE categories
 
 CREATE TABLE advertisements
 (
-    id               integer   DEFAULT nextval('ad_seq'),
-    title            text           NOT NULL,
-    content          text           NOT NULL,
-    cost             decimal(10, 2) NOT NULL,
-    date_publication timestamp DEFAULT now(),
-    status           text      DEFAULT 'NEW',
-    user_id          integer,
-    category_id      integer,
+    id                   integer   DEFAULT nextval('ad_seq'),
+    title                text           NOT NULL,
+    content              text           NOT NULL,
+    cost                 decimal(10, 2) NOT NULL,
+    date_publication     timestamp DEFAULT now(),
+    date_publication_off timestamp,
+    status               text      DEFAULT 'NEW',
+    user_id              integer,
+    category_id          integer,
     PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES users (id),
     FOREIGN KEY (category_id) REFERENCES categories (id)
@@ -169,7 +170,7 @@ CREATE TABLE users_chats
 (
     chat_id integer NOT NULL,
     user_id integer NOT NULL,
-    FOREIGN KEY (chat_id) REFERENCES chats (id) ON DELETE CASCADE ,
+    FOREIGN KEY (chat_id) REFERENCES chats (id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 
