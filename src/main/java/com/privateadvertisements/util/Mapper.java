@@ -15,6 +15,7 @@ import com.privateadvertisements.model.Role;
 import com.privateadvertisements.model.User;
 import com.privateadvertisements.model.dto.AddressDto;
 import com.privateadvertisements.model.dto.AdvertisementDto;
+import com.privateadvertisements.model.dto.AdvertisementNewDto;
 import com.privateadvertisements.model.dto.CategoryDto;
 import com.privateadvertisements.model.dto.ChatDto;
 import com.privateadvertisements.model.dto.ChatDtoWithUser;
@@ -110,6 +111,10 @@ public class Mapper {
         advertisementDto.setCategoryDto(convertCategoryToCategoryDto(advertisement.getCategory()));
         advertisementDto.setPhotographs(convertList(advertisement.getPhotographs(), this::convertPhotographToPhotographDto));
         return advertisementDto;
+    }
+
+    public Advertisement convertAdvertisementNewDtoToAdvertisement(AdvertisementNewDto advertisementNewDto) {
+        return modelMapper.map(advertisementNewDto, Advertisement.class);
     }
 
     public CommentDto convertCommentToConvertDto(Comment comment) {

@@ -620,7 +620,7 @@ databaseChangeLog:
         constraintName: advertisements_user_id_fkey
         deferrable: false
         initiallyDeferred: false
-        onDelete: NO ACTION
+        onDelete: CASCADE
         onUpdate: NO ACTION
         referencedColumnNames: id
         referencedTableName: users
@@ -635,7 +635,7 @@ databaseChangeLog:
         constraintName: comments_user_id_fkey
         deferrable: false
         initiallyDeferred: false
-        onDelete: NO ACTION
+        onDelete: CASCADE
         onUpdate: NO ACTION
         referencedColumnNames: id
         referencedTableName: users
@@ -650,7 +650,7 @@ databaseChangeLog:
         constraintName: credit_cards_user_id_fkey
         deferrable: false
         initiallyDeferred: false
-        onDelete: NO ACTION
+        onDelete: CASCADE
         onUpdate: NO ACTION
         referencedColumnNames: id
         referencedTableName: users
@@ -665,7 +665,7 @@ databaseChangeLog:
         constraintName: messages_user_id_fkey
         deferrable: false
         initiallyDeferred: false
-        onDelete: NO ACTION
+        onDelete: CASCADE
         onUpdate: NO ACTION
         referencedColumnNames: id
         referencedTableName: users

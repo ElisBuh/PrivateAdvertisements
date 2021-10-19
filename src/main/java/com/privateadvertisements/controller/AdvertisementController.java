@@ -4,6 +4,7 @@ package com.privateadvertisements.controller;
 import com.privateadvertisements.api.service.IAdvertisementService;
 import com.privateadvertisements.model.Advertisement;
 import com.privateadvertisements.model.dto.AdvertisementDto;
+import com.privateadvertisements.model.dto.AdvertisementNewDto;
 import com.privateadvertisements.util.Mapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,9 +15,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -30,6 +34,15 @@ public class AdvertisementController {
     public AdvertisementController(Mapper mapper, IAdvertisementService advertisementService) {
         this.mapper = mapper;
         this.advertisementService = advertisementService;
+    }
+
+    @PostMapping("/")
+    public ResponseEntity<?> create(@RequestBody AdvertisementNewDto advertisementNewDto) {
+        Advertisement advertisement = mapper.convertAdvertisementNewDtoToAdvertisement(advertisementNewDto);
+        System.out.println(advertisement);
+        advertisementService.save(advertisement, 100006, "Техника");
+
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
@@ -49,9 +62,30 @@ public class AdvertisementController {
 
     @DeleteMapping("/{id}/{idAd}")
     public ResponseEntity<?> delete(@PathVariable(name = "id") Integer userId,
-                                    @PathVariable(name = "idAd") Integer adId){
-        advertisementService.delete(adId,userId);
+                                    @PathVariable(name = "idAd") Integer adId) {
+        advertisementService.delete(adId, userId);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+    @GetMapping("/test")
+    public ResponseEntity<List<AdvertisementDto>> testAll() {
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("title"));
+        LocalDateTime startDate = LocalDateTime.of(2021, 10, 15, 0, 0);
+        LocalDateTime endDate = LocalDateTime.of(2021, 10, 18, 0, 0);
+        Page<Advertisement> advertisementList = advertisementService.getAllBetweenHalfOpen(startDate, endDate, pageable);
+        List<AdvertisementDto> advertisementDtoList = Mapper.convertList(advertisementList.getContent(), mapper::convertAdvertisementToAdvertisementDto);
+        return new ResponseEntity<>(advertisementDtoList, HttpStatus.OK);
+    }
+
+    @GetMapping("/test2")
+    public ResponseEntity<List<AdvertisementDto>> testAll2() {
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("title"));
+        LocalDateTime startDate = LocalDateTime.of(2021, 10, 15, 0, 0);
+        LocalDateTime endDate = LocalDateTime.of(2021, 10, 20, 0, 0);
+        Page<Advertisement> advertisementList = advertisementService.getBetweenHalfOpenOfUser(100006, startDate, endDate, pageable);
+        List<AdvertisementDto> advertisementDtoList = Mapper.convertList(advertisementList.getContent(), mapper::convertAdvertisementToAdvertisementDto);
+        return new ResponseEntity<>(advertisementDtoList, HttpStatus.OK);
     }
 
 

@@ -110,7 +110,7 @@ CREATE TABLE credit_cards
     type    text    NOT NULL,
     number  DECIMAL NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (user_id) REFERENCES users (id)
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 
 CREATE TABLE categories
@@ -133,7 +133,7 @@ CREATE TABLE advertisements
     user_id              integer,
     category_id          integer,
     PRIMARY KEY (id),
-    FOREIGN KEY (user_id) REFERENCES users (id),
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ,
     FOREIGN KEY (category_id) REFERENCES categories (id)
 );
 
@@ -155,7 +155,7 @@ CREATE TABLE comments
     date_publication timestamp DEFAULT now(),
     PRIMARY KEY (id),
     FOREIGN KEY (ad_id) REFERENCES advertisements (id) ON DELETE CASCADE ,
-    FOREIGN KEY (user_id) REFERENCES users (id)
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 
 );
 
@@ -182,7 +182,7 @@ CREATE TABLE messages
     content     text    NOT NULL,
     date_create timestamp DEFAULT now(),
     PRIMARY KEY (id),
-    FOREIGN KEY (user_id) REFERENCES users (id),
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ,
     FOREIGN KEY (chat_id) REFERENCES chats (id)
 );
 

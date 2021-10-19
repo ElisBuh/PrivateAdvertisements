@@ -111,11 +111,9 @@ public class UserService implements IUserService {
     @Override
     public void delete(Integer id) {
         log.info("delete user id: {}", id);
-        try {
-            userRepository.deleteById(id);
-        } catch (IllegalArgumentException e) {
-            log.error("Такого ид нет {}", id);
-            throw new NotEntityException("Такого ид нет: " + id);
+        if (userRepository.delete(id) == 0) {
+            log.error("Не верные данные Id: {}", id);
+            throw new NotEntityException("Не верные данные");
         }
     }
 
@@ -127,7 +125,7 @@ public class UserService implements IUserService {
             return optionalUser.get();
         } else {
             log.error("Такого id: {} нет", id);
-            throw new NotEntityException("Такого ид нет" + id);
+            throw new NotEntityException("Такого ид нет " + id);
         }
     }
 
@@ -135,6 +133,8 @@ public class UserService implements IUserService {
     public User findByUserLogin(String login) {
         log.info("get user login: {}", login);
         try {
+            User user = userRepository.getByLogin(login);
+            log.info(user.getLogin());
             return userRepository.getByLogin(login);
         } catch (EntityNotFoundException e) {
             log.error("Такого пользователя нет {}", login);
@@ -228,7 +228,9 @@ public class UserService implements IUserService {
     public User getWithAdvertisement(Integer id) {
         log.info("getWithAdvertisement id user: {}", id);
         try {
-            return userRepository.getWithAdvertisement(id);
+            User user = userRepository.getWithAdvertisement(id);
+            log.info(user.getLogin());
+            return user;
         } catch (EntityNotFoundException e) {
             log.error("Такого ид нет {}", id);
             throw new NotEntityException("Такого ид нет: " + id);

@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 
 public interface CrudCategory extends JpaRepository<Category, Integer> {
+    Category getByCategory(String category);
 }
