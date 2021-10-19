@@ -28,7 +28,13 @@ public class AdvertisementService implements IAdvertisementService {
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(Integer id, Integer userId) {
+        log.info("Delete adv id: {}", id);
+            if (advertisementRepository.delete(id,userId) == 0){
+                log.error("Не верные данные idAd: {}, userId: {}", id, userId);
+                throw new NotEntityException("Не верные данные");
+            }
+
 
     }
 

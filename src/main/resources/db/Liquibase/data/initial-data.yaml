@@ -1,14 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: 1634106893058-2
+      id: 1634106893058-42
       author: Elis (generated)
       changes:
         - loadData:
             columns:
-              - column:
-                  header: id
-                  name: id
-                  type: NUMERIC
               - column:
                   header: name
                   name: name
@@ -21,15 +17,11 @@ databaseChangeLog:
             relativeToChangelogFile: true
             tableName: countries
   - changeSet:
-      id: 1634106893058-5
+      id: 1634106893058-43
       author: Elis (generated)
       changes:
         - loadData:
             columns:
-              - column:
-                  header: id
-                  name: id
-                  type: NUMERIC
               - column:
                   header: name
                   name: name
@@ -42,15 +34,11 @@ databaseChangeLog:
             relativeToChangelogFile: true
             tableName: cities
   - changeSet:
-      id: 1634106893058-8
+      id: 1634106893058-44
       author: Elis (generated)
       changes:
         - loadData:
             columns:
-              - column:
-                  header: id
-                  name: id
-                  type: NUMERIC
               - column:
                   header: country_id
                   name: country_id
@@ -83,15 +71,11 @@ databaseChangeLog:
             relativeToChangelogFile: true
             tableName: addresses
   - changeSet:
-      id: 1634106893058-11
+      id: 1634106893058-45
       author: Elis (generated)
       changes:
         - loadData:
             columns:
-              - column:
-                  header: id
-                  name: id
-                  type: NUMERIC
               - column:
                   header: first_name
                   name: first_name
@@ -120,15 +104,11 @@ databaseChangeLog:
             relativeToChangelogFile: true
             tableName: personal_info
   - changeSet:
-      id: 1634106893058-13
+      id: 1634106893058-46
       author: Elis (generated)
       changes:
         - loadData:
             columns:
-              - column:
-                  header: id
-                  name: id
-                  type: NUMERIC
               - column:
                   header: login
                   name: login
@@ -165,15 +145,11 @@ databaseChangeLog:
             relativeToChangelogFile: true
             tableName: users
   - changeSet:
-      id: 1634106893058-16
+      id: 1634106893058-47
       author: Elis (generated)
       changes:
         - loadData:
             columns:
-              - column:
-                  header: id
-                  name: id
-                  type: NUMERIC
               - column:
                   header: name_role
                   name: name_role
@@ -186,15 +162,11 @@ databaseChangeLog:
             relativeToChangelogFile: true
             tableName: roles
   - changeSet:
-      id: 1634106893058-18
+      id: 1634106893058-48
       author: Elis (generated)
       changes:
         - loadData:
             columns:
-              - column:
-                  header: id
-                  name: id
-                  type: NUMERIC
               - column:
                   header: user_id
                   name: user_id
@@ -215,15 +187,11 @@ databaseChangeLog:
             relativeToChangelogFile: true
             tableName: credit_cards
   - changeSet:
-      id: 1634106893058-21
+      id: 1634106893058-49
       author: Elis (generated)
       changes:
         - loadData:
             columns:
-              - column:
-                  header: id
-                  name: id
-                  type: NUMERIC
               - column:
                   header: category
                   name: category
@@ -236,15 +204,11 @@ databaseChangeLog:
             relativeToChangelogFile: true
             tableName: categories
   - changeSet:
-      id: 1634106893058-23
+      id: 1634106893058-50
       author: Elis (generated)
       changes:
         - loadData:
             columns:
-              - column:
-                  header: id
-                  name: id
-                  type: NUMERIC
               - column:
                   header: title
                   name: title
@@ -281,15 +245,11 @@ databaseChangeLog:
             relativeToChangelogFile: true
             tableName: advertisements
   - changeSet:
-      id: 1634106893058-25
+      id: 1634106893058-51
       author: Elis (generated)
       changes:
         - loadData:
             columns:
-              - column:
-                  header: id
-                  name: id
-                  type: NUMERIC
               - column:
                   header: ad_id
                   name: ad_id
@@ -306,15 +266,11 @@ databaseChangeLog:
             relativeToChangelogFile: true
             tableName: photographs
   - changeSet:
-      id: 1634106893058-27
+      id: 1634106893058-52
       author: Elis (generated)
       changes:
         - loadData:
             columns:
-              - column:
-                  header: id
-                  name: id
-                  type: NUMERIC
               - column:
                   header: ad_id
                   name: ad_id
@@ -339,15 +295,11 @@ databaseChangeLog:
             relativeToChangelogFile: true
             tableName: comments
   - changeSet:
-      id: 1634106893058-30
+      id: 1634106893058-53
       author: Elis (generated)
       changes:
         - loadData:
             columns:
-              - column:
-                  header: id
-                  name: id
-                  type: NUMERIC
               - column:
                   header: name
                   name: name
@@ -360,15 +312,11 @@ databaseChangeLog:
             relativeToChangelogFile: true
             tableName: chats
   - changeSet:
-      id: 1634106893058-32
+      id: 1634106893058-54
       author: Elis (generated)
       changes:
         - loadData:
             columns:
-              - column:
-                  header: id
-                  name: id
-                  type: NUMERIC
               - column:
                   header: user_id
                   name: user_id
@@ -393,7 +341,7 @@ databaseChangeLog:
             relativeToChangelogFile: true
             tableName: messages
   - changeSet:
-      id: 1634106893058-34
+      id: 1634106893058-55
       author: Elis (generated)
       changes:
         - loadData:
@@ -413,3 +361,24 @@ databaseChangeLog:
             separator: ','
             relativeToChangelogFile: true
             tableName: roles_users
+  - changeSet:
+      id: 1634106893058-56
+      author: Elis (generated)
+      changes:
+        - loadData:
+            columns:
+              - column:
+                  header: chat_id
+                  name: chat_id
+                  type: NUMERIC
+              - column:
+                  header: user_id
+                  name: user_id
+                  type: NUMERIC
+            commentLineStartsWith: '#'
+            encoding: UTF-8
+            file: data/users_chats.csv
+            quotchar: '"'
+            separator: ','
+            relativeToChangelogFile: true
+            tableName: users_chats

@@ -3,10 +3,24 @@ databaseChangeLog:
     id: 1634106893058-1
     author: Elis (generated)
     changes:
+    - createSequence:
+        cacheSize: 1
+        cycle: false
+        dataType: bigint
+        incrementBy: 1
+        maxValue: 9223372036854775807
+        minValue: 1
+        sequenceName: country_seq
+        startValue: 100000
+- changeSet:
+    id: 1634106893058-2
+    author: Elis (generated)
+    changes:
     - createTable:
         columns:
         - column:
-            autoIncrement: true
+#            autoIncrement: true
+            defaultValueComputed: nextval('country_seq')
             constraints:
               nullable: false
               primaryKey: true
@@ -30,7 +44,7 @@ databaseChangeLog:
         incrementBy: 1
         maxValue: 9223372036854775807
         minValue: 1
-        sequenceName: country_seq
+        sequenceName: city_seq
         startValue: 100000
 - changeSet:
     id: 1634106893058-4
@@ -39,7 +53,8 @@ databaseChangeLog:
     - createTable:
         columns:
         - column:
-            autoIncrement: true
+#            autoIncrement: true
+            defaultValueComputed: nextval('city_seq')
             constraints:
               nullable: false
               primaryKey: true
@@ -53,7 +68,7 @@ databaseChangeLog:
             type: TEXT
         tableName: cities
 - changeSet:
-    id: 1634106893058-6
+    id: 1634106893058-5
     author: Elis (generated)
     changes:
     - createSequence:
@@ -63,16 +78,17 @@ databaseChangeLog:
         incrementBy: 1
         maxValue: 9223372036854775807
         minValue: 1
-        sequenceName: city_seq
+        sequenceName: user_seq
         startValue: 100000
 - changeSet:
-    id: 1634106893058-7
+    id: 1634106893058-6
     author: Elis (generated)
     changes:
     - createTable:
         columns:
         - column:
-            autoIncrement: true
+#            autoIncrement: true
+            defaultValueComputed: nextval('user_seq')
             constraints:
               nullable: false
               primaryKey: true
@@ -109,26 +125,14 @@ databaseChangeLog:
             type: INTEGER
         tableName: addresses
 - changeSet:
-    id: 1634106893058-9
-    author: Elis (generated)
-    changes:
-    - createSequence:
-        cacheSize: 1
-        cycle: false
-        dataType: bigint
-        incrementBy: 1
-        maxValue: 9223372036854775807
-        minValue: 1
-        sequenceName: user_seq
-        startValue: 100000
-- changeSet:
-    id: 1634106893058-10
+    id: 1634106893058-7
     author: Elis (generated)
     changes:
     - createTable:
         columns:
         - column:
-            autoIncrement: true
+#            autoIncrement: true
+            defaultValueComputed: nextval('user_seq')
             constraints:
               nullable: false
               primaryKey: true
@@ -162,13 +166,14 @@ databaseChangeLog:
             type: TEXT
         tableName: personal_info
 - changeSet:
-    id: 1634106893058-12
+    id: 1634106893058-8
     author: Elis (generated)
     changes:
     - createTable:
         columns:
         - column:
-            autoIncrement: true
+#            autoIncrement: true
+            defaultValueComputed: nextval('user_seq')
             constraints:
               nullable: false
               primaryKey: true
@@ -214,7 +219,7 @@ databaseChangeLog:
             type: INTEGER
         tableName: users
 - changeSet:
-    id: 1634106893058-14
+    id: 1634106893058-9
     author: Elis (generated)
     changes:
     - createSequence:
@@ -227,13 +232,14 @@ databaseChangeLog:
         sequenceName: role_seq
         startValue: 100000
 - changeSet:
-    id: 1634106893058-15
+    id: 1634106893058-10
     author: Elis (generated)
     changes:
     - createTable:
         columns:
         - column:
-            autoIncrement: true
+#            autoIncrement: true
+            defaultValueComputed: nextval('role_seq')
             constraints:
               nullable: false
               primaryKey: true
@@ -247,13 +253,14 @@ databaseChangeLog:
             type: TEXT
         tableName: roles
 - changeSet:
-    id: 1634106893058-17
+    id: 1634106893058-11
     author: Elis (generated)
     changes:
     - createTable:
         columns:
         - column:
-            autoIncrement: true
+#            autoIncrement: true
+            defaultValueComputed: nextval('user_seq')
             constraints:
               nullable: false
               primaryKey: true
@@ -277,7 +284,7 @@ databaseChangeLog:
             type: bigint
         tableName: credit_cards
 - changeSet:
-    id: 1634106893058-19
+    id: 1634106893058-12
     author: Elis (generated)
     changes:
     - createSequence:
@@ -290,13 +297,14 @@ databaseChangeLog:
         sequenceName: ad_seq
         startValue: 100000
 - changeSet:
-    id: 1634106893058-20
+    id: 1634106893058-13
     author: Elis (generated)
     changes:
     - createTable:
         columns:
         - column:
-            autoIncrement: true
+#            autoIncrement: true
+            defaultValueComputed: nextval('ad_seq')
             constraints:
               nullable: false
               primaryKey: true
@@ -308,13 +316,14 @@ databaseChangeLog:
             type: TEXT
         tableName: categories
 - changeSet:
-    id: 1634106893058-22
+    id: 1634106893058-14
     author: Elis (generated)
     changes:
     - createTable:
         columns:
         - column:
-            autoIncrement: true
+#            autoIncrement: true
+            defaultValueComputed: nextval('ad_seq')
             constraints:
               nullable: false
               primaryKey: true
@@ -355,13 +364,14 @@ databaseChangeLog:
             type: INTEGER
         tableName: advertisements
 - changeSet:
-    id: 1634106893058-24
+    id: 1634106893058-15
     author: Elis (generated)
     changes:
     - createTable:
         columns:
         - column:
-            autoIncrement: true
+#            autoIncrement: true
+            defaultValueComputed: nextval('ad_seq')
             constraints:
               nullable: false
               primaryKey: true
@@ -380,13 +390,14 @@ databaseChangeLog:
             type: TEXT
         tableName: photographs
 - changeSet:
-    id: 1634106893058-26
+    id: 1634106893058-16
     author: Elis (generated)
     changes:
     - createTable:
         columns:
         - column:
-            autoIncrement: true
+#            autoIncrement: true
+            defaultValueComputed: nextval('ad_seq')
             constraints:
               nullable: false
               primaryKey: true
@@ -414,7 +425,7 @@ databaseChangeLog:
             type: TIMESTAMP WITHOUT TIME ZONE
         tableName: comments
 - changeSet:
-    id: 1634106893058-28
+    id: 1634106893058-17
     author: Elis (generated)
     changes:
     - createSequence:
@@ -427,13 +438,14 @@ databaseChangeLog:
         sequenceName: chat_seq
         startValue: 100000
 - changeSet:
-    id: 1634106893058-29
+    id: 1634106893058-18
     author: Elis (generated)
     changes:
     - createTable:
         columns:
         - column:
-            autoIncrement: true
+#            autoIncrement: true
+            defaultValueComputed: nextval('chat_seq')
             constraints:
               nullable: false
               primaryKey: true
@@ -447,13 +459,14 @@ databaseChangeLog:
             type: TEXT
         tableName: chats
 - changeSet:
-    id: 1634106893058-31
+    id: 1634106893058-19
     author: Elis (generated)
     changes:
     - createTable:
         columns:
         - column:
-            autoIncrement: true
+#            autoIncrement: true
+            defaultValueComputed: nextval('chat_seq')
             constraints:
               nullable: false
               primaryKey: true
@@ -481,7 +494,7 @@ databaseChangeLog:
             type: TIMESTAMP WITHOUT TIME ZONE
         tableName: messages
 - changeSet:
-    id: 1634106893058-33
+    id: 1634106893058-20
     author: Elis (generated)
     changes:
     - createTable:
@@ -494,7 +507,7 @@ databaseChangeLog:
             type: INTEGER
         tableName: roles_users
 - changeSet:
-    id: 1634106893058-35
+    id: 1634106893058-21
     author: Elis (generated)
     changes:
     - createTable:
@@ -511,7 +524,7 @@ databaseChangeLog:
             type: INTEGER
         tableName: users_chats
 - changeSet:
-    id: 1634106893058-37
+    id: 1634106893058-22
     author: Elis (generated)
     changes:
     - addForeignKeyConstraint:
@@ -526,7 +539,7 @@ databaseChangeLog:
         referencedTableName: countries
         validate: true
 - changeSet:
-    id: 1634106893058-38
+    id: 1634106893058-23
     author: Elis (generated)
     changes:
     - addUniqueConstraint:
@@ -534,7 +547,7 @@ databaseChangeLog:
         constraintName: countries_name_key
         tableName: countries
 - changeSet:
-    id: 1634106893058-39
+    id: 1634106893058-24
     author: Elis (generated)
     changes:
     - addForeignKeyConstraint:
@@ -549,7 +562,7 @@ databaseChangeLog:
         referencedTableName: cities
         validate: true
 - changeSet:
-    id: 1634106893058-40
+    id: 1634106893058-25
     author: Elis (generated)
     changes:
     - addUniqueConstraint:
@@ -557,7 +570,7 @@ databaseChangeLog:
         constraintName: cities_name_key
         tableName: cities
 - changeSet:
-    id: 1634106893058-41
+    id: 1634106893058-26
     author: Elis (generated)
     changes:
     - addForeignKeyConstraint:
@@ -572,7 +585,7 @@ databaseChangeLog:
         referencedTableName: addresses
         validate: true
 - changeSet:
-    id: 1634106893058-42
+    id: 1634106893058-27
     author: Elis (generated)
     changes:
     - addForeignKeyConstraint:
@@ -587,7 +600,7 @@ databaseChangeLog:
         referencedTableName: personal_info
         validate: true
 - changeSet:
-    id: 1634106893058-43
+    id: 1634106893058-28
     author: Elis (generated)
     changes:
     - createIndex:
@@ -598,7 +611,7 @@ databaseChangeLog:
         tableName: users
         unique: true
 - changeSet:
-    id: 1634106893058-44
+    id: 1634106893058-29
     author: Elis (generated)
     changes:
     - addForeignKeyConstraint:
@@ -613,7 +626,7 @@ databaseChangeLog:
         referencedTableName: users
         validate: true
 - changeSet:
-    id: 1634106893058-45
+    id: 1634106893058-30
     author: Elis (generated)
     changes:
     - addForeignKeyConstraint:
@@ -628,7 +641,7 @@ databaseChangeLog:
         referencedTableName: users
         validate: true
 - changeSet:
-    id: 1634106893058-46
+    id: 1634106893058-31
     author: Elis (generated)
     changes:
     - addForeignKeyConstraint:
@@ -643,7 +656,7 @@ databaseChangeLog:
         referencedTableName: users
         validate: true
 - changeSet:
-    id: 1634106893058-47
+    id: 1634106893058-32
     author: Elis (generated)
     changes:
     - addForeignKeyConstraint:
@@ -658,7 +671,7 @@ databaseChangeLog:
         referencedTableName: users
         validate: true
 - changeSet:
-    id: 1634106893058-48
+    id: 1634106893058-33
     author: Elis (generated)
     changes:
     - addForeignKeyConstraint:
@@ -673,7 +686,7 @@ databaseChangeLog:
         referencedTableName: users
         validate: true
 - changeSet:
-    id: 1634106893058-49
+    id: 1634106893058-34
     author: Elis (generated)
     changes:
     - addForeignKeyConstraint:
@@ -688,7 +701,7 @@ databaseChangeLog:
         referencedTableName: users
         validate: true
 - changeSet:
-    id: 1634106893058-50
+    id: 1634106893058-35
     author: Elis (generated)
     changes:
     - addForeignKeyConstraint:
@@ -703,7 +716,7 @@ databaseChangeLog:
         referencedTableName: roles
         validate: true
 - changeSet:
-    id: 1634106893058-51
+    id: 1634106893058-36
     author: Elis (generated)
     changes:
     - addForeignKeyConstraint:
@@ -718,7 +731,7 @@ databaseChangeLog:
         referencedTableName: categories
         validate: true
 - changeSet:
-    id: 1634106893058-52
+    id: 1634106893058-37
     author: Elis (generated)
     changes:
     - addForeignKeyConstraint:
@@ -727,13 +740,13 @@ databaseChangeLog:
         constraintName: comments_ad_id_fkey
         deferrable: false
         initiallyDeferred: false
-        onDelete: NO ACTION
+        onDelete: CASCADE
         onUpdate: NO ACTION
         referencedColumnNames: id
         referencedTableName: advertisements
         validate: true
 - changeSet:
-    id: 1634106893058-53
+    id: 1634106893058-38
     author: Elis (generated)
     changes:
     - addForeignKeyConstraint:
@@ -742,13 +755,13 @@ databaseChangeLog:
         constraintName: photographs_ad_id_fkey
         deferrable: false
         initiallyDeferred: false
-        onDelete: NO ACTION
+        onDelete: CASCADE
         onUpdate: NO ACTION
         referencedColumnNames: id
         referencedTableName: advertisements
         validate: true
 - changeSet:
-    id: 1634106893058-54
+    id: 1634106893058-39
     author: Elis (generated)
     changes:
     - addForeignKeyConstraint:
@@ -763,7 +776,7 @@ databaseChangeLog:
         referencedTableName: chats
         validate: true
 - changeSet:
-    id: 1634106893058-55
+    id: 1634106893058-40
     author: Elis (generated)
     changes:
     - addForeignKeyConstraint:
@@ -778,7 +791,7 @@ databaseChangeLog:
         referencedTableName: chats
         validate: true
 - changeSet:
-    id: 1634106893058-56
+    id: 1634106893058-41
     author: Elis (generated)
     changes:
     - createSequence:

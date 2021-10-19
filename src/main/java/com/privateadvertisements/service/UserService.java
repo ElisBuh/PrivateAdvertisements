@@ -112,9 +112,8 @@ public class UserService implements IUserService {
     public void delete(Integer id) {
         log.info("delete user id: {}", id);
         try {
-            User user = userRepository.getById(id);
-            userRepository.delete(user);
-        } catch (EntityNotFoundException e) {
+            userRepository.deleteById(id);
+        } catch (IllegalArgumentException e) {
             log.error("Такого ид нет {}", id);
             throw new NotEntityException("Такого ид нет: " + id);
         }

@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,6 +45,13 @@ public class AdvertisementController {
         Page<Advertisement> page = advertisementService.getAllPagesAndSort(pageable);
         List<AdvertisementDto> advertisementDtoList = Mapper.convertList(page.getContent(), mapper::convertAdvertisementToAdvertisementDto);
         return new ResponseEntity<>(advertisementDtoList, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}/{idAd}")
+    public ResponseEntity<?> delete(@PathVariable(name = "id") Integer userId,
+                                    @PathVariable(name = "idAd") Integer adId){
+        advertisementService.delete(adId,userId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 

@@ -143,7 +143,7 @@ CREATE TABLE photographs
     ad_id integer NOT NULL,
     path  text    NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (ad_id) REFERENCES advertisements (id)
+    FOREIGN KEY (ad_id) REFERENCES advertisements (id) ON DELETE CASCADE
 );
 
 CREATE TABLE comments
@@ -154,7 +154,7 @@ CREATE TABLE comments
     content          text    NOT NULL,
     date_publication timestamp DEFAULT now(),
     PRIMARY KEY (id),
-    FOREIGN KEY (ad_id) REFERENCES advertisements (id),
+    FOREIGN KEY (ad_id) REFERENCES advertisements (id) ON DELETE CASCADE ,
     FOREIGN KEY (user_id) REFERENCES users (id)
 
 );

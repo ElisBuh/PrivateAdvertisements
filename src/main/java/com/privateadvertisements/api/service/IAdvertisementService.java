@@ -8,7 +8,7 @@ public interface IAdvertisementService {
 
     Advertisement save(Advertisement advertisement);
 
-    void delete(Integer id);
+    void delete(Integer id, Integer userId);
 
     Advertisement get(Integer id);
 
