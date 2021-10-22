@@ -1,4 +1,4 @@
-package com.privateadvertisements.util;
+package com.privateadvertisements.util.config;
 
 
 import org.modelmapper.ModelMapper;

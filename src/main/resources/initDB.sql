@@ -63,11 +63,11 @@ CREATE TABLE addresses
 CREATE TABLE personal_info
 (
     id            integer DEFAULT nextval('user_seq'),
-    first_name     text       NOT NULL,
-    last_name     text       NOT NULL,
-    date_birthday timestamp  NOT NULL,
-    number_phone  integer    NOT NULL,
-    sex           text NOT NULL,
+    first_name    text      NOT NULL,
+    last_name     text      NOT NULL,
+    date_birthday timestamp NOT NULL,
+    number_phone  integer   NOT NULL,
+    sex           text      NOT NULL,
     PRIMARY KEY (id),
     CHECK (sex IN ('FEMALE', 'MALE'))
 );
@@ -77,11 +77,11 @@ CREATE TABLE users
     id               integer   DEFAULT nextval('user_seq'),
     login            text                    NOT NULL,
     password         text                    NOT NULL,
-    rating           integer                 NOT NULL,
+    rating           integer   DEFAULT 100    NOT NULL,
     enabled          bool      DEFAULT true  NOT NULL,
     date_registered  timestamp DEFAULT now() NOT NULL,
-    address_id       integer                 NOT NULL,
-    personal_info_id integer                 NOT NULL,
+    address_id       integer,
+    personal_info_id integer,
     PRIMARY KEY (id),
     FOREIGN KEY (address_id) REFERENCES addresses (id) ON DELETE CASCADE,
     FOREIGN KEY (personal_info_id) REFERENCES personal_info (id) ON DELETE CASCADE
@@ -110,7 +110,7 @@ CREATE TABLE credit_cards
     type    text    NOT NULL,
     number  DECIMAL NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (user_id) REFERENCES users (id)
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 
 CREATE TABLE categories
@@ -123,16 +123,19 @@ CREATE TABLE categories
 
 CREATE TABLE advertisements
 (
-    id               integer   DEFAULT nextval('ad_seq'),
-    title            text           NOT NULL,
-    content          text           NOT NULL,
-    cost             decimal(10, 2) NOT NULL,
-    date_publication timestamp DEFAULT now(),
-    status           text      DEFAULT 'NEW',
-    user_id          integer,
-    category_id      integer,
+    id                   integer   DEFAULT nextval('ad_seq'),
+    title                text           NOT NULL,
+    content              text           NOT NULL,
+    cost                 decimal(10, 2) NOT NULL,
+    date_publication     timestamp DEFAULT now(),
+    date_publication_off timestamp,
+    status               text      DEFAULT 'NEW',
+    user_id              integer,
+    category_id          integer,
+    top_rating           bool      DEFAULT false,
+    date_top_off         timestamp,
     PRIMARY KEY (id),
-    FOREIGN KEY (user_id) REFERENCES users (id),
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
     FOREIGN KEY (category_id) REFERENCES categories (id)
 );
 
@@ -142,7 +145,7 @@ CREATE TABLE photographs
     ad_id integer NOT NULL,
     path  text    NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (ad_id) REFERENCES advertisements (id)
+    FOREIGN KEY (ad_id) REFERENCES advertisements (id) ON DELETE CASCADE
 );
 
 CREATE TABLE comments
@@ -153,8 +156,8 @@ CREATE TABLE comments
     content          text    NOT NULL,
     date_publication timestamp DEFAULT now(),
     PRIMARY KEY (id),
-    FOREIGN KEY (ad_id) REFERENCES advertisements (id),
-    FOREIGN KEY (user_id) REFERENCES users (id)
+    FOREIGN KEY (ad_id) REFERENCES advertisements (id) ON DELETE CASCADE ,
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 
 );
 
@@ -169,7 +172,7 @@ CREATE TABLE users_chats
 (
     chat_id integer NOT NULL,
     user_id integer NOT NULL,
-    FOREIGN KEY (chat_id) REFERENCES chats (id) ON DELETE CASCADE ,
+    FOREIGN KEY (chat_id) REFERENCES chats (id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 
@@ -181,7 +184,7 @@ CREATE TABLE messages
     content     text    NOT NULL,
     date_create timestamp DEFAULT now(),
     PRIMARY KEY (id),
-    FOREIGN KEY (user_id) REFERENCES users (id),
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ,
     FOREIGN KEY (chat_id) REFERENCES chats (id)
 );
 

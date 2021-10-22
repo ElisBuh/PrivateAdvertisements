@@ -15,6 +15,7 @@ import com.privateadvertisements.model.Role;
 import com.privateadvertisements.model.User;
 import com.privateadvertisements.model.dto.AddressDto;
 import com.privateadvertisements.model.dto.AdvertisementDto;
+import com.privateadvertisements.model.dto.AdvertisementNewDto;
 import com.privateadvertisements.model.dto.CategoryDto;
 import com.privateadvertisements.model.dto.ChatDto;
 import com.privateadvertisements.model.dto.ChatDtoWithUser;
@@ -27,6 +28,7 @@ import com.privateadvertisements.model.dto.PersonalUserInfoDto;
 import com.privateadvertisements.model.dto.PhotographDto;
 import com.privateadvertisements.model.dto.RoleDto;
 import com.privateadvertisements.model.dto.UserDto;
+import com.privateadvertisements.model.dto.UserNewDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
@@ -57,8 +59,16 @@ public class Mapper {
         return userDto;
     }
 
+    public User convertUserNewDtoToUser(UserNewDto userNewDto) {
+        return modelMapper.map(userNewDto, User.class);
+    }
+
     public PersonalUserInfoDto convertPersonalUserInfoToPersonalUserIndoDTO(PersonalUserInfo personalUserInfo) {
         return modelMapper.map(personalUserInfo, PersonalUserInfoDto.class);
+    }
+
+    public PersonalUserInfo convertPersonalUserInfoDtoToPersonalUserInfo(PersonalUserInfoDto personalUserInfoDto) {
+        return modelMapper.map(personalUserInfoDto, PersonalUserInfo.class);
     }
 
     public CityDto convertCityToCityDTO(City city) {
@@ -76,8 +86,19 @@ public class Mapper {
         return addressDto;
     }
 
+    public Address convertAddressDtoToAddress(AddressDto addressDto) {
+        Address address = modelMapper.map(addressDto, Address.class);
+        address.setCity(modelMapper.map(addressDto.getCityDto(), City.class));
+        address.setCountry(modelMapper.map(addressDto.getCountryDto(), Country.class));
+        return address;
+    }
+
     public CreditCardDto convertCreditCardToCreditCardDto(CreditCard creditCard) {
         return modelMapper.map(creditCard, CreditCardDto.class);
+    }
+
+    public CreditCard convertCreditCardDtoToCreditCard(CreditCardDto creditCardDto) {
+        return modelMapper.map(creditCardDto, CreditCard.class);
     }
 
     public RoleDto convertRoleToRoleDto(Role role) {
@@ -92,8 +113,16 @@ public class Mapper {
         return advertisementDto;
     }
 
+    public Advertisement convertAdvertisementNewDtoToAdvertisement(AdvertisementNewDto advertisementNewDto) {
+        return modelMapper.map(advertisementNewDto, Advertisement.class);
+    }
+
     public CommentDto convertCommentToConvertDto(Comment comment) {
         return modelMapper.map(comment, CommentDto.class);
+    }
+
+    public Comment convertCommentDtoToConvert(CommentDto commentDto) {
+        return modelMapper.map(commentDto, Comment.class);
     }
 
     public CategoryDto convertCategoryToCategoryDto(Category category) {

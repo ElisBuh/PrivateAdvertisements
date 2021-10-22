@@ -3,7 +3,7 @@ package com.privateadvertisements.model;
 public enum StatusAd {
     NEW("Новый"),
     SOLD("Продано"),
-    OVERDUE("Просроченый");
+    OVERDUE("Просроченный");
 
     private String title;
 

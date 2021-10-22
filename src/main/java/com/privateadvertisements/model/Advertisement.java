@@ -64,9 +64,18 @@ public class Advertisement {
     @Column(name = "date_publication")
     private LocalDateTime datePublication;
 
+    @Column(name = "date_publication_off")
+    private LocalDateTime datePublicationOff;
+
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private StatusAd statusAd;
+
+    @Column(name = "top_rating")
+    private Boolean topRating;
+
+    @Column(name = "date_top_off")
+    private LocalDateTime dateTopOff;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "advertisement", cascade = CascadeType.REMOVE)
     @ToString.Exclude
