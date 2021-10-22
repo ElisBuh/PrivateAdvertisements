@@ -40,7 +40,7 @@ public class Chat {
     @ToString.Exclude
     private List<Messages> messages;
 
-    @ManyToMany(mappedBy = "chats")
+    @ManyToMany(mappedBy = "chats", cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<User> users;
 

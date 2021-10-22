@@ -3,12 +3,14 @@ package com.privateadvertisements.service;
 import com.privateadvertisements.api.repository.CrudAdvertisement;
 import com.privateadvertisements.api.repository.CrudCategory;
 import com.privateadvertisements.api.repository.CrudComment;
+import com.privateadvertisements.api.repository.CrudPhotograph;
 import com.privateadvertisements.api.repository.CrudUser;
 import com.privateadvertisements.api.service.IAdvertisementService;
 import com.privateadvertisements.exception.NotEntityException;
 import com.privateadvertisements.model.Advertisement;
 import com.privateadvertisements.model.Category;
 import com.privateadvertisements.model.Comment;
+import com.privateadvertisements.model.Photograph;
 import com.privateadvertisements.model.StatusAd;
 import com.privateadvertisements.model.User;
 import org.slf4j.Logger;
@@ -30,20 +32,27 @@ public class AdvertisementService implements IAdvertisementService {
     private final CrudUser userRepository;
     private final CrudCategory categoryRepository;
     private final CrudComment commentRepository;
+    private final CrudPhotograph photographRepository;
 
-    public AdvertisementService(CrudAdvertisement advertisementRepository, CrudUser userRepository, CrudCategory categoryRepository, CrudComment commentRepository) {
+    public AdvertisementService(CrudAdvertisement advertisementRepository,
+                                CrudUser userRepository,
+                                CrudCategory categoryRepository,
+                                CrudComment commentRepository,
+                                CrudPhotograph photographRepository) {
         this.advertisementRepository = advertisementRepository;
         this.userRepository = userRepository;
         this.categoryRepository = categoryRepository;
         this.commentRepository = commentRepository;
+        this.photographRepository = photographRepository;
     }
 
     @Override
-    public Advertisement save(Advertisement advertisement, Integer userId, String name) {
+    public Advertisement save(Advertisement advertisement, Integer userId, String nameCategory) {
         try {
+            log.info("save Ad {}, by userId: {} to category: {}", advertisement.getTitle(), userId, nameCategory);
             User user = userRepository.getById(userId);
             advertisement.setUser(user);
-            Category category = categoryRepository.getByCategory(name);
+            Category category = categoryRepository.getByCategory(nameCategory);
             advertisement.setCategory(category);
             advertisement.setDatePublication(LocalDateTime.now());
             advertisement.setDatePublicationOff(LocalDateTime.now().plusMonths(3));
@@ -59,8 +68,8 @@ public class AdvertisementService implements IAdvertisementService {
 
     @Override
     public Advertisement update(Advertisement advertisement, Integer id) {
-        log.info("update adv id: {}", id);
         try {
+            log.info("update adv id: {}", id);
             Advertisement advertisementOld = advertisementRepository.getById(id);
             log.info(advertisementOld.getTitle());
             advertisementOld.setTitle(advertisement.getTitle());
@@ -68,7 +77,7 @@ public class AdvertisementService implements IAdvertisementService {
             advertisementOld.setCost(advertisement.getCost());
             advertisementOld.setStatusAd(advertisement.getStatusAd());
             advertisementOld = advertisementRepository.save(advertisementOld);
-            if (advertisement.getStatusAd().equals(StatusAd.SOLD)||advertisement.getStatusAd().equals(StatusAd.OVERDUE)){
+            if (advertisement.getStatusAd().equals(StatusAd.SOLD) || advertisement.getStatusAd().equals(StatusAd.OVERDUE)) {
                 updateRating(advertisementOld.getUser().getId());
             }
             return advertisementOld;
@@ -89,8 +98,8 @@ public class AdvertisementService implements IAdvertisementService {
 
     @Override
     public Advertisement get(Integer id) {
-        log.info("get adv id: {}", id);
         try {
+            log.info("get adv id: {}", id);
             Advertisement advertisement = advertisementRepository.getById(id);
             log.info(advertisement.getTitle());
             return advertisement;
@@ -102,8 +111,8 @@ public class AdvertisementService implements IAdvertisementService {
 
     @Override
     public Advertisement findAdvertisementByTitle(String title) {
-        log.info("find by title: {}", title);
         try {
+            log.info("find by title: {}", title);
             return advertisementRepository.getByTitle(title);
         } catch (EntityNotFoundException e) {
             log.error("Такого объявления нет {}", title);
@@ -113,8 +122,8 @@ public class AdvertisementService implements IAdvertisementService {
 
     @Override
     public Comment addComment(Comment comment, Integer adId, Integer userId) {
-        log.info("Comment add to adId: {}, by userId: {}", adId, userId);
         try {
+            log.info("Comment add to adId: {}, by userId: {}", adId, userId);
             comment.setAdvertisement(advertisementRepository.getById(adId));
             comment.setUser(userRepository.getById(userId));
             comment.setDateCreate(LocalDateTime.now());
@@ -127,8 +136,8 @@ public class AdvertisementService implements IAdvertisementService {
 
     @Override
     public void topUpAdvertisement(Integer id, int day) {
-        log.info("topUp ad id: {} on day: {}", id, day);
         try {
+            log.info("topUp ad id: {} on day: {}", id, day);
             Advertisement advertisement = advertisementRepository.getById(id);
             log.info(advertisement.getTitle());
             advertisement.setTopRating(true);
@@ -138,6 +147,20 @@ public class AdvertisementService implements IAdvertisementService {
             log.error("Такого ид нет {}", id);
             throw new NotEntityException("Такого ид нет: " + id);
         }
+    }
+
+    @Override
+    public Advertisement addPhoto(Integer adId, String... path) {
+        log.info("add photos to adId: {}", adId);
+        Advertisement advertisement = get(adId);
+        List<Photograph> photographList = advertisement.getPhotographs();
+        for (String s : path) {
+            Photograph photograph = new Photograph();
+            photograph.setPath(s);
+            photographList.add(photographRepository.save(photograph));
+        }
+        advertisement.setPhotographs(photographList);
+        return advertisementRepository.save(advertisement);
     }
 
     @Override
@@ -163,18 +186,19 @@ public class AdvertisementService implements IAdvertisementService {
     }
 
 
-    private void updateRating(Integer userId){
+    private void updateRating(Integer userId) {
+        log.info("updateRating user: {}", userId);
         List<Advertisement> advertisementList = advertisementRepository.getAllByUserId(userId);
         int overdue = 0;
         int all = 0;
-        for (Advertisement a:advertisementList){
-            if (a.getStatusAd().equals(StatusAd.SOLD)|| a.getStatusAd().equals(StatusAd.OVERDUE)){
+        for (Advertisement a : advertisementList) {
+            if (a.getStatusAd().equals(StatusAd.SOLD) || a.getStatusAd().equals(StatusAd.OVERDUE)) {
                 overdue++;
                 all++;
             }
         }
-        float rating = (all-overdue);
-        rating = rating/all*100;
+        float rating = (all - overdue);
+        rating = rating / all * 100;
         User user = userRepository.getById(userId);
         user.setRating(Math.round(rating));
         userRepository.save(user);

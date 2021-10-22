@@ -121,7 +121,7 @@ public class Mapper {
         return modelMapper.map(comment, CommentDto.class);
     }
 
-    public Comment convertCommentDtoToConvert(CommentDto commentDto){
+    public Comment convertCommentDtoToConvert(CommentDto commentDto) {
         return modelMapper.map(commentDto, Comment.class);
     }
 

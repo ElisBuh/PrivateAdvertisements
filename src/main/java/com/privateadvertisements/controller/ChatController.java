@@ -1,12 +1,8 @@
 package com.privateadvertisements.controller;
 
-import com.privateadvertisements.api.repository.CrudChat;
 import com.privateadvertisements.api.service.IChatService;
-import com.privateadvertisements.api.service.IUserService;
 import com.privateadvertisements.model.Chat;
-import com.privateadvertisements.model.Messages;
 import com.privateadvertisements.model.dto.ChatDto;
-import com.privateadvertisements.model.dto.ChatDtoWithUser;
 import com.privateadvertisements.model.dto.MessagesDto;
 import com.privateadvertisements.util.Mapper;
 import org.slf4j.Logger;
@@ -20,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/chats")
@@ -44,17 +42,24 @@ public class ChatController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<?> creat(@RequestBody ChatDto chatDto){
+    public ResponseEntity<?> creat(@RequestBody ChatDto chatDto) {
         chatService.creat(chatDto.getUserId());
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @GetMapping("/")
+    public ResponseEntity<List<ChatDto>> getAll(@RequestParam(name = "id") Integer id) {
+        List<Chat> chatList = chatService.getAll(id);
+        List<ChatDto> chatDtoList = Mapper.convertList(chatList, mapper::convertChatToChatDto);
+        return new ResponseEntity<>(chatDtoList, HttpStatus.OK);
+    }
+
     @PostMapping("/{id}")
     public ResponseEntity<?> addMessage(@PathVariable(name = "id") Integer idChat,
-                                        @RequestBody MessagesDto messagesDto){
+                                        @RequestBody MessagesDto messagesDto) {
 
-        chatService.addMessage(messagesDto.getIdUser(),idChat,messagesDto.getContent());
+        chatService.addMessage(messagesDto.getIdUser(), idChat, messagesDto.getContent());
 
         return new ResponseEntity<>(HttpStatus.OK);
 

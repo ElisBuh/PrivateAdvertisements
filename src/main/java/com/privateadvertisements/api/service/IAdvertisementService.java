@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface IAdvertisementService {
 
-    Advertisement save(Advertisement advertisement, Integer userId, String name);
+    Advertisement save(Advertisement advertisement, Integer userId, String nameCategory);
 
     Advertisement update(Advertisement advertisement, Integer id);
 
@@ -21,6 +21,8 @@ public interface IAdvertisementService {
     Advertisement findAdvertisementByTitle(String title);
 
     void topUpAdvertisement(Integer id, int day);
+
+    Advertisement addPhoto(Integer adId, String... path);
 
     Comment addComment(Comment comment, Integer adId, Integer userId);
 
