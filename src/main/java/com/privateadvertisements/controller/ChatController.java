@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,9 +49,16 @@ public class ChatController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable(name = "id") Integer id){
+        chatService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @GetMapping("/")
     public ResponseEntity<List<ChatDto>> getAll(@RequestParam(name = "id") Integer id) {
         List<Chat> chatList = chatService.getAll(id);
+        chatList.forEach(System.out::println);
         List<ChatDto> chatDtoList = Mapper.convertList(chatList, mapper::convertChatToChatDto);
         return new ResponseEntity<>(chatDtoList, HttpStatus.OK);
     }

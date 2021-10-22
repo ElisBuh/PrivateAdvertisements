@@ -27,7 +27,6 @@ public interface CrudAdvertisement extends JpaRepository<Advertisement, Integer>
     Advertisement getWithComments();
 
     @Modifying
-    @Transactional
     @Query("DELETE FROM Advertisement a WHERE a.id=:id AND a.user.id=:userId")
     int delete(@Param("id") int id, @Param("userId") int userId);
 

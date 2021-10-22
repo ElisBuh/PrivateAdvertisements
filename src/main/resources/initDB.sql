@@ -185,7 +185,7 @@ CREATE TABLE messages
     date_create timestamp DEFAULT now(),
     PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ,
-    FOREIGN KEY (chat_id) REFERENCES chats (id)
+    FOREIGN KEY (chat_id) REFERENCES chats (id) ON DELETE CASCADE
 );
 
 -- CREATE TABLE roles

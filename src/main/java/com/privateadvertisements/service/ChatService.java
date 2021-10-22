@@ -88,6 +88,9 @@ public class ChatService implements IChatService {
     @Transactional(readOnly = true)
     public List<Chat> getAll(Integer userId) {
         log.info("getAll chat by userID: {}", userId);
+        List<Chat> chatList = chatRepository.findAll().stream()
+                .filter(chat -> chat.getUsers().stream().filter(user -> user.getId().equals(userId)).collect(Collectors.toList()).equals(true))
+                .collect(Collectors.toList());
         return chatRepository.findAll().stream()
                 .filter(chat -> chat.getUsers().contains(userRepository.getById(userId)))
                 .collect(Collectors.toList());

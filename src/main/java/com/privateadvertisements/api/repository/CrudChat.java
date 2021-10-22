@@ -16,7 +16,6 @@ public interface CrudChat extends JpaRepository<Chat, Integer> {
     Optional<Chat> getWithMessages(int id);
 
     @Modifying
-    @Transactional
     @Query("DELETE FROM Chat c WHERE c.id=:id")
     int delete(@Param("id") int id);
 }

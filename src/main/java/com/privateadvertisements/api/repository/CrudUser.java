@@ -16,7 +16,6 @@ public interface CrudUser extends JpaRepository<User, Integer> {
     User getWithAdvertisement(int id);
 
     @Modifying
-    @Transactional
     @Query("DELETE FROM User u WHERE u.id=:id")
     int delete(@Param("id") int id);
 
