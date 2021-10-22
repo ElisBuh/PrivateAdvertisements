@@ -14,21 +14,21 @@ import java.util.List;
 
 public interface CrudAdvertisement extends JpaRepository<Advertisement, Integer> {
 
-    @Query("SELECT m from Advertisement m WHERE m.user.id=:userId AND m.datePublication >= :startDate AND m.datePublication < :endDate ORDER BY m.datePublication DESC")
+    @Query("SELECT a from Advertisement a WHERE a.user.id=:userId AND a.datePublication >= :startDate AND a.datePublication < :endDate ORDER BY a.datePublication DESC")
     Page<Advertisement> getBetweenHalfOpenOfUser(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate, @Param("userId") int userId, Pageable pageable);
 
-    @Query("SELECT m from Advertisement m WHERE m.datePublication >= :startDate AND m.datePublication < :endDate ORDER BY m.datePublication DESC")
+    @Query("SELECT a from Advertisement a WHERE a.datePublication >= :startDate AND a.datePublication < :endDate ORDER BY a.datePublication DESC")
     Page<Advertisement> getAllBetweenHalfOpen(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate, Pageable pageable);
 
-    @Query("SELECT m from Advertisement m WHERE m.user.id=:userId")
+    @Query("SELECT a from Advertisement a WHERE a.user.id=:userId")
     List<Advertisement> getAllByUserId(@Param("userId") int userId);
 
-    @Query("SELECT m FROM Advertisement m JOIN FETCH m.comments")
+    @Query("SELECT a FROM Advertisement a JOIN FETCH a.comments")
     Advertisement getWithComments();
 
     @Modifying
     @Transactional
-    @Query("DELETE FROM Advertisement m WHERE m.id=:id AND m.user.id=:userId")
+    @Query("DELETE FROM Advertisement a WHERE a.id=:id AND a.user.id=:userId")
     int delete(@Param("id") int id, @Param("userId") int userId);
 
     Advertisement getByTitle(String title);

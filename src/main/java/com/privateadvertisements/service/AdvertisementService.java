@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -58,7 +59,6 @@ public class AdvertisementService implements IAdvertisementService {
             advertisement.setDatePublicationOff(LocalDateTime.now().plusMonths(3));
             advertisement.setStatusAd(StatusAd.NEW);
             advertisement.setTopRating(false);
-            System.out.println(advertisement);
             return advertisementRepository.save(advertisement);
         } catch (EntityNotFoundException e) {
             log.error("Такого ид нет {}", userId);
@@ -203,4 +203,28 @@ public class AdvertisementService implements IAdvertisementService {
         user.setRating(Math.round(rating));
         userRepository.save(user);
     }
+
+    @Scheduled(cron = "${interval-in-cron-ad-date-off}")
+    public void checkAdOnDateOff() {
+        log.info("checkAdOnDateOff");
+        List<Advertisement> advertisementList = advertisementRepository.findAll();
+        for (Advertisement advertisement : advertisementList) {
+            if (advertisement.getDatePublicationOff() != null) {
+                if (advertisement.getDatePublicationOff().isBefore(LocalDateTime.now()) & advertisement.getStatusAd().equals(StatusAd.NEW)) {
+                    log.info("change status Ad {}, on {}", advertisement.getId(), StatusAd.OVERDUE);
+                    advertisement.setStatusAd(StatusAd.OVERDUE);
+                    advertisementRepository.save(advertisement);
+                }
+            }
+            if (advertisement.getDateTopOff() != null) {
+                if (advertisement.getDateTopOff().isBefore(LocalDateTime.now()) & advertisement.getTopRating()) {
+                    log.info("change offTop Ad {}", advertisement.getId());
+                    advertisement.setTopRating(false);
+                    advertisementRepository.save(advertisement);
+                }
+            }
+        }
+    }
+
+
 }
