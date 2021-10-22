@@ -1,0 +1,14 @@
+spring:
+  liquibase:
+    enabled: true
+    change-log: db/Liquibase/master.yaml
+    contexts: dev
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+  datasource:
+    url: jdbc:postgresql://localhost/private_advertisements
+
+    username: user
+    password: user

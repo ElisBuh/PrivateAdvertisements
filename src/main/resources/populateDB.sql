@@ -43,9 +43,9 @@ VALUES (100000, 100001, 23001, 'Пушкина', 12, 39),
        (100001, 100002, 23001, 'Смоленская', 12, 39);
 
 INSERT INTO personal_info (first_name, last_name, date_birthday, number_phone, sex)
-VALUES ('Петр', 'Петров', '1989-01-24', 1002003, 'MAN'),
-       ('Иван', 'Иванов', '1956-05-24', 3006006, 'MAN'),
-       ('Анна', 'Малинина', '2003-04-24', 5008009, 'WOMAN');
+VALUES ('Петр', 'Петров', '1989-01-24', 1002003, 'MALE'),
+       ('Иван', 'Иванов', '1956-05-24', 3006006, 'MALE'),
+       ('Анна', 'Малинина', '2003-04-24', 5008009, 'FEMALE');
 
 INSERT INTO users (login, password, rating, address_id, personal_info_id)
 VALUES ('petr@gmail.com','1234',50,100000,100003),

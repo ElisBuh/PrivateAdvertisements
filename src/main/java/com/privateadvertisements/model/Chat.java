@@ -1,8 +1,11 @@
 package com.privateadvertisements.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,8 +17,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.util.List;
+import java.util.Objects;
 
-@Data
+@Getter
+@Setter
+@ToString
 @AllArgsConstructor
 @Entity
 @Table(name = "chats")
@@ -30,14 +36,29 @@ public class Chat {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "chat")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "chat", cascade = CascadeType.REMOVE)
+    @ToString.Exclude
     private List<Messages> messages;
 
     @ManyToMany(mappedBy = "chats")
+    @ToString.Exclude
     private List<User> users;
 
 
     public Chat() {
 
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Chat chat = (Chat) o;
+        return Objects.equals(id, chat.id) && Objects.equals(name, chat.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
     }
 }

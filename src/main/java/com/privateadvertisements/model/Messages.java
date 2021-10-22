@@ -1,7 +1,9 @@
 package com.privateadvertisements.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,8 +16,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
-@Data
+@Getter
+@Setter
+@ToString
 @AllArgsConstructor
 @Entity
 @Table(name = "messages")
@@ -28,10 +33,12 @@ public class Messages {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
+    @ToString.Exclude
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "chat_id", nullable = false)
+    @ToString.Exclude
     private Chat chat;
 
     @Column(name = "content")
@@ -42,5 +49,18 @@ public class Messages {
 
     public Messages() {
 
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Messages messages = (Messages) o;
+        return Objects.equals(id, messages.id) && Objects.equals(user, messages.user) && Objects.equals(chat, messages.chat) && Objects.equals(content, messages.content) && Objects.equals(dateCreate, messages.dateCreate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, user, chat, content, dateCreate);
     }
 }

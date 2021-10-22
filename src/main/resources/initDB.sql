@@ -69,7 +69,7 @@ CREATE TABLE personal_info
     number_phone  integer    NOT NULL,
     sex           text NOT NULL,
     PRIMARY KEY (id),
-    CHECK (sex IN ('WOMAN', 'MAN'))
+    CHECK (sex IN ('FEMALE', 'MALE'))
 );
 
 CREATE TABLE users
@@ -169,8 +169,8 @@ CREATE TABLE users_chats
 (
     chat_id integer NOT NULL,
     user_id integer NOT NULL,
-    FOREIGN KEY (chat_id) REFERENCES chats (id),
-    FOREIGN KEY (user_id) REFERENCES users (id)
+    FOREIGN KEY (chat_id) REFERENCES chats (id) ON DELETE CASCADE ,
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 
 CREATE TABLE messages

@@ -1,0 +1,415 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1634106893058-2
+      author: Elis (generated)
+      changes:
+        - loadData:
+            columns:
+              - column:
+                  header: id
+                  name: id
+                  type: NUMERIC
+              - column:
+                  header: name
+                  name: name
+                  type: STRING
+            commentLineStartsWith: '#'
+            encoding: UTF-8
+            file: data/countries.csv
+            quotchar: '"'
+            separator: ','
+            relativeToChangelogFile: true
+            tableName: countries
+  - changeSet:
+      id: 1634106893058-5
+      author: Elis (generated)
+      changes:
+        - loadData:
+            columns:
+              - column:
+                  header: id
+                  name: id
+                  type: NUMERIC
+              - column:
+                  header: name
+                  name: name
+                  type: STRING
+            commentLineStartsWith: '#'
+            encoding: UTF-8
+            file: data/cities.csv
+            quotchar: '"'
+            separator: ','
+            relativeToChangelogFile: true
+            tableName: cities
+  - changeSet:
+      id: 1634106893058-8
+      author: Elis (generated)
+      changes:
+        - loadData:
+            columns:
+              - column:
+                  header: id
+                  name: id
+                  type: NUMERIC
+              - column:
+                  header: country_id
+                  name: country_id
+                  type: NUMERIC
+              - column:
+                  header: city_id
+                  name: city_id
+                  type: NUMERIC
+              - column:
+                  header: post_index
+                  name: post_index
+                  type: NUMERIC
+              - column:
+                  header: street
+                  name: street
+                  type: STRING
+              - column:
+                  header: number_house
+                  name: number_house
+                  type: NUMERIC
+              - column:
+                  header: number_flat
+                  name: number_flat
+                  type: NUMERIC
+            commentLineStartsWith: '#'
+            encoding: UTF-8
+            file: data/addresses.csv
+            quotchar: '"'
+            separator: ','
+            relativeToChangelogFile: true
+            tableName: addresses
+  - changeSet:
+      id: 1634106893058-11
+      author: Elis (generated)
+      changes:
+        - loadData:
+            columns:
+              - column:
+                  header: id
+                  name: id
+                  type: NUMERIC
+              - column:
+                  header: first_name
+                  name: first_name
+                  type: STRING
+              - column:
+                  header: last_name
+                  name: last_name
+                  type: STRING
+              - column:
+                  header: date_birthday
+                  name: date_birthday
+                  type: DATE
+              - column:
+                  header: number_phone
+                  name: number_phone
+                  type: NUMERIC
+              - column:
+                  header: sex
+                  name: sex
+                  type: STRING
+            commentLineStartsWith: '#'
+            encoding: UTF-8
+            file: data/personal_info.csv
+            quotchar: '"'
+            separator: ','
+            relativeToChangelogFile: true
+            tableName: personal_info
+  - changeSet:
+      id: 1634106893058-13
+      author: Elis (generated)
+      changes:
+        - loadData:
+            columns:
+              - column:
+                  header: id
+                  name: id
+                  type: NUMERIC
+              - column:
+                  header: login
+                  name: login
+                  type: STRING
+              - column:
+                  header: password
+                  name: password
+                  type: STRING
+              - column:
+                  header: rating
+                  name: rating
+                  type: NUMERIC
+              - column:
+                  header: enabled
+                  name: enabled
+                  type: BOOLEAN
+              - column:
+                  header: date_registered
+                  name: date_registered
+                  type: DATE
+              - column:
+                  header: address_id
+                  name: address_id
+                  type: NUMERIC
+              - column:
+                  header: personal_info_id
+                  name: personal_info_id
+                  type: NUMERIC
+            commentLineStartsWith: '#'
+            encoding: UTF-8
+            file: data/users.csv
+            quotchar: '"'
+            separator: ','
+            relativeToChangelogFile: true
+            tableName: users
+  - changeSet:
+      id: 1634106893058-16
+      author: Elis (generated)
+      changes:
+        - loadData:
+            columns:
+              - column:
+                  header: id
+                  name: id
+                  type: NUMERIC
+              - column:
+                  header: name_role
+                  name: name_role
+                  type: STRING
+            commentLineStartsWith: '#'
+            encoding: UTF-8
+            file: data/roles.csv
+            quotchar: '"'
+            separator: ','
+            relativeToChangelogFile: true
+            tableName: roles
+  - changeSet:
+      id: 1634106893058-18
+      author: Elis (generated)
+      changes:
+        - loadData:
+            columns:
+              - column:
+                  header: id
+                  name: id
+                  type: NUMERIC
+              - column:
+                  header: user_id
+                  name: user_id
+                  type: NUMERIC
+              - column:
+                  header: type
+                  name: type
+                  type: STRING
+              - column:
+                  header: number
+                  name: number
+                  type: NUMERIC
+            commentLineStartsWith: '#'
+            encoding: UTF-8
+            file: data/credit_cards.csv
+            quotchar: '"'
+            separator: ','
+            relativeToChangelogFile: true
+            tableName: credit_cards
+  - changeSet:
+      id: 1634106893058-21
+      author: Elis (generated)
+      changes:
+        - loadData:
+            columns:
+              - column:
+                  header: id
+                  name: id
+                  type: NUMERIC
+              - column:
+                  header: category
+                  name: category
+                  type: STRING
+            commentLineStartsWith: '#'
+            encoding: UTF-8
+            file: data/categories.csv
+            quotchar: '"'
+            separator: ','
+            relativeToChangelogFile: true
+            tableName: categories
+  - changeSet:
+      id: 1634106893058-23
+      author: Elis (generated)
+      changes:
+        - loadData:
+            columns:
+              - column:
+                  header: id
+                  name: id
+                  type: NUMERIC
+              - column:
+                  header: title
+                  name: title
+                  type: STRING
+              - column:
+                  header: content
+                  name: content
+                  type: STRING
+              - column:
+                  header: cost
+                  name: cost
+                  type: NUMERIC
+              - column:
+                  header: date_publication
+                  name: date_publication
+                  type: DATE
+              - column:
+                  header: status
+                  name: status
+                  type: STRING
+              - column:
+                  header: user_id
+                  name: user_id
+                  type: NUMERIC
+              - column:
+                  header: category_id
+                  name: category_id
+                  type: NUMERIC
+            commentLineStartsWith: '#'
+            encoding: UTF-8
+            file: data/advertisements.csv
+            quotchar: '"'
+            separator: ','
+            relativeToChangelogFile: true
+            tableName: advertisements
+  - changeSet:
+      id: 1634106893058-25
+      author: Elis (generated)
+      changes:
+        - loadData:
+            columns:
+              - column:
+                  header: id
+                  name: id
+                  type: NUMERIC
+              - column:
+                  header: ad_id
+                  name: ad_id
+                  type: NUMERIC
+              - column:
+                  header: path
+                  name: path
+                  type: STRING
+            commentLineStartsWith: '#'
+            encoding: UTF-8
+            file: data/photographs.csv
+            quotchar: '"'
+            separator: ','
+            relativeToChangelogFile: true
+            tableName: photographs
+  - changeSet:
+      id: 1634106893058-27
+      author: Elis (generated)
+      changes:
+        - loadData:
+            columns:
+              - column:
+                  header: id
+                  name: id
+                  type: NUMERIC
+              - column:
+                  header: ad_id
+                  name: ad_id
+                  type: NUMERIC
+              - column:
+                  header: user_id
+                  name: user_id
+                  type: NUMERIC
+              - column:
+                  header: content
+                  name: content
+                  type: STRING
+              - column:
+                  header: date_publication
+                  name: date_publication
+                  type: DATE
+            commentLineStartsWith: '#'
+            encoding: UTF-8
+            file: data/comments.csv
+            quotchar: '"'
+            separator: ','
+            relativeToChangelogFile: true
+            tableName: comments
+  - changeSet:
+      id: 1634106893058-30
+      author: Elis (generated)
+      changes:
+        - loadData:
+            columns:
+              - column:
+                  header: id
+                  name: id
+                  type: NUMERIC
+              - column:
+                  header: name
+                  name: name
+                  type: STRING
+            commentLineStartsWith: '#'
+            encoding: UTF-8
+            file: data/chats.csv
+            quotchar: '"'
+            separator: ','
+            relativeToChangelogFile: true
+            tableName: chats
+  - changeSet:
+      id: 1634106893058-32
+      author: Elis (generated)
+      changes:
+        - loadData:
+            columns:
+              - column:
+                  header: id
+                  name: id
+                  type: NUMERIC
+              - column:
+                  header: user_id
+                  name: user_id
+                  type: NUMERIC
+              - column:
+                  header: chat_id
+                  name: chat_id
+                  type: NUMERIC
+              - column:
+                  header: content
+                  name: content
+                  type: STRING
+              - column:
+                  header: date_create
+                  name: date_create
+                  type: DATE
+            commentLineStartsWith: '#'
+            encoding: UTF-8
+            file: data/messages.csv
+            quotchar: '"'
+            separator: ','
+            relativeToChangelogFile: true
+            tableName: messages
+  - changeSet:
+      id: 1634106893058-34
+      author: Elis (generated)
+      changes:
+        - loadData:
+            columns:
+              - column:
+                  header: user_id
+                  name: user_id
+                  type: NUMERIC
+              - column:
+                  header: role_id
+                  name: role_id
+                  type: NUMERIC
+            commentLineStartsWith: '#'
+            encoding: UTF-8
+            file: data/roles_users.csv
+            quotchar: '"'
+            separator: ','
+            relativeToChangelogFile: true
+            tableName: roles_users

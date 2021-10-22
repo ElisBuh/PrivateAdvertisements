@@ -1,0 +1,790 @@
+databaseChangeLog:
+- changeSet:
+    id: 1634106893058-1
+    author: Elis (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: countries_pkey
+            name: id
+            type: INTEGER
+        - column:
+            constraints:
+              nullable: false
+            name: name
+            type: TEXT
+        tableName: countries
+- changeSet:
+    id: 1634106893058-3
+    author: Elis (generated)
+    changes:
+    - createSequence:
+        cacheSize: 1
+        cycle: false
+        dataType: bigint
+        incrementBy: 1
+        maxValue: 9223372036854775807
+        minValue: 1
+        sequenceName: country_seq
+        startValue: 100000
+- changeSet:
+    id: 1634106893058-4
+    author: Elis (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: cities_pkey
+            name: id
+            type: INTEGER
+        - column:
+            constraints:
+              nullable: false
+            name: name
+            type: TEXT
+        tableName: cities
+- changeSet:
+    id: 1634106893058-6
+    author: Elis (generated)
+    changes:
+    - createSequence:
+        cacheSize: 1
+        cycle: false
+        dataType: bigint
+        incrementBy: 1
+        maxValue: 9223372036854775807
+        minValue: 1
+        sequenceName: city_seq
+        startValue: 100000
+- changeSet:
+    id: 1634106893058-7
+    author: Elis (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: addresses_pkey
+            name: id
+            type: INTEGER
+        - column:
+            constraints:
+              nullable: false
+            name: country_id
+            type: INTEGER
+        - column:
+            constraints:
+              nullable: false
+            name: city_id
+            type: INTEGER
+        - column:
+            constraints:
+              nullable: false
+            name: post_index
+            type: INTEGER
+        - column:
+            constraints:
+              nullable: false
+            name: street
+            type: TEXT
+        - column:
+            constraints:
+              nullable: false
+            name: number_house
+            type: INTEGER
+        - column:
+            name: number_flat
+            type: INTEGER
+        tableName: addresses
+- changeSet:
+    id: 1634106893058-9
+    author: Elis (generated)
+    changes:
+    - createSequence:
+        cacheSize: 1
+        cycle: false
+        dataType: bigint
+        incrementBy: 1
+        maxValue: 9223372036854775807
+        minValue: 1
+        sequenceName: user_seq
+        startValue: 100000
+- changeSet:
+    id: 1634106893058-10
+    author: Elis (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: personal_info_pkey
+            name: id
+            type: INTEGER
+        - column:
+            constraints:
+              nullable: false
+            name: first_name
+            type: TEXT
+        - column:
+            constraints:
+              nullable: false
+            name: last_name
+            type: TEXT
+        - column:
+            constraints:
+              nullable: false
+            name: date_birthday
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: number_phone
+            type: INTEGER
+        - column:
+            constraints:
+              nullable: false
+            name: sex
+            type: TEXT
+        tableName: personal_info
+- changeSet:
+    id: 1634106893058-12
+    author: Elis (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: users_pkey
+            name: id
+            type: INTEGER
+        - column:
+            constraints:
+              nullable: false
+            name: login
+            type: TEXT
+        - column:
+            constraints:
+              nullable: false
+            name: password
+            type: TEXT
+        - column:
+            constraints:
+              nullable: false
+            name: rating
+            type: INTEGER
+        - column:
+            constraints:
+              nullable: false
+            defaultValueBoolean: true
+            name: enabled
+            type: BOOLEAN
+        - column:
+            constraints:
+              nullable: false
+            defaultValueComputed: now()
+            name: date_registered
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: address_id
+            type: INTEGER
+        - column:
+            constraints:
+              nullable: false
+            name: personal_info_id
+            type: INTEGER
+        tableName: users
+- changeSet:
+    id: 1634106893058-14
+    author: Elis (generated)
+    changes:
+    - createSequence:
+        cacheSize: 1
+        cycle: false
+        dataType: bigint
+        incrementBy: 1
+        maxValue: 9223372036854775807
+        minValue: 1
+        sequenceName: role_seq
+        startValue: 100000
+- changeSet:
+    id: 1634106893058-15
+    author: Elis (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: roles_pkey
+            name: id
+            type: INTEGER
+        - column:
+            constraints:
+              nullable: false
+            name: name_role
+            type: TEXT
+        tableName: roles
+- changeSet:
+    id: 1634106893058-17
+    author: Elis (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: credit_cards_pkey
+            name: id
+            type: INTEGER
+        - column:
+            constraints:
+              nullable: false
+            name: user_id
+            type: INTEGER
+        - column:
+            constraints:
+              nullable: false
+            name: type
+            type: TEXT
+        - column:
+            constraints:
+              nullable: false
+            name: number
+            type: bigint
+        tableName: credit_cards
+- changeSet:
+    id: 1634106893058-19
+    author: Elis (generated)
+    changes:
+    - createSequence:
+        cacheSize: 1
+        cycle: false
+        dataType: bigint
+        incrementBy: 1
+        maxValue: 9223372036854775807
+        minValue: 1
+        sequenceName: ad_seq
+        startValue: 100000
+- changeSet:
+    id: 1634106893058-20
+    author: Elis (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: categories_pkey
+            name: id
+            type: INTEGER
+        - column:
+            name: category
+            type: TEXT
+        tableName: categories
+- changeSet:
+    id: 1634106893058-22
+    author: Elis (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: advertisements_pkey
+            name: id
+            type: INTEGER
+        - column:
+            constraints:
+              nullable: false
+            name: title
+            type: TEXT
+        - column:
+            constraints:
+              nullable: false
+            name: content
+            type: TEXT
+        - column:
+            constraints:
+              nullable: false
+            name: cost
+            type: numeric(10, 2)
+        - column:
+            defaultValueComputed: now()
+            name: date_publication
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            defaultValue: NEW
+            name: status
+            type: TEXT
+        - column:
+            name: user_id
+            type: INTEGER
+        - column:
+            name: category_id
+            type: INTEGER
+        tableName: advertisements
+- changeSet:
+    id: 1634106893058-24
+    author: Elis (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: photographs_pkey
+            name: id
+            type: INTEGER
+        - column:
+            constraints:
+              nullable: false
+            name: ad_id
+            type: INTEGER
+        - column:
+            constraints:
+              nullable: false
+            name: path
+            type: TEXT
+        tableName: photographs
+- changeSet:
+    id: 1634106893058-26
+    author: Elis (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: comments_pkey
+            name: id
+            type: INTEGER
+        - column:
+            constraints:
+              nullable: false
+            name: ad_id
+            type: INTEGER
+        - column:
+            constraints:
+              nullable: false
+            name: user_id
+            type: INTEGER
+        - column:
+            constraints:
+              nullable: false
+            name: content
+            type: TEXT
+        - column:
+            defaultValueComputed: now()
+            name: date_publication
+            type: TIMESTAMP WITHOUT TIME ZONE
+        tableName: comments
+- changeSet:
+    id: 1634106893058-28
+    author: Elis (generated)
+    changes:
+    - createSequence:
+        cacheSize: 1
+        cycle: false
+        dataType: bigint
+        incrementBy: 1
+        maxValue: 9223372036854775807
+        minValue: 1
+        sequenceName: chat_seq
+        startValue: 100000
+- changeSet:
+    id: 1634106893058-29
+    author: Elis (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: chats_pkey
+            name: id
+            type: INTEGER
+        - column:
+            constraints:
+              nullable: false
+            name: name
+            type: TEXT
+        tableName: chats
+- changeSet:
+    id: 1634106893058-31
+    author: Elis (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: messages_pkey
+            name: id
+            type: INTEGER
+        - column:
+            constraints:
+              nullable: false
+            name: user_id
+            type: INTEGER
+        - column:
+            constraints:
+              nullable: false
+            name: chat_id
+            type: INTEGER
+        - column:
+            constraints:
+              nullable: false
+            name: content
+            type: TEXT
+        - column:
+            defaultValueComputed: now()
+            name: date_create
+            type: TIMESTAMP WITHOUT TIME ZONE
+        tableName: messages
+- changeSet:
+    id: 1634106893058-33
+    author: Elis (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            name: user_id
+            type: INTEGER
+        - column:
+            name: role_id
+            type: INTEGER
+        tableName: roles_users
+- changeSet:
+    id: 1634106893058-35
+    author: Elis (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: chat_id
+            type: INTEGER
+        - column:
+            constraints:
+              nullable: false
+            name: user_id
+            type: INTEGER
+        tableName: users_chats
+- changeSet:
+    id: 1634106893058-37
+    author: Elis (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: country_id
+        baseTableName: addresses
+        constraintName: addresses_country_id_fkey
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: countries
+        validate: true
+- changeSet:
+    id: 1634106893058-38
+    author: Elis (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: name
+        constraintName: countries_name_key
+        tableName: countries
+- changeSet:
+    id: 1634106893058-39
+    author: Elis (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: city_id
+        baseTableName: addresses
+        constraintName: addresses_city_id_fkey
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: cities
+        validate: true
+- changeSet:
+    id: 1634106893058-40
+    author: Elis (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: name
+        constraintName: cities_name_key
+        tableName: cities
+- changeSet:
+    id: 1634106893058-41
+    author: Elis (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: address_id
+        baseTableName: users
+        constraintName: users_address_id_fkey
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: CASCADE
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: addresses
+        validate: true
+- changeSet:
+    id: 1634106893058-42
+    author: Elis (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: personal_info_id
+        baseTableName: users
+        constraintName: users_personal_info_id_fkey
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: CASCADE
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: personal_info
+        validate: true
+- changeSet:
+    id: 1634106893058-43
+    author: Elis (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: login
+        indexName: users_unique_login_idx
+        tableName: users
+        unique: true
+- changeSet:
+    id: 1634106893058-44
+    author: Elis (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: user_id
+        baseTableName: advertisements
+        constraintName: advertisements_user_id_fkey
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: users
+        validate: true
+- changeSet:
+    id: 1634106893058-45
+    author: Elis (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: user_id
+        baseTableName: comments
+        constraintName: comments_user_id_fkey
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: users
+        validate: true
+- changeSet:
+    id: 1634106893058-46
+    author: Elis (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: user_id
+        baseTableName: credit_cards
+        constraintName: credit_cards_user_id_fkey
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: users
+        validate: true
+- changeSet:
+    id: 1634106893058-47
+    author: Elis (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: user_id
+        baseTableName: messages
+        constraintName: messages_user_id_fkey
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: users
+        validate: true
+- changeSet:
+    id: 1634106893058-48
+    author: Elis (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: user_id
+        baseTableName: roles_users
+        constraintName: roles_users_user_id_fkey
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: users
+        validate: true
+- changeSet:
+    id: 1634106893058-49
+    author: Elis (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: user_id
+        baseTableName: users_chats
+        constraintName: users_chats_user_id_fkey
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: CASCADE
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: users
+        validate: true
+- changeSet:
+    id: 1634106893058-50
+    author: Elis (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: role_id
+        baseTableName: roles_users
+        constraintName: roles_users_role_id_fkey
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: roles
+        validate: true
+- changeSet:
+    id: 1634106893058-51
+    author: Elis (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: category_id
+        baseTableName: advertisements
+        constraintName: advertisements_category_id_fkey
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: categories
+        validate: true
+- changeSet:
+    id: 1634106893058-52
+    author: Elis (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: ad_id
+        baseTableName: comments
+        constraintName: comments_ad_id_fkey
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: advertisements
+        validate: true
+- changeSet:
+    id: 1634106893058-53
+    author: Elis (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: ad_id
+        baseTableName: photographs
+        constraintName: photographs_ad_id_fkey
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: advertisements
+        validate: true
+- changeSet:
+    id: 1634106893058-54
+    author: Elis (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: chat_id
+        baseTableName: messages
+        constraintName: messages_chat_id_fkey
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: chats
+        validate: true
+- changeSet:
+    id: 1634106893058-55
+    author: Elis (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: chat_id
+        baseTableName: users_chats
+        constraintName: users_chats_chat_id_fkey
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: CASCADE
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: chats
+        validate: true
+- changeSet:
+    id: 1634106893058-56
+    author: Elis (generated)
+    changes:
+    - createSequence:
+        cacheSize: 1
+        cycle: false
+        dataType: bigint
+        incrementBy: 1
+        maxValue: 9223372036854775807
+        minValue: 1
+        sequenceName: global_seq
+        startValue: 100000
+
