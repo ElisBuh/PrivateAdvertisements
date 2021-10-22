@@ -20,6 +20,8 @@ public interface IAdvertisementService {
 
     Advertisement findAdvertisementByTitle(String title);
 
+    void topUpAdvertisement(Integer id, int day);
+
     Comment addComment(Comment comment, Integer adId, Integer userId);
 
     List<Advertisement> getAllPagesAndSort(Pageable pageable);

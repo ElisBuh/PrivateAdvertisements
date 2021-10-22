@@ -48,6 +48,7 @@ public class AdvertisementService implements IAdvertisementService {
             advertisement.setDatePublication(LocalDateTime.now());
             advertisement.setDatePublicationOff(LocalDateTime.now().plusMonths(3));
             advertisement.setStatusAd(StatusAd.NEW);
+            advertisement.setTopRating(false);
             System.out.println(advertisement);
             return advertisementRepository.save(advertisement);
         } catch (EntityNotFoundException e) {
@@ -66,7 +67,11 @@ public class AdvertisementService implements IAdvertisementService {
             advertisementOld.setContent(advertisement.getContent());
             advertisementOld.setCost(advertisement.getCost());
             advertisementOld.setStatusAd(advertisement.getStatusAd());
-            return advertisementRepository.save(advertisementOld);
+            advertisementOld = advertisementRepository.save(advertisementOld);
+            if (advertisement.getStatusAd().equals(StatusAd.SOLD)||advertisement.getStatusAd().equals(StatusAd.OVERDUE)){
+                updateRating(advertisementOld.getUser().getId());
+            }
+            return advertisementOld;
         } catch (EntityNotFoundException e) {
             log.error("Такого ид нет {}", id);
             throw new NotEntityException("Такого ид нет: " + id);
@@ -121,6 +126,21 @@ public class AdvertisementService implements IAdvertisementService {
     }
 
     @Override
+    public void topUpAdvertisement(Integer id, int day) {
+        log.info("topUp ad id: {} on day: {}", id, day);
+        try {
+            Advertisement advertisement = advertisementRepository.getById(id);
+            log.info(advertisement.getTitle());
+            advertisement.setTopRating(true);
+            advertisement.setDateTopOff(LocalDateTime.now().plusDays(day));
+            advertisementRepository.save(advertisement);
+        } catch (EntityNotFoundException e) {
+            log.error("Такого ид нет {}", id);
+            throw new NotEntityException("Такого ид нет: " + id);
+        }
+    }
+
+    @Override
     public Page<Advertisement> getAllBetweenHalfOpen(LocalDateTime startDate, LocalDateTime endDate, Pageable pageable) {
         log.info("dateStart: {}, dateEnd: {}", startDate, endDate);
         return advertisementRepository.getAllBetweenHalfOpen(startDate, endDate, pageable);
@@ -137,7 +157,26 @@ public class AdvertisementService implements IAdvertisementService {
         log.info("getAll sort by {}", pageable.getSort());
         return advertisementRepository.findAll(pageable).stream()
                 .sorted((o1, o2) -> o2.getUser().getRating().compareTo(o1.getUser().getRating()))
+                .sorted((o1, o2) -> o2.getTopRating().compareTo(o1.getTopRating()))
                 .filter(advertisement -> advertisement.getStatusAd().equals(StatusAd.NEW))
                 .collect(Collectors.toList());
+    }
+
+
+    private void updateRating(Integer userId){
+        List<Advertisement> advertisementList = advertisementRepository.getAllByUserId(userId);
+        int overdue = 0;
+        int all = 0;
+        for (Advertisement a:advertisementList){
+            if (a.getStatusAd().equals(StatusAd.SOLD)|| a.getStatusAd().equals(StatusAd.OVERDUE)){
+                overdue++;
+                all++;
+            }
+        }
+        float rating = (all-overdue);
+        rating = rating/all*100;
+        User user = userRepository.getById(userId);
+        user.setRating(Math.round(rating));
+        userRepository.save(user);
     }
 }

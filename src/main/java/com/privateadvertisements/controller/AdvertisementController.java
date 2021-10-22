@@ -87,6 +87,14 @@ public class AdvertisementController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PostMapping(value = "/{id}/top")
+    public ResponseEntity<?> topUpAd(@PathVariable(name = "id") Integer id,
+                                     @RequestParam(name = "day") Integer day){
+        advertisementService.topUpAdvertisement(id,day);
+        return new ResponseEntity<>(HttpStatus.OK);
+
+    }
+
 
     @GetMapping("/test")
     public ResponseEntity<List<AdvertisementDto>> testAll() {

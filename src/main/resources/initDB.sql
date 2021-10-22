@@ -77,7 +77,7 @@ CREATE TABLE users
     id               integer   DEFAULT nextval('user_seq'),
     login            text                    NOT NULL,
     password         text                    NOT NULL,
-    rating           integer   DEFAULT 50    NOT NULL,
+    rating           integer   DEFAULT 100    NOT NULL,
     enabled          bool      DEFAULT true  NOT NULL,
     date_registered  timestamp DEFAULT now() NOT NULL,
     address_id       integer,
@@ -132,8 +132,10 @@ CREATE TABLE advertisements
     status               text      DEFAULT 'NEW',
     user_id              integer,
     category_id          integer,
+    top_rating           bool      DEFAULT false,
+    date_top_off         timestamp,
     PRIMARY KEY (id),
-    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ,
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
     FOREIGN KEY (category_id) REFERENCES categories (id)
 );
 

@@ -360,6 +360,15 @@ databaseChangeLog:
             name: user_id
             type: INTEGER
         - column:
+              constraints:
+                  nullable: false
+              defaultValueBoolean: false
+              name: top_rating
+              type: BOOLEAN
+        - column:
+              name: date_top_off
+              type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
             name: category_id
             type: INTEGER
         tableName: advertisements
@@ -803,3 +812,14 @@ databaseChangeLog:
         minValue: 1
         sequenceName: global_seq
         startValue: 100000
+- changeSet:
+      id: 1634106893058-57
+      author: Elis (generated)
+      changes:
+      - createIndex:
+          columns:
+          - column:
+              name: name
+          indexName: chats_unique_name_idx
+          tableName: chats
+          unique: true

@@ -65,7 +65,7 @@ public class UserService implements IUserService {
         if (userUpdate.getId() == null) {
             Set<Role> roles = Set.of(roleRepository.getByName("ROLE_USER"));
             user.setRoles(roles);
-            user.setRating(50);
+            user.setRating(100);
             user.setEnabled(true);
             user.setDateRegistered(LocalDate.now());
             return userRepository.save(user);

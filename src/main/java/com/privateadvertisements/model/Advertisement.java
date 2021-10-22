@@ -71,6 +71,12 @@ public class Advertisement {
     @Enumerated(EnumType.STRING)
     private StatusAd statusAd;
 
+    @Column(name = "top_rating")
+    private Boolean topRating;
+
+    @Column(name = "date_top_off")
+    private LocalDateTime dateTopOff;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "advertisement", cascade = CascadeType.REMOVE)
     @ToString.Exclude
     private List<Photograph> photographs;
