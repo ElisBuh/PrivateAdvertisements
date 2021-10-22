@@ -11,6 +11,7 @@ import com.privateadvertisements.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
@@ -21,6 +22,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class ChatService implements IChatService {
     private static final Logger log = LoggerFactory.getLogger(ChatService.class);
 
@@ -61,6 +63,7 @@ public class ChatService implements IChatService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Chat get(Integer id) {
         log.info("get chat id: {}", id);
         Optional<Chat> optionalChat = chatRepository.getWithMessages(id);
@@ -82,6 +85,7 @@ public class ChatService implements IChatService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Chat> getAll(Integer userId) {
         log.info("getAll chat by userID: {}", userId);
         return chatRepository.findAll().stream()

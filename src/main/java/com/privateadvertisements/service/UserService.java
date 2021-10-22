@@ -118,6 +118,7 @@ public class UserService implements IUserService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public User get(Integer id) {
         log.info("get user id: {}", id);
         Optional<User> optionalUser = userRepository.findById(id);
@@ -130,6 +131,7 @@ public class UserService implements IUserService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public User findByUserLogin(String login) {
         log.info("get user login: {}", login);
         try {
@@ -143,6 +145,7 @@ public class UserService implements IUserService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public User findByUserLoginAndPassword(String login, String password) {
 
         return null;
@@ -219,12 +222,14 @@ public class UserService implements IUserService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Page<User> getAllPagesAndSort(Pageable pageable) {
         log.info("getAll pageNumber: {}", pageable.getPageNumber());
         return userRepository.findAll(pageable);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public User getWithAdvertisement(Integer id) {
         log.info("getWithAdvertisement id user: {}", id);
         try {
@@ -238,6 +243,7 @@ public class UserService implements IUserService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<User> getAll() {
         log.info("getAll users");
         return userRepository.findAll();

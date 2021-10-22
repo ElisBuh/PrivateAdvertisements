@@ -19,6 +19,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
@@ -26,6 +27,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class AdvertisementService implements IAdvertisementService {
     private static final Logger log = LoggerFactory.getLogger(AdvertisementService.class);
 
@@ -97,6 +99,7 @@ public class AdvertisementService implements IAdvertisementService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Advertisement get(Integer id) {
         try {
             log.info("get adv id: {}", id);
@@ -110,6 +113,7 @@ public class AdvertisementService implements IAdvertisementService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Advertisement findAdvertisementByTitle(String title) {
         try {
             log.info("find by title: {}", title);
@@ -164,18 +168,21 @@ public class AdvertisementService implements IAdvertisementService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Page<Advertisement> getAllBetweenHalfOpen(LocalDateTime startDate, LocalDateTime endDate, Pageable pageable) {
         log.info("dateStart: {}, dateEnd: {}", startDate, endDate);
         return advertisementRepository.getAllBetweenHalfOpen(startDate, endDate, pageable);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Page<Advertisement> getBetweenHalfOpenOfUser(Integer userId, LocalDateTime startDate, LocalDateTime endDate, Pageable pageable) {
         log.info("GetAll by userId: {}", userId);
         return advertisementRepository.getBetweenHalfOpenOfUser(startDate, endDate, userId, pageable);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Advertisement> getAllPagesAndSort(Pageable pageable) {
         log.info("getAll sort by {}", pageable.getSort());
         return advertisementRepository.findAll(pageable).stream()
