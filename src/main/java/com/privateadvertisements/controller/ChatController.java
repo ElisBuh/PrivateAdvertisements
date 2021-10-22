@@ -58,7 +58,6 @@ public class ChatController {
     @GetMapping("/")
     public ResponseEntity<List<ChatDto>> getAll(@RequestParam(name = "id") Integer id) {
         List<Chat> chatList = chatService.getAll(id);
-        chatList.forEach(System.out::println);
         List<ChatDto> chatDtoList = Mapper.convertList(chatList, mapper::convertChatToChatDto);
         return new ResponseEntity<>(chatDtoList, HttpStatus.OK);
     }
