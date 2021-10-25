@@ -19,11 +19,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -41,6 +43,7 @@ public class UserService implements IUserService {
     private final CrudAddress addressRepository;
     private final CrudPersonalUserInfo personalUserInfoRepository;
     private final CrudCreditCard creditCardRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public UserService(CrudUser userRepository,
                        CrudRole roleRepository,
@@ -48,7 +51,8 @@ public class UserService implements IUserService {
                        CrudCity cityRepository,
                        CrudAddress addressRepository,
                        CrudPersonalUserInfo personalUserInfoRepository,
-                       CrudCreditCard creditCardRepository) {
+                       CrudCreditCard creditCardRepository,
+                       PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.countryRepository = countryRepository;
@@ -56,18 +60,20 @@ public class UserService implements IUserService {
         this.addressRepository = addressRepository;
         this.personalUserInfoRepository = personalUserInfoRepository;
         this.creditCardRepository = creditCardRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public User save(User user) {
         log.info("Create new user: {}", user.getLogin());
         User userUpdate = userRepository.getByLogin(user.getLogin());
-        if (userUpdate.getId() == null) {
+        if (userUpdate == null) {
             Set<Role> roles = Set.of(roleRepository.getByName("ROLE_USER"));
             user.setRoles(roles);
             user.setRating(100);
             user.setEnabled(true);
-            user.setDateRegistered(LocalDate.now());
+            user.setDateRegistered(LocalDateTime.now());
+            user.setPasswords(passwordEncoder.encode(user.getPasswords()));
             return userRepository.save(user);
         } else {
             throw new ServiceException("Логин занят");
@@ -76,7 +82,10 @@ public class UserService implements IUserService {
 
     @Override
     public User updatePasswords(User user) {
-        return null;
+        log.info("update password user: {}", user.getLogin());
+        User userUpdate = userRepository.getByLogin(user.getLogin());
+        userUpdate.setPasswords(passwordEncoder.encode(user.getPasswords()));
+        return userRepository.save(userUpdate);
     }
 
     @Override
@@ -147,8 +156,19 @@ public class UserService implements IUserService {
     @Override
     @Transactional(readOnly = true)
     public User findByUserLoginAndPassword(String login, String password) {
-
-        return null;
+        try {
+            log.info(login);
+            User user = userRepository.getByLogin(login);
+            if (user != null) {
+                if (passwordEncoder.matches(password, user.getPasswords())) {
+                    return user;
+                }
+            }
+            return null;
+        } catch (EntityNotFoundException e) {
+            log.error("Не верные дынные");
+            throw new NotEntityException("Не верные дынные");
+        }
     }
 
     @Override
@@ -177,7 +197,7 @@ public class UserService implements IUserService {
         log.info("Change address to id: {} ", userId);
         try {
             User user = userRepository.getById(userId);
-            if (user.getAddress().getId() != null) {
+            if (user.getAddress() != null) {
                 address.setId(user.getAddress().getId());
             }
             address.setCountry(countryRepository.getByName(address.getCountry().getName()));
