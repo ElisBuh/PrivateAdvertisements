@@ -8,10 +8,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 public class CustomUserDetails implements UserDetails {
     private static final Logger log = LoggerFactory.getLogger(CustomUserDetails.class);
@@ -25,17 +23,18 @@ public class CustomUserDetails implements UserDetails {
         return grantedAuthorities;
     }
 
-    public static CustomUserDetails fromUserToCustomUserDetails(User user){
+    public static CustomUserDetails fromUserToCustomUserDetails(User user) {
         log.info(user.getLogin());
         CustomUserDetails userDetails = new CustomUserDetails();
         userDetails.login = user.getLogin();
         userDetails.password = user.getPasswords();
-        for (Role role:user.getRoles()){
+        for (Role role : user.getRoles()) {
             userDetails.grantedAuthorities = Collections.singletonList((new SimpleGrantedAuthority(role.getName())));
         }
 //        userDetails.grantedAuthorities = Collections.singletonList(new SimpleGrantedAuthority(user.getRoles()..getNameRole()));
         return userDetails;
     }
+
     @Override
     public String getPassword() {
         return password;

@@ -24,7 +24,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
@@ -172,11 +171,11 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User changeRole(String login, String nameRole) {
-        log.info("Change role to {} on {}", login, nameRole);
+    public User changeRole(Integer id, String nameRole) {
+        log.info("Change role to {} on {}", id, nameRole);
         try {
             Role role = roleRepository.getByName(nameRole.toUpperCase(Locale.ROOT));
-            User user = userRepository.getByLogin(login);
+            User user = userRepository.getById(id);
             Set<Role> userRoles = user.getRoles();
             if (userRoles.contains(role)) {
                 userRoles.remove(role);
@@ -186,8 +185,8 @@ public class UserService implements IUserService {
             user.setRoles(userRoles);
             return userRepository.save(user);
         } catch (EntityNotFoundException e) {
-            log.error("Такого пользователя нет {}", login);
-            throw new NotEntityException("Такого пользователя нет: " + login);
+            log.error("Такого пользователя нет {}", id);
+            throw new NotEntityException("Такого пользователя нет: " + id);
         }
 
     }

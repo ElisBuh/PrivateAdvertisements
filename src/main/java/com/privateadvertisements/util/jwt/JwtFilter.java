@@ -1,7 +1,6 @@
 package com.privateadvertisements.util.jwt;
 
 
-
 import com.privateadvertisements.util.config.CustomUserDetails;
 import com.privateadvertisements.util.config.CustomUserDetailsService;
 import org.slf4j.Logger;

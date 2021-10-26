@@ -80,8 +80,8 @@ public class UserController {
 
     @GetMapping("/test")
     public ResponseEntity<?> test() {
-        userService.changeRole("petr@gmail.com", "role_admin");
-        userService.changeRole("petr@gmail.com", "role_admin");
+//        userService.changeRole("petr@gmail.com", "role_admin");
+//        userService.changeRole("petr@gmail.com", "role_admin");
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

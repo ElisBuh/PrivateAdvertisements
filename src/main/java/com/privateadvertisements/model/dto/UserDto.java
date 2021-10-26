@@ -2,12 +2,12 @@ package com.privateadvertisements.model.dto;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.privateadvertisements.util.LocalDateDeserializer;
-import com.privateadvertisements.util.LocalDateSerializer;
+import com.privateadvertisements.util.LocalDateTimeDeserializer;
+import com.privateadvertisements.util.LocalDateTimeSerializer;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -23,9 +23,9 @@ public class UserDto {
     private Integer rating;
     private Boolean enabled;
 
-    @JsonDeserialize(using = LocalDateDeserializer.class)
-    @JsonSerialize(using = LocalDateSerializer.class)
-    private LocalDate dateRegistered;
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    private LocalDateTime dateRegistered;
 
     private AddressDto addressDto;
     private List<CreditCardDto> creditCardsDto;

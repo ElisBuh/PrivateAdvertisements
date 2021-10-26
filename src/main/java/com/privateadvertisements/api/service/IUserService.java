@@ -27,7 +27,7 @@ public interface IUserService {
 
     User findByUserLoginAndPassword(String login, String password);
 
-    User changeRole(String login, String nameRole);
+    User changeRole(Integer id, String nameRole);
 
     User changeAddress(Address address, Integer userId);
 

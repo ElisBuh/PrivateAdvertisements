@@ -20,7 +20,7 @@ public class JwtProvider {
     @Value("${jwt.secret}")
     private String jwtSecret;
 
-    public String generateToken(String login){
+    public String generateToken(String login) {
         log.info("Generate Token for : {}", login);
         Date date = Date.from(LocalDate.now().plusDays(5).atStartOfDay(ZoneId.systemDefault()).toInstant());
         return Jwts.builder()
@@ -29,6 +29,7 @@ public class JwtProvider {
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
     }
+
     public boolean validateToken(String token) {
         try {
             log.info("valid token");
@@ -40,7 +41,7 @@ public class JwtProvider {
         return false;
     }
 
-    public String getLoginFromToken(String token){
+    public String getLoginFromToken(String token) {
         Claims claims = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
         return claims.getSubject();
     }

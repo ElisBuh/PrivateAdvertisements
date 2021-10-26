@@ -27,7 +27,7 @@ public class AuthController {
         this.jwtProvider = jwtProvider;
     }
 
-    @PostMapping("/register")
+    @PostMapping("/registration")
     public ResponseEntity<?> registerUser(@RequestBody UserNewDto userNewDto) {
         User user = new User();
         user.setPasswords(userNewDto.getPasswords());
