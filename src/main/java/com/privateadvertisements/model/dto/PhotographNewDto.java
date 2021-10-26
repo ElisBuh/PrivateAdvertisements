@@ -5,8 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class PhotographDto {
+public class PhotographNewDto {
 
-    private String path;
-
+    private String[] paths;
 }

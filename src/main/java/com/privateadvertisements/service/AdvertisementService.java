@@ -161,6 +161,7 @@ public class AdvertisementService implements IAdvertisementService {
         for (String s : path) {
             Photograph photograph = new Photograph();
             photograph.setPath(s);
+            photograph.setAdvertisement(advertisement);
             photographList.add(photographRepository.save(photograph));
         }
         advertisement.setPhotographs(photographList);
@@ -200,8 +201,10 @@ public class AdvertisementService implements IAdvertisementService {
         int all = 0;
         for (Advertisement a : advertisementList) {
             if (a.getStatusAd().equals(StatusAd.SOLD) || a.getStatusAd().equals(StatusAd.OVERDUE)) {
-                overdue++;
                 all++;
+                if (a.getStatusAd().equals(StatusAd.OVERDUE)){
+                overdue++;
+                }
             }
         }
         float rating = (all - overdue);

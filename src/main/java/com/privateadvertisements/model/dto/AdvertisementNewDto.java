@@ -12,5 +12,6 @@ public class AdvertisementNewDto {
     private String title;
     private String content;
     private BigDecimal cost;
+    private String category;
     private StatusAd statusAd;
 }

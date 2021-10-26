@@ -7,6 +7,8 @@ import com.privateadvertisements.model.Comment;
 import com.privateadvertisements.model.dto.AdvertisementDto;
 import com.privateadvertisements.model.dto.AdvertisementNewDto;
 import com.privateadvertisements.model.dto.CommentDto;
+import com.privateadvertisements.model.dto.PhotographDto;
+import com.privateadvertisements.model.dto.PhotographNewDto;
 import com.privateadvertisements.util.Mapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -40,10 +43,10 @@ public class AdvertisementController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<?> create(@RequestBody AdvertisementNewDto advertisementNewDto) {
+    public ResponseEntity<?> create(@RequestBody AdvertisementNewDto advertisementNewDto,
+                                    @RequestParam(value = "idUser") Integer userId) {
         Advertisement advertisement = mapper.convertAdvertisementNewDtoToAdvertisement(advertisementNewDto);
-        System.out.println(advertisement);
-        advertisementService.save(advertisement, 100006, "Техника");
+        advertisementService.save(advertisement, userId, advertisementNewDto.getCategory());
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -56,12 +59,10 @@ public class AdvertisementController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping(value = "/{id}/addComment")
-    private ResponseEntity<?> addComment(@PathVariable(name = "id") Integer id,
-                                         @RequestBody CommentDto commentDto,
-                                         @RequestParam(name = "userId") Integer userId) {
-        Comment comment = mapper.convertCommentDtoToConvert(commentDto);
-        advertisementService.addComment(comment, id, userId);
+    @DeleteMapping("/{id}/{idAd}")
+    public ResponseEntity<?> delete(@PathVariable(name = "id") Integer userId,
+                                    @PathVariable(name = "idAd") Integer adId) {
+        advertisementService.delete(adId, userId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -72,19 +73,28 @@ public class AdvertisementController {
         return new ResponseEntity<>(advertisementDto, HttpStatus.OK);
     }
 
+    @GetMapping("/find")
+    public ResponseEntity<AdvertisementDto> findAdvertisementByTitle(@RequestParam(name = "title") String title) {
+        Advertisement advertisement = advertisementService.findAdvertisementByTitle(title);
+        AdvertisementDto advertisementDto = mapper.convertAdvertisementToAdvertisementDto(advertisement);
+        return new ResponseEntity<>(advertisementDto, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/{id}/addComment")
+    private ResponseEntity<?> addComment(@PathVariable(name = "id") Integer id,
+                                         @RequestBody CommentDto commentDto,
+                                         @RequestParam(name = "userId") Integer userId) {
+        Comment comment = mapper.convertCommentDtoToConvert(commentDto);
+        advertisementService.addComment(comment, id, userId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @GetMapping("/")
     public ResponseEntity<List<AdvertisementDto>> readAll() {
         Pageable pageable = PageRequest.of(0, 10, Sort.by("title"));
         List<Advertisement> page = advertisementService.getAllPagesAndSort(pageable);
         List<AdvertisementDto> advertisementDtoList = Mapper.convertList(page, mapper::convertAdvertisementToAdvertisementDto);
         return new ResponseEntity<>(advertisementDtoList, HttpStatus.OK);
-    }
-
-    @DeleteMapping("/{id}/{idAd}")
-    public ResponseEntity<?> delete(@PathVariable(name = "id") Integer userId,
-                                    @PathVariable(name = "idAd") Integer adId) {
-        advertisementService.delete(adId, userId);
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping(value = "/{id}/top")
@@ -95,26 +105,33 @@ public class AdvertisementController {
 
     }
 
-
-    @GetMapping("/test")
-    public ResponseEntity<List<AdvertisementDto>> testAll() {
-        Pageable pageable = PageRequest.of(0, 10, Sort.by("title"));
-        LocalDateTime startDate = LocalDateTime.of(2021, 10, 15, 0, 0);
-        LocalDateTime endDate = LocalDateTime.of(2021, 10, 18, 0, 0);
-        Page<Advertisement> advertisementList = advertisementService.getAllBetweenHalfOpen(startDate, endDate, pageable);
-        List<AdvertisementDto> advertisementDtoList = Mapper.convertList(advertisementList.getContent(), mapper::convertAdvertisementToAdvertisementDto);
-        return new ResponseEntity<>(advertisementDtoList, HttpStatus.OK);
+    @PostMapping(value = "/{id}/addPhoto")
+    private ResponseEntity<?> addPhoto(@PathVariable(name = "id") Integer id,
+                                       @RequestBody PhotographNewDto photographNewDto) {
+        advertisementService.addPhoto(id, photographNewDto.getPaths());
+        return new ResponseEntity<>(HttpStatus.OK);
     }
-
-    @GetMapping("/test2")
-    public ResponseEntity<List<AdvertisementDto>> testAll2() {
-        Pageable pageable = PageRequest.of(0, 10, Sort.by("title"));
-        LocalDateTime startDate = LocalDateTime.of(2021, 10, 15, 0, 0);
-        LocalDateTime endDate = LocalDateTime.of(2021, 10, 20, 0, 0);
-        Page<Advertisement> advertisementList = advertisementService.getBetweenHalfOpenOfUser(100006, startDate, endDate, pageable);
-        List<AdvertisementDto> advertisementDtoList = Mapper.convertList(advertisementList.getContent(), mapper::convertAdvertisementToAdvertisementDto);
-        return new ResponseEntity<>(advertisementDtoList, HttpStatus.OK);
-    }
+//
+//
+//    @GetMapping("/test")
+//    public ResponseEntity<List<AdvertisementDto>> testAll() {
+//        Pageable pageable = PageRequest.of(0, 10, Sort.by("title"));
+//        LocalDateTime startDate = LocalDateTime.of(2021, 10, 15, 0, 0);
+//        LocalDateTime endDate = LocalDateTime.of(2021, 10, 18, 0, 0);
+//        Page<Advertisement> advertisementList = advertisementService.getAllBetweenHalfOpen(startDate, endDate, pageable);
+//        List<AdvertisementDto> advertisementDtoList = Mapper.convertList(advertisementList.getContent(), mapper::convertAdvertisementToAdvertisementDto);
+//        return new ResponseEntity<>(advertisementDtoList, HttpStatus.OK);
+//    }
+//
+//    @GetMapping("/test2")
+//    public ResponseEntity<List<AdvertisementDto>> testAll2() {
+//        Pageable pageable = PageRequest.of(0, 10, Sort.by("title"));
+//        LocalDateTime startDate = LocalDateTime.of(2021, 10, 15, 0, 0);
+//        LocalDateTime endDate = LocalDateTime.of(2021, 10, 20, 0, 0);
+//        Page<Advertisement> advertisementList = advertisementService.getBetweenHalfOpenOfUser(100006, startDate, endDate, pageable);
+//        List<AdvertisementDto> advertisementDtoList = Mapper.convertList(advertisementList.getContent(), mapper::convertAdvertisementToAdvertisementDto);
+//        return new ResponseEntity<>(advertisementDtoList, HttpStatus.OK);
+//    }
 
 
 }
