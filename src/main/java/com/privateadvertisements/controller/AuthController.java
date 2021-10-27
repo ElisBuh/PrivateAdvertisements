@@ -7,6 +7,8 @@ import com.privateadvertisements.model.dto.UserNewDto;
 import com.privateadvertisements.util.Mapper;
 import com.privateadvertisements.util.jwt.JwtProvider;
 import com.privateadvertisements.util.jwt.JwtResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/")
 public class AuthController {
+    private static final Logger log = LoggerFactory.getLogger(AuthController.class);
 
     private final IUserService userService;
     private final JwtProvider jwtProvider;
@@ -29,6 +32,7 @@ public class AuthController {
 
     @PostMapping("/registration")
     public ResponseEntity<?> registerUser(@RequestBody UserNewDto userNewDto) {
+        log.info("create new user with login: {}", userNewDto.getLogin());
         User user = new User();
         user.setPasswords(userNewDto.getPasswords());
         user.setLogin(userNewDto.getLogin());
@@ -38,6 +42,7 @@ public class AuthController {
 
     @PostMapping("/auth")
     public ResponseEntity<JwtResponse> auth(@RequestBody UserNewDto userNewDto) {
+        log.info("Auntification user: {}", userNewDto.getLogin());
         User user = userService.findByUserLoginAndPassword(userNewDto.getLogin(), userNewDto.getPasswords());
         String token = jwtProvider.generateToken(user.getLogin());
         return new ResponseEntity<>(new JwtResponse(token), HttpStatus.OK);

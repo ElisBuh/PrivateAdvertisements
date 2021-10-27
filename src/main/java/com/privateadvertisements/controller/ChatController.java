@@ -34,30 +34,33 @@ public class ChatController {
         this.chatService = chatService;
     }
 
+    @PostMapping("/")
+    public ResponseEntity<?> create(@RequestBody ChatDto chatDto) {
+        log.info("create chat between: {}", chatDto);
+        chatService.creat(chatDto.getUserId());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<ChatDto> read(@PathVariable(name = "id") Integer id) {
-        log.info("read");
+        log.info("Read chat: {}", id);
         Chat chat = chatService.get(id);
         ChatDto chatDto = mapper.convertChatToChatDto(chat);
         return new ResponseEntity<>(chatDto, HttpStatus.OK);
     }
 
-    @PostMapping("/")
-    public ResponseEntity<?> creat(@RequestBody ChatDto chatDto) {
-        chatService.creat(chatDto.getUserId());
-
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable(name = "id") Integer id) {
+        log.info("delete chat: {}", id);
         chatService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<ChatDto>> getAll(@RequestParam(name = "id") Integer id) {
-        List<Chat> chatList = chatService.getAll(id);
+    public ResponseEntity<List<ChatDto>> getAll(@RequestParam(name = "userId") Integer userId) {
+        log.info("getAll chat by userId: {}", userId);
+        List<Chat> chatList = chatService.getAll(userId);
         List<ChatDto> chatDtoList = Mapper.convertList(chatList, mapper::convertChatToChatDto);
         return new ResponseEntity<>(chatDtoList, HttpStatus.OK);
     }
@@ -65,9 +68,8 @@ public class ChatController {
     @PostMapping("/{id}")
     public ResponseEntity<?> addMessage(@PathVariable(name = "id") Integer idChat,
                                         @RequestBody MessagesDto messagesDto) {
-
+        log.info("addMessage to chat id: {} by userId: {}", idChat, messagesDto.getIdUser());
         chatService.addMessage(messagesDto.getIdUser(), idChat, messagesDto.getContent());
-
         return new ResponseEntity<>(HttpStatus.OK);
 
     }

@@ -63,7 +63,7 @@ public class User {
     @Column(name = "date_registered")
     private LocalDateTime dateRegistered;
 
-    @OneToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "address_id")
     @ToString.Exclude
     private Address address;
@@ -72,7 +72,7 @@ public class User {
     @ToString.Exclude
     private List<CreditCard> creditCards;
 
-    @OneToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "personal_info_id")
     @ToString.Exclude
     private PersonalUserInfo personalUserInfo;

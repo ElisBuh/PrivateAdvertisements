@@ -5,14 +5,11 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.privateadvertisements.model.StatusAd;
 import com.privateadvertisements.util.LocalDateDeserializer;
 import com.privateadvertisements.util.LocalDateSerializer;
-import com.privateadvertisements.util.LocalDateTimeDeserializer;
-import com.privateadvertisements.util.LocalDateTimeSerializer;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Data

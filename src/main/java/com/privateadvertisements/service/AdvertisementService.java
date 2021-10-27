@@ -139,6 +139,11 @@ public class AdvertisementService implements IAdvertisementService {
         }
     }
 
+    public List<Comment> readCommentsOfAd(Integer adId) {
+        log.info("readCommentsOfAd id: {}", adId);
+        return commentRepository.getAllCommentByAd(adId);
+    }
+
     @Override
     public void topUpAdvertisement(Integer id, int day) {
         try {
@@ -203,8 +208,8 @@ public class AdvertisementService implements IAdvertisementService {
         for (Advertisement a : advertisementList) {
             if (a.getStatusAd().equals(StatusAd.SOLD) || a.getStatusAd().equals(StatusAd.OVERDUE)) {
                 all++;
-                if (a.getStatusAd().equals(StatusAd.OVERDUE)){
-                overdue++;
+                if (a.getStatusAd().equals(StatusAd.OVERDUE)) {
+                    overdue++;
                 }
             }
         }
