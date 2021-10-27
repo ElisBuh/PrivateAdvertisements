@@ -73,4 +73,21 @@ public class ChatController {
         return new ResponseEntity<>(HttpStatus.OK);
 
     }
+
+    @PostMapping("/{id}/{idMessage}")
+    public ResponseEntity<?> editMessage(@PathVariable(name = "id") Integer idChat,
+                                         @PathVariable(name = "idMessage") Integer idMessage,
+                                         @RequestBody MessagesDto messagesDto) {
+        log.info("editMessage id: {}", idMessage);
+        chatService.editMessage(idMessage, messagesDto.getIdUser(), idChat, messagesDto.getContent());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}/{idMessage}")
+    public ResponseEntity<?> deleteMessage(@PathVariable(name = "id") Integer idChat,
+                                           @PathVariable(name = "idMessage") Integer idMessage) {
+        log.info("deleteMessage id: {}", idMessage);
+        chatService.deleteMessage(idMessage);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

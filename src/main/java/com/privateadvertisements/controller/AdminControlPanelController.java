@@ -66,8 +66,8 @@ public class AdminControlPanelController {
         return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
 
-    @GetMapping("/{login}")
-    public ResponseEntity<UserDto> findByUserLogin(@PathVariable(name = "login") String login) {
+    @GetMapping("/find")
+    public ResponseEntity<UserDto> findByUserLogin(@RequestParam(name = "login") String login) {
         log.info("get user: {}", login);
         User user = userService.findByUserLogin(login);
         UserDto userDto = mapper.convertUserToUserDto(user);
@@ -90,7 +90,8 @@ public class AdminControlPanelController {
         log.info("get all users");
         Pageable pageable = PageRequest.of(page, size, Sort.by(sort));
         Page<User> userPage = userService.getAllPagesAndSort(pageable);
-        List<UserDto> userDtoList = Mapper.convertList(userPage.getContent(), mapper::convertUserToUserDto);
+        List<User> userList = userPage.getContent();
+        List<UserDto> userDtoList = Mapper.convertList(userList, mapper::convertUserToUserDto);
         return new ResponseEntity<>(userDtoList, HttpStatus.OK);
     }
 

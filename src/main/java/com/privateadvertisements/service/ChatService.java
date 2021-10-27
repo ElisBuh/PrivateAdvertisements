@@ -5,6 +5,7 @@ import com.privateadvertisements.api.repository.CrudMessages;
 import com.privateadvertisements.api.repository.CrudUser;
 import com.privateadvertisements.api.service.IChatService;
 import com.privateadvertisements.exception.NotEntityException;
+import com.privateadvertisements.exception.ServiceException;
 import com.privateadvertisements.model.Chat;
 import com.privateadvertisements.model.Messages;
 import com.privateadvertisements.model.User;
@@ -124,10 +125,13 @@ public class ChatService implements IChatService {
     }
 
     @Override
-    public Messages editMessage(Integer idMessage, String content) {
+    public Messages editMessage(Integer idMessage, Integer idUser, Integer idChat, String content) {
         try {
             log.info("editMessage id: {}", idMessage);
             Messages messages = messagesRepository.getById(idMessage);
+            if (!messages.getChat().getId().equals(idChat) || !messages.getUser().getId().equals(idUser)) {
+                throw new ServiceException("сообщение не принадлежит user");
+            }
             messages.setContent(content);
             return messagesRepository.save(messages);
         } catch (EntityNotFoundException e) {

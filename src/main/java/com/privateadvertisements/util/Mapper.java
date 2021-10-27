@@ -50,8 +50,12 @@ public class Mapper {
         UserDto userDto = modelMapper.map(user, UserDto.class);
         Set<RoleDto> roleDtoSet = convertSet(user.getRoles(), this::convertRoleToRoleDto);
         userDto.setRoles(roleDtoSet);
-        userDto.setPersonalUserInfoDto(convertPersonalUserInfoToPersonalUserIndoDTO(user.getPersonalUserInfo()));
-        userDto.setAddressDto(convertAddressToAddressDto(user.getAddress()));
+        if (user.getPersonalUserInfo() != null) {
+            userDto.setPersonalUserInfoDto(convertPersonalUserInfoToPersonalUserIndoDTO(user.getPersonalUserInfo()));
+        }
+        if (user.getAddress() != null) {
+            userDto.setAddressDto(convertAddressToAddressDto(user.getAddress()));
+        }
         userDto.setCreditCardsDto(convertList(user.getCreditCards(), this::convertCreditCardToCreditCardDto));
         userDto.setAdvertisementDtoList(convertList(user.getAdvertisements(), this::convertAdvertisementToAdvertisementDto));
         userDto.setCommentDtoList(convertList(user.getComments(), this::convertCommentToConvertDto));
@@ -148,6 +152,10 @@ public class Mapper {
 
     public MessagesDto convertMessageToMessageDto(Messages messages) {
         return modelMapper.map(messages, MessagesDto.class);
+    }
+
+    public Messages convertMessageDtoToMessage(MessagesDto messagesDto) {
+        return modelMapper.map(messagesDto, Messages.class);
     }
 
 

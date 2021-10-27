@@ -15,7 +15,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {
         response.setContentType("application/json");
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        response.getOutputStream().println("{ \"error\": \"" + "1111authenticationException.getMessage()" + "\" }");
+        response.getOutputStream().println("{ \"error\": \"" + "User did not authentication" + "\" }");
 
     }
 }

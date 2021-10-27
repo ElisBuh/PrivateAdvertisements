@@ -31,7 +31,6 @@ public class CustomUserDetails implements UserDetails {
         for (Role role : user.getRoles()) {
             userDetails.grantedAuthorities = Collections.singletonList((new SimpleGrantedAuthority(role.getName())));
         }
-//        userDetails.grantedAuthorities = Collections.singletonList(new SimpleGrantedAuthority(user.getRoles()..getNameRole()));
         return userDetails;
     }
 

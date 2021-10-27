@@ -17,7 +17,7 @@ public interface IChatService {
 
     void deleteMessage(Integer idMessage);
 
-    Messages editMessage(Integer idMessage, String content);
+    Messages editMessage(Integer idMessage, Integer idUser, Integer idChat, String content);
 
     List<Chat> getAll(Integer userId);
 

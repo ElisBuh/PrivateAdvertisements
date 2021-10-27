@@ -243,7 +243,7 @@ public class UserService implements IUserService {
     @Override
     @Transactional(readOnly = true)
     public Page<User> getAllPagesAndSort(Pageable pageable) {
-        log.info("getAll pageNumber: {}", pageable.getPageNumber());
+        log.info("getAll pageNumber: {}", pageable);
         return userRepository.findAll(pageable);
     }
 

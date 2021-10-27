@@ -34,7 +34,7 @@ public class JwtFilter extends GenericFilterBean {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        log.info("do filter");
+        log.info("Do filter");
         String token = getTokenFromRequest((HttpServletRequest) request);
         if (token != null && jwtProvider.validateToken(token)) {
             String userLogin = jwtProvider.getLoginFromToken(token);
