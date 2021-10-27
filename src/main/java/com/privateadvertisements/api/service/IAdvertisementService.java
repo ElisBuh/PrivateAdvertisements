@@ -5,6 +5,7 @@ import com.privateadvertisements.model.Comment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public interface IAdvertisementService {
 
     List<Advertisement> getAllPagesAndSort(Pageable pageable);
 
-    Page<Advertisement> getAllBetweenHalfOpen(LocalDateTime startDate, LocalDateTime endDate, Pageable pageable);
+    Page<Advertisement> getAllBetweenHalfOpen(LocalDate startDate, LocalDate endDate, Pageable pageable);
 
-    Page<Advertisement> getBetweenHalfOpenOfUser(Integer userId, LocalDateTime startDate, LocalDateTime endDate, Pageable pageable);
+    Page<Advertisement> getBetweenHalfOpenOfUser(Integer userId, LocalDate startDate, LocalDate endDate, Pageable pageable);
 }

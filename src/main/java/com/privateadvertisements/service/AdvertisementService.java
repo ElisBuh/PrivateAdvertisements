@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -57,8 +58,8 @@ public class AdvertisementService implements IAdvertisementService {
             advertisement.setUser(user);
             Category category = categoryRepository.getByCategory(nameCategory);
             advertisement.setCategory(category);
-            advertisement.setDatePublication(LocalDateTime.now());
-            advertisement.setDatePublicationOff(LocalDateTime.now().plusMonths(3));
+            advertisement.setDatePublication(LocalDate.now());
+            advertisement.setDatePublicationOff(LocalDate.now().plusMonths(3));
             advertisement.setStatusAd(StatusAd.NEW);
             advertisement.setTopRating(false);
             return advertisementRepository.save(advertisement);
@@ -170,14 +171,14 @@ public class AdvertisementService implements IAdvertisementService {
 
     @Override
     @Transactional(readOnly = true)
-    public Page<Advertisement> getAllBetweenHalfOpen(LocalDateTime startDate, LocalDateTime endDate, Pageable pageable) {
+    public Page<Advertisement> getAllBetweenHalfOpen(LocalDate startDate, LocalDate endDate, Pageable pageable) {
         log.info("dateStart: {}, dateEnd: {}", startDate, endDate);
         return advertisementRepository.getAllBetweenHalfOpen(startDate, endDate, pageable);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Page<Advertisement> getBetweenHalfOpenOfUser(Integer userId, LocalDateTime startDate, LocalDateTime endDate, Pageable pageable) {
+    public Page<Advertisement> getBetweenHalfOpenOfUser(Integer userId, LocalDate startDate, LocalDate endDate, Pageable pageable) {
         log.info("GetAll by userId: {}", userId);
         return advertisementRepository.getBetweenHalfOpenOfUser(startDate, endDate, userId, pageable);
     }
@@ -220,7 +221,7 @@ public class AdvertisementService implements IAdvertisementService {
         List<Advertisement> advertisementList = advertisementRepository.findAll();
         for (Advertisement advertisement : advertisementList) {
             if (advertisement.getDatePublicationOff() != null) {
-                if (advertisement.getDatePublicationOff().isBefore(LocalDateTime.now()) & advertisement.getStatusAd().equals(StatusAd.NEW)) {
+                if (advertisement.getDatePublicationOff().isBefore(LocalDate.now()) & advertisement.getStatusAd().equals(StatusAd.NEW)) {
                     log.info("change status Ad {}, on {}", advertisement.getId(), StatusAd.OVERDUE);
                     advertisement.setStatusAd(StatusAd.OVERDUE);
                     advertisementRepository.save(advertisement);

@@ -8,16 +8,17 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
 public interface CrudAdvertisement extends JpaRepository<Advertisement, Integer> {
 
     @Query("SELECT a from Advertisement a WHERE a.user.id=:userId AND a.datePublication >= :startDate AND a.datePublication < :endDate ORDER BY a.datePublication DESC")
-    Page<Advertisement> getBetweenHalfOpenOfUser(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate, @Param("userId") int userId, Pageable pageable);
+    Page<Advertisement> getBetweenHalfOpenOfUser(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate, @Param("userId") int userId, Pageable pageable);
 
     @Query("SELECT a from Advertisement a WHERE a.datePublication >= :startDate AND a.datePublication < :endDate ORDER BY a.datePublication DESC")
-    Page<Advertisement> getAllBetweenHalfOpen(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate, Pageable pageable);
+    Page<Advertisement> getAllBetweenHalfOpen(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate, Pageable pageable);
 
     @Query("SELECT a from Advertisement a WHERE a.user.id=:userId")
     List<Advertisement> getAllByUserId(@Param("userId") int userId);

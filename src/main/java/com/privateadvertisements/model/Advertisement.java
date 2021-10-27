@@ -21,6 +21,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -62,10 +63,10 @@ public class Advertisement {
     private BigDecimal cost;
 
     @Column(name = "date_publication")
-    private LocalDateTime datePublication;
+    private LocalDate datePublication;
 
     @Column(name = "date_publication_off")
-    private LocalDateTime datePublicationOff;
+    private LocalDate datePublicationOff;
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)

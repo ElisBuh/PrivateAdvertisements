@@ -9,6 +9,7 @@ import com.privateadvertisements.model.dto.AdvertisementNewDto;
 import com.privateadvertisements.model.dto.CommentDto;
 import com.privateadvertisements.model.dto.PhotographDto;
 import com.privateadvertisements.model.dto.PhotographNewDto;
+import com.privateadvertisements.util.DateTimeUtil;
 import com.privateadvertisements.util.Mapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -90,10 +91,24 @@ public class AdvertisementController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<AdvertisementDto>> readAll() {
-        Pageable pageable = PageRequest.of(0, 10, Sort.by("title"));
-        List<Advertisement> page = advertisementService.getAllPagesAndSort(pageable);
-        List<AdvertisementDto> advertisementDtoList = Mapper.convertList(page, mapper::convertAdvertisementToAdvertisementDto);
+    public ResponseEntity<List<AdvertisementDto>> readAll(@RequestParam(name = "page", defaultValue = "0") Integer page,
+                                                          @RequestParam(name = "size", defaultValue = "10") Integer size,
+                                                          @RequestParam(name = "sort", defaultValue = "title") String sort,
+                                                          @RequestParam(name = "dateStart", defaultValue = "31.01.1000") String starDate,
+                                                          @RequestParam(name = "dateEnd", defaultValue = "31.01.3000") String endDate,
+                                                          @RequestParam(name = "idUser", defaultValue = "0") Integer userId) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sort));
+        List<Advertisement> advertisementList;
+        if (!userId.equals(0)) {
+            advertisementList = advertisementService.getBetweenHalfOpenOfUser(userId, DateTimeUtil.stringToLocalDate(starDate),
+                    DateTimeUtil.stringToLocalDate(endDate),
+                    pageable).getContent();
+        } else {
+            advertisementList = advertisementService.getAllBetweenHalfOpen(DateTimeUtil.stringToLocalDate(starDate),
+                    DateTimeUtil.stringToLocalDate(endDate),
+                    pageable).getContent();
+        }
+        List<AdvertisementDto> advertisementDtoList = Mapper.convertList(advertisementList, mapper::convertAdvertisementToAdvertisementDto);
         return new ResponseEntity<>(advertisementDtoList, HttpStatus.OK);
     }
 
@@ -111,27 +126,6 @@ public class AdvertisementController {
         advertisementService.addPhoto(id, photographNewDto.getPaths());
         return new ResponseEntity<>(HttpStatus.OK);
     }
-//
-//
-//    @GetMapping("/test")
-//    public ResponseEntity<List<AdvertisementDto>> testAll() {
-//        Pageable pageable = PageRequest.of(0, 10, Sort.by("title"));
-//        LocalDateTime startDate = LocalDateTime.of(2021, 10, 15, 0, 0);
-//        LocalDateTime endDate = LocalDateTime.of(2021, 10, 18, 0, 0);
-//        Page<Advertisement> advertisementList = advertisementService.getAllBetweenHalfOpen(startDate, endDate, pageable);
-//        List<AdvertisementDto> advertisementDtoList = Mapper.convertList(advertisementList.getContent(), mapper::convertAdvertisementToAdvertisementDto);
-//        return new ResponseEntity<>(advertisementDtoList, HttpStatus.OK);
-//    }
-//
-//    @GetMapping("/test2")
-//    public ResponseEntity<List<AdvertisementDto>> testAll2() {
-//        Pageable pageable = PageRequest.of(0, 10, Sort.by("title"));
-//        LocalDateTime startDate = LocalDateTime.of(2021, 10, 15, 0, 0);
-//        LocalDateTime endDate = LocalDateTime.of(2021, 10, 20, 0, 0);
-//        Page<Advertisement> advertisementList = advertisementService.getBetweenHalfOpenOfUser(100006, startDate, endDate, pageable);
-//        List<AdvertisementDto> advertisementDtoList = Mapper.convertList(advertisementList.getContent(), mapper::convertAdvertisementToAdvertisementDto);
-//        return new ResponseEntity<>(advertisementDtoList, HttpStatus.OK);
-//    }
 
 
 }
