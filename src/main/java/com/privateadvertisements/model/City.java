@@ -42,6 +42,11 @@ public class City {
 
     }
 
+    public City(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

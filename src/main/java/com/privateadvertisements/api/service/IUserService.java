@@ -13,7 +13,7 @@ public interface IUserService {
 
     User save(User user);
 
-    User updatePasswords(User user);
+    User updatePasswords(Integer id, String password);
 
     void updateRating(Integer id, Integer rating);
 

@@ -61,6 +61,7 @@ public class User {
     private Boolean enabled;
 
     @Column(name = "date_registered")
+    @ToString.Exclude
     private LocalDateTime dateRegistered;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
@@ -77,10 +78,11 @@ public class User {
     @ToString.Exclude
     private PersonalUserInfo personalUserInfo;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "users_chats",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "chat_id"))
+    @ToString.Exclude
     private Set<Chat> chats;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.REMOVE)
@@ -95,16 +97,33 @@ public class User {
     @ToString.Exclude
     private List<Advertisement> advertisements;
 
+    public User(User user) {
+        this.id = user.getId();
+        this.roles = user.getRoles();
+        this.login = user.getLogin();
+        this.passwords = user.passwords;
+        this.rating = user.rating;
+        this.enabled = user.enabled;
+        this.dateRegistered = user.getDateRegistered();
+        this.address = user.getAddress();
+        this.creditCards = user.creditCards;
+        this.personalUserInfo = user.getPersonalUserInfo();
+        this.chats = user.chats;
+        this.messages = user.messages;
+        this.comments = user.comments;
+        this.advertisements = user.advertisements;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(login, user.login) && Objects.equals(passwords, user.passwords) && Objects.equals(rating, user.rating) && Objects.equals(enabled, user.enabled) && Objects.equals(dateRegistered, user.dateRegistered) && Objects.equals(address, user.address) && Objects.equals(personalUserInfo, user.personalUserInfo);
+        return Objects.equals(id, user.id) && Objects.equals(roles, user.roles) && Objects.equals(login, user.login) && Objects.equals(passwords, user.passwords) && Objects.equals(rating, user.rating) && Objects.equals(enabled, user.enabled);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, login, passwords, rating, enabled, dateRegistered, address, personalUserInfo);
+        return Objects.hash(id, login, passwords, rating, enabled, address, personalUserInfo);
     }
 }

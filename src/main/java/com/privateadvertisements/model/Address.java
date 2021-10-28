@@ -30,12 +30,12 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "country_id", nullable = false)
     @ToString.Exclude
     private Country country;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "city_id", nullable = false)
     @ToString.Exclude
     private City city;
@@ -56,12 +56,21 @@ public class Address {
 
     }
 
+    public Address(Country country, City city, Integer postIndex, String street, Integer numHouse, Integer numFlat) {
+        this.country = country;
+        this.city = city;
+        this.postIndex = postIndex;
+        this.street = street;
+        this.numHouse = numHouse;
+        this.numFlat = numFlat;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Address address = (Address) o;
-        return Objects.equals(id, address.id) && Objects.equals(country, address.country) && Objects.equals(city, address.city) && Objects.equals(postIndex, address.postIndex) && Objects.equals(street, address.street) && Objects.equals(numHouse, address.numHouse) && Objects.equals(numFlat, address.numFlat);
+        return Objects.equals(id, address.id) && Objects.equals(postIndex, address.postIndex) && Objects.equals(street, address.street) && Objects.equals(numHouse, address.numHouse) && Objects.equals(numFlat, address.numFlat);
     }
 
     @Override

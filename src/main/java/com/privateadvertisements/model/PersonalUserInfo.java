@@ -51,6 +51,14 @@ public class PersonalUserInfo {
 
     }
 
+    public PersonalUserInfo(String fistName, String lastName, LocalDate birthday, Integer numberPhone, Sex sex) {
+        this.fistName = fistName;
+        this.lastName = lastName;
+        this.birthday = birthday;
+        this.numberPhone = numberPhone;
+        this.sex = sex;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

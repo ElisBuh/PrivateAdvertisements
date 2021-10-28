@@ -80,10 +80,10 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User updatePasswords(User user) {
-        log.info("update password user: {}", user.getLogin());
-        User userUpdate = userRepository.getByLogin(user.getLogin());
-        userUpdate.setPasswords(passwordEncoder.encode(user.getPasswords()));
+    public User updatePasswords(Integer id, String password) {
+        log.info("update password user: {}", id);
+        User userUpdate = userRepository.getById(id);
+        userUpdate.setPasswords(passwordEncoder.encode(password));
         return userRepository.save(userUpdate);
     }
 

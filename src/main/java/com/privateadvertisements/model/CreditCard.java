@@ -50,6 +50,12 @@ public class CreditCard {
 
     }
 
+    public CreditCard(Integer id, TypeCreditCard typeCreditCard, BigDecimal number) {
+        this.id = id;
+        this.typeCreditCard = typeCreditCard;
+        this.number = number;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

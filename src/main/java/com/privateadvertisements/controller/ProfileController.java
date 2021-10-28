@@ -36,9 +36,7 @@ public class ProfileController {
     public ResponseEntity<?> updatePasswords(@PathVariable(name = "id") Integer id,
                                              @RequestBody String password) {
         log.info("updatePasswords idUser{}", id);
-        User user = userService.get(id);
-        user.setPasswords(password);
-        userService.updatePasswords(user);
+        userService.updatePasswords(id, password);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

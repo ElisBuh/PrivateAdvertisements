@@ -51,6 +51,13 @@ public class Comment {
 
     }
 
+    public Comment(Integer id, User user, String content, LocalDateTime dateCreate) {
+        this.id = id;
+        this.user = user;
+        this.content = content;
+        this.dateCreate = dateCreate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
