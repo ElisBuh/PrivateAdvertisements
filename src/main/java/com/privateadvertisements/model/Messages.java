@@ -45,6 +45,7 @@ public class Messages {
     private String content;
 
     @Column(name = "date_create")
+    @ToString.Exclude
     private LocalDateTime dateCreate;
 
     public Messages() {
@@ -56,11 +57,11 @@ public class Messages {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Messages messages = (Messages) o;
-        return Objects.equals(id, messages.id) && Objects.equals(user, messages.user) && Objects.equals(chat, messages.chat) && Objects.equals(content, messages.content) && Objects.equals(dateCreate, messages.dateCreate);
+        return Objects.equals(id, messages.id) && Objects.equals(user, messages.user) && Objects.equals(content, messages.content);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, user, chat, content, dateCreate);
+        return Objects.hash(id, user, content);
     }
 }

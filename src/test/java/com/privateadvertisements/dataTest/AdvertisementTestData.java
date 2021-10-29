@@ -2,7 +2,6 @@ package com.privateadvertisements.dataTest;
 
 import com.privateadvertisements.model.Advertisement;
 import com.privateadvertisements.model.StatusAd;
-import org.hibernate.type.LocalDateType;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -15,7 +14,7 @@ public class AdvertisementTestData {
             "Ноутбук",
             "Хороший ноутбук, черный",
             new BigDecimal("1268.25"),
-            LocalDate.of(2021,10,12),
+            LocalDate.of(2021, 10, 12),
             null,
             StatusAd.NEW,
             false,
@@ -29,7 +28,7 @@ public class AdvertisementTestData {
             "Война и Мир",
             "Интересное чтиво",
             new BigDecimal("10.18"),
-            LocalDate.of(2021,10,12),
+            LocalDate.of(2021, 10, 12),
             null,
             StatusAd.NEW,
             false,
@@ -42,7 +41,7 @@ public class AdvertisementTestData {
             "Test",
             "Test2",
             new BigDecimal("10.18"),
-            LocalDate.of(2021,10,12),
+            LocalDate.of(2021, 10, 12),
             null,
             StatusAd.NEW,
             false,
@@ -54,12 +53,12 @@ public class AdvertisementTestData {
             "НоутбукTest",
             "Хороший ноутбук, черный",
             new BigDecimal("1268.25"),
-            LocalDate.of(2021,10,12),
+            LocalDate.of(2021, 10, 12),
             null,
             StatusAd.NEW,
             false,
             null,
             List.of(PhotographTestData.PHOTOGRAPH_1, PhotographTestData.PHOTOGRAPH_3));
 
-    public static final List<Advertisement> ADVERTISEMENT_LIST = List.of(ADVERTISEMENT_2,ADVERTISEMENT_1);
+    public static final List<Advertisement> ADVERTISEMENT_LIST = List.of(ADVERTISEMENT_2, ADVERTISEMENT_1);
 }

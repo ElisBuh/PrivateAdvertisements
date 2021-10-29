@@ -58,7 +58,7 @@ public class IUserServiceTest {
         User user = userService.get(100006);
         User userUpdate = new User(USER_1);
         userUpdate.setRating(50);
-        assertEquals(userUpdate,user);
+        assertEquals(userUpdate, user);
     }
 
     @Test
@@ -67,13 +67,13 @@ public class IUserServiceTest {
         User user = userService.get(100006);
         User userUpdate = new User(USER_1);
         userUpdate.setEnabled(false);
-        assertEquals(userUpdate,user);
+        assertEquals(userUpdate, user);
     }
 
     @Test
     public void delete() {
         userService.delete(100006);
-        assertThrows(NotEntityException.class,()->userService.get(100006));
+        assertThrows(NotEntityException.class, () -> userService.get(100006));
     }
 
     @Test
@@ -99,29 +99,29 @@ public class IUserServiceTest {
         User user = userService.changeRole(100006, "ROLE_USER");
         User userUpdate = new User(USER_1);
         userUpdate.setRoles(Set.of(ROLE_ADMIN, ROLE_USER));
-        assertEquals(userUpdate.getRoles(),user.getRoles());
+        assertEquals(userUpdate.getRoles(), user.getRoles());
     }
 
     @Test
     public void changeAddress() {
-        User user = userService.changeAddress(NEW_ADDRESS,100006);
+        User user = userService.changeAddress(NEW_ADDRESS, 100006);
         User userUpdate = new User(USER_1);
         userUpdate.setAddress(NEW_ADDRESS);
-        assertEquals(userUpdate.getAddress().toString(),user.getAddress().toString());
+        assertEquals(userUpdate.getAddress().toString(), user.getAddress().toString());
     }
 
     @Test
     public void changePersonalInfo() {
-        User user = userService.changePersonalInfo(NEW_PERSONAL_USER_INFO,100006);
+        User user = userService.changePersonalInfo(NEW_PERSONAL_USER_INFO, 100006);
         User userUpdate = new User(USER_1);
         userUpdate.setPersonalUserInfo(NEW_PERSONAL_USER_INFO);
-        assertEquals(userUpdate.getPersonalUserInfo().toString(),user.getPersonalUserInfo().toString());
+        assertEquals(userUpdate.getPersonalUserInfo().toString(), user.getPersonalUserInfo().toString());
     }
 
     @Test
     public void changeCreditCard() {
         CreditCard creditCard = userService.changeCreditCard(100006, NEW_CREDIT_CARD);
-        assertEquals(NEW_CREDIT_CARD,creditCard);
+        assertEquals(NEW_CREDIT_CARD, creditCard);
     }
 
     @Test
@@ -134,7 +134,7 @@ public class IUserServiceTest {
     @Test
     public void getAll() {
         List<User> userList = userService.getAll();
-        assertEquals(USER_LIST_ALL,userList);
+        assertEquals(USER_LIST_ALL, userList);
     }
 
     @Test

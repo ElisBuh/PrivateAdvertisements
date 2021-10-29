@@ -1,15 +1,9 @@
 package com.privateadvertisements.api.service;
 
-import com.privateadvertisements.dataTest.AdvertisementTestData;
-import com.privateadvertisements.dataTest.CommentTestData;
-import com.privateadvertisements.dataTest.PhotographTestData;
 import com.privateadvertisements.exception.NotEntityException;
 import com.privateadvertisements.model.Advertisement;
 import com.privateadvertisements.model.Comment;
-import com.privateadvertisements.model.Photograph;
-import org.apache.catalina.LifecycleState;
 import org.junit.Test;
-//import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -28,9 +22,13 @@ import static com.privateadvertisements.dataTest.AdvertisementTestData.ADVERTISE
 import static com.privateadvertisements.dataTest.AdvertisementTestData.ADVERTISEMENT_LIST;
 import static com.privateadvertisements.dataTest.AdvertisementTestData.NEW_ADVERTISEMENT;
 import static com.privateadvertisements.dataTest.AdvertisementTestData.UPDATE_ADVERTISEMENT;
-import static com.privateadvertisements.dataTest.CommentTestData.*;
-import static com.privateadvertisements.dataTest.PhotographTestData.*;
-import static org.junit.Assert.*;
+import static com.privateadvertisements.dataTest.CommentTestData.COMMENT_LIST_AD_1;
+import static com.privateadvertisements.dataTest.CommentTestData.NEW_COMMENT;
+import static com.privateadvertisements.dataTest.PhotographTestData.NEW_PHOTOGRAPH;
+import static com.privateadvertisements.dataTest.PhotographTestData.PHOTOGRAPH_1;
+import static com.privateadvertisements.dataTest.PhotographTestData.PHOTOGRAPH_3;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 
 
 @RunWith(SpringRunner.class)
@@ -46,20 +44,20 @@ public class IAdvertisementServiceTest {
 
     @Test
     public void save() {
-        Advertisement advertisement = advertisementService.save(NEW_ADVERTISEMENT,100006, "Книги");
+        Advertisement advertisement = advertisementService.save(NEW_ADVERTISEMENT, 100006, "Книги");
         assertEquals(NEW_ADVERTISEMENT, advertisement);
     }
 
     @Test
     public void update() {
-        Advertisement advertisement = advertisementService.update(UPDATE_ADVERTISEMENT,100002);
+        Advertisement advertisement = advertisementService.update(UPDATE_ADVERTISEMENT, 100002);
         assertEquals(UPDATE_ADVERTISEMENT, advertisement);
     }
 
     @Test
     public void delete() {
-        advertisementService.delete(100002,100006);
-        assertThrows(NotEntityException.class,()->advertisementService.get(100002));
+        advertisementService.delete(100002, 100006);
+        assertThrows(NotEntityException.class, () -> advertisementService.get(100002));
     }
 
     @Test
@@ -76,7 +74,7 @@ public class IAdvertisementServiceTest {
 
     @Test
     public void topUpAdvertisement() {
-        advertisementService.topUpAdvertisement(100002,5);
+        advertisementService.topUpAdvertisement(100002, 5);
         Advertisement advertisement = advertisementService.get(100002);
         Advertisement advertisementUpdate = new Advertisement(ADVERTISEMENT_1);
         advertisementUpdate.setDateTopOff(LocalDateTime.now().plusDays(5));
@@ -89,13 +87,13 @@ public class IAdvertisementServiceTest {
     public void addPhoto() {
         Advertisement advertisement = advertisementService.addPhoto(100002, "Test");
         Advertisement advertisementUpdate = new Advertisement(ADVERTISEMENT_1);
-        advertisementUpdate.setPhotographs(List.of(PHOTOGRAPH_1,PHOTOGRAPH_3, NEW_PHOTOGRAPH));
+        advertisementUpdate.setPhotographs(List.of(PHOTOGRAPH_1, PHOTOGRAPH_3, NEW_PHOTOGRAPH));
         assertEquals(advertisementUpdate.getPhotographs(), advertisement.getPhotographs());
     }
 
     @Test
     public void addComment() {
-        Comment comment = advertisementService.addComment(NEW_COMMENT,100002,100006);
+        Comment comment = advertisementService.addComment(NEW_COMMENT, 100002, 100006);
         assertEquals(NEW_COMMENT, comment);
     }
 

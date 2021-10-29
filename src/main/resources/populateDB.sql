@@ -1,18 +1,33 @@
-DELETE FROM comments;
-DELETE FROM photographs;
-DELETE FROM advertisements;
-DELETE FROM messages;
-DELETE FROM users_chats;
-DELETE FROM credit_cards;
-DELETE FROM roles_users;
-DELETE FROM roles;
-DELETE FROM addresses;
-DELETE FROM countries;
-DELETE FROM cities;
-DELETE FROM personal_info;
-DELETE FROM users;
-DELETE FROM chats;
-DELETE FROM categories;
+DELETE
+FROM comments;
+DELETE
+FROM photographs;
+DELETE
+FROM advertisements;
+DELETE
+FROM messages;
+DELETE
+FROM users_chats;
+DELETE
+FROM credit_cards;
+DELETE
+FROM roles_users;
+DELETE
+FROM roles;
+DELETE
+FROM addresses;
+DELETE
+FROM countries;
+DELETE
+FROM cities;
+DELETE
+FROM personal_info;
+DELETE
+FROM users;
+DELETE
+FROM chats;
+DELETE
+FROM categories;
 
 
 ALTER SEQUENCE user_seq RESTART WITH 100000;
@@ -37,7 +52,7 @@ VALUES ('Минск'),
        ('Варшава'),
        ('Брест');
 
-INSERT INTO addresses (country_id, city_id, post_index, street,  number_house, number_flat)
+INSERT INTO addresses (country_id, city_id, post_index, street, number_house, number_flat)
 VALUES (100000, 100001, 23001, 'Пушкина', 12, 39),
        (100000, 100003, 23001, 'Ленина', 12, 39),
        (100001, 100002, 23001, 'Смоленская', 12, 39);
@@ -48,12 +63,12 @@ VALUES ('Петр', 'Петров', '1989-01-24', 1002003, 'MALE'),
        ('Анна', 'Малинина', '2003-04-24', 5008009, 'FEMALE');
 
 INSERT INTO users (login, password, rating, address_id, personal_info_id)
-VALUES ('petr@gmail.com','1234',50,100000,100003),
-       ('anna@gmail.com','1234',50,100001,100005);
+VALUES ('petr@gmail.com', '1234', 50, 100000, 100003),
+       ('anna@gmail.com', '1234', 50, 100001, 100005);
 
 INSERT INTO credit_cards (user_id, type, number)
-VALUES (100006,'VISA',4000111122223333),
-       (100007,'MASTERCARD',5000444455556666);
+VALUES (100006, 'VISA', 4000111122223333),
+       (100007, 'MASTERCARD', 5000444455556666);
 
 INSERT INTO roles_users (user_id, role_id)
 VALUES (100006, 100000),

@@ -77,6 +77,18 @@ public class ChatService implements IChatService {
     }
 
     @Override
+    public Messages getMessage(Integer idMessage) {
+        log.info("get chat id: {}", idMessage);
+        Optional<Messages> optionalChat = messagesRepository.findById(idMessage);
+        if (optionalChat.isPresent()) {
+            return optionalChat.get();
+        } else {
+            log.error("Такого id: {} нет", idMessage);
+            throw new NotEntityException("Такого ид нет " + idMessage);
+        }
+    }
+
+    @Override
     public void delete(Integer id) {
         log.info("delete chat id: {}", id);
         if (chatRepository.delete(id) == 0) {

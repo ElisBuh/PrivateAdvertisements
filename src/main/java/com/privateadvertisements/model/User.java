@@ -130,6 +130,20 @@ public class User {
         this.advertisements = advertisements;
     }
 
+    public User(Integer id, Set<Role> roles, String login, String passwords, Integer rating, Boolean enabled, LocalDateTime dateRegistered, Address address, List<CreditCard> creditCards, PersonalUserInfo personalUserInfo, Set<Chat> chats) {
+        this.id = id;
+        this.roles = roles;
+        this.login = login;
+        this.passwords = passwords;
+        this.rating = rating;
+        this.enabled = enabled;
+        this.dateRegistered = dateRegistered;
+        this.address = address;
+        this.creditCards = creditCards;
+        this.personalUserInfo = personalUserInfo;
+        this.chats = chats;
+    }
+
     public User(Integer id, Set<Role> roles, String login, String passwords, Integer rating, Boolean enabled, LocalDateTime dateRegistered, Address address, List<CreditCard> creditCards, PersonalUserInfo personalUserInfo, Set<Chat> chats, List<Messages> messages) {
         this.id = id;
         this.roles = roles;

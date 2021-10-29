@@ -2,12 +2,10 @@ package com.privateadvertisements.dataTest;
 
 import com.privateadvertisements.model.City;
 
-import java.util.List;
-
 public class CityTestData {
 
-    public static final City CITY_1 = new City(100001,"Гродно");
-    public static final City CITY_2 = new City(100003,"Брест");
+    public static final City CITY_1 = new City(100001, "Гродно");
+    public static final City CITY_2 = new City(100003, "Брест");
 
-    public static final City NEW_CITY = new City(100000,"Минск");
+    public static final City NEW_CITY = new City(100000, "Минск");
 }

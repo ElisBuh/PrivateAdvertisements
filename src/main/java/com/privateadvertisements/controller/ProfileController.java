@@ -4,7 +4,6 @@ import com.privateadvertisements.api.service.IUserService;
 import com.privateadvertisements.model.Address;
 import com.privateadvertisements.model.CreditCard;
 import com.privateadvertisements.model.PersonalUserInfo;
-import com.privateadvertisements.model.User;
 import com.privateadvertisements.model.dto.AddressDto;
 import com.privateadvertisements.model.dto.CreditCardDto;
 import com.privateadvertisements.model.dto.PersonalUserInfoDto;

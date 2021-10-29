@@ -1,8 +1,6 @@
 package com.privateadvertisements.dataTest;
 
 import com.privateadvertisements.model.Address;
-import com.privateadvertisements.model.City;
-import com.privateadvertisements.model.Country;
 
 public class AddressDataTest {
 

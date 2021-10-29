@@ -18,8 +18,8 @@ public class UserTestData {
             AddressDataTest.ADDRESS_1,
             List.of(CreditCartDataTest.CREDIT_CARD_1),
             PersonalUserInfoTestData.PERSONAL_USER_INFO_1,
-            Set.of(ChatTestData.CHAT_1),
-            List.of(MessageTestData.MESSAGES_1)
+            Set.of(ChatTestData.CHAT_1)
+//            List.of(MessageTestData.MESSAGES_1)
 //            List.of(CommentTestData.COMMENT_1),
 //            List.of(AdvertisementTestData.ADVERTISEMENT_1)
     );
@@ -34,14 +34,14 @@ public class UserTestData {
             AddressDataTest.ADDRESS_2,
             List.of(CreditCartDataTest.CREDIT_CARD_2),
             PersonalUserInfoTestData.PERSONAL_USER_INFO_2,
-            Set.of(ChatTestData.CHAT_1),
-            List.of(MessageTestData.MESSAGES_2)
+            Set.of(ChatTestData.CHAT_1)
+//            List.of(MessageTestData.MESSAGES_2)
 //            List.of(CommentTestData.COMMENT_2),
 //            List.of(AdvertisementTestData.ADVERTISEMENT_2)
     );
 
 
-    public static final List<User> USER_LIST_PAGEABLE = List.of(USER_2,USER_1);
+    public static final List<User> USER_LIST_PAGEABLE = List.of(USER_2, USER_1);
     public static final List<User> USER_LIST_ALL = List.of(USER_1, USER_2);
 
 }

@@ -77,7 +77,7 @@ CREATE TABLE users
     id               integer   DEFAULT nextval('user_seq'),
     login            text                    NOT NULL,
     password         text                    NOT NULL,
-    rating           integer   DEFAULT 100    NOT NULL,
+    rating           integer   DEFAULT 100   NOT NULL,
     enabled          bool      DEFAULT true  NOT NULL,
     date_registered  timestamp DEFAULT now() NOT NULL,
     address_id       integer,
@@ -156,7 +156,7 @@ CREATE TABLE comments
     content          text    NOT NULL,
     date_publication timestamp DEFAULT now(),
     PRIMARY KEY (id),
-    FOREIGN KEY (ad_id) REFERENCES advertisements (id) ON DELETE CASCADE ,
+    FOREIGN KEY (ad_id) REFERENCES advertisements (id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 
 );
@@ -184,7 +184,7 @@ CREATE TABLE messages
     content     text    NOT NULL,
     date_create timestamp DEFAULT now(),
     PRIMARY KEY (id),
-    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ,
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
     FOREIGN KEY (chat_id) REFERENCES chats (id) ON DELETE CASCADE
 );
 
