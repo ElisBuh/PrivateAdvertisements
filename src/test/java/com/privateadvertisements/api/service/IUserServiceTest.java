@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
@@ -33,8 +34,8 @@ import static org.junit.Assert.assertThrows;
 @SpringBootTest
 @TestPropertySource(
         locations = "classpath:application-integrationTest.properties")
-@Sql(scripts = "classpath:initDB_hsqldb.sql")
-@Sql(scripts = "classpath:populateDB_hsqldb.sql")
+@Sql(scripts = "classpath:initDB_hsqldb.sql", config = @SqlConfig(encoding = "UTF-8"))
+@Sql(scripts = "classpath:populateDB_hsqldb.sql", config = @SqlConfig(encoding = "UTF-8"))
 public class IUserServiceTest {
 
     @Autowired

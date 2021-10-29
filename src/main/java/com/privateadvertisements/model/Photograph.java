@@ -43,16 +43,20 @@ public class Photograph {
 
     }
 
+    public Photograph(String path) {
+        this.path = path;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Photograph that = (Photograph) o;
-        return Objects.equals(id, that.id) && Objects.equals(path, that.path) && Objects.equals(advertisement, that.advertisement);
+        return Objects.equals(id, that.id) && Objects.equals(path, that.path);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, path, advertisement);
+        return Objects.hash(id, path);
     }
 }

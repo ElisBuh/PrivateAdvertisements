@@ -63,6 +63,7 @@ public class Advertisement {
     private BigDecimal cost;
 
     @Column(name = "date_publication")
+    @ToString.Exclude
     private LocalDate datePublication;
 
     @Column(name = "date_publication_off")
@@ -76,9 +77,10 @@ public class Advertisement {
     private Boolean topRating;
 
     @Column(name = "date_top_off")
+    @ToString.Exclude
     private LocalDateTime dateTopOff;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "advertisement", cascade = CascadeType.REMOVE)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "advertisement", cascade = CascadeType.REMOVE)
     @ToString.Exclude
     private List<Photograph> photographs;
 
@@ -86,16 +88,47 @@ public class Advertisement {
 
     }
 
+    public Advertisement(Advertisement advertisement) {
+        this.id = advertisement.getId();
+        this.user = advertisement.getUser();
+        this.comments = advertisement.getComments();
+        this.category = advertisement.getCategory();
+        this.title = advertisement.getTitle();
+        this.content = advertisement.getContent();
+        this.cost = advertisement.getCost();
+        this.datePublication = advertisement.getDatePublication();
+        this.datePublicationOff = advertisement.getDatePublicationOff();
+        this.statusAd = advertisement.getStatusAd();
+        this.topRating = advertisement.getTopRating();
+        this.dateTopOff = advertisement.getDateTopOff();
+        this.photographs = advertisement.getPhotographs();
+    }
+
+    public Advertisement(Integer id, List<Comment> comments, Category category, String title, String content, BigDecimal cost, LocalDate datePublication, LocalDate datePublicationOff, StatusAd statusAd, Boolean topRating, LocalDateTime dateTopOff, List<Photograph> photographs) {
+        this.id = id;
+        this.comments = comments;
+        this.category = category;
+        this.title = title;
+        this.content = content;
+        this.cost = cost;
+        this.datePublication = datePublication;
+        this.datePublicationOff = datePublicationOff;
+        this.statusAd = statusAd;
+        this.topRating = topRating;
+        this.dateTopOff = dateTopOff;
+        this.photographs = photographs;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Advertisement that = (Advertisement) o;
-        return id.equals(that.id) && Objects.equals(user, that.user) && Objects.equals(category, that.category) && Objects.equals(title, that.title) && Objects.equals(content, that.content) && Objects.equals(cost, that.cost) && Objects.equals(datePublication, that.datePublication) && statusAd == that.statusAd;
+        return Objects.equals(id, that.id) && Objects.equals(title, that.title) && Objects.equals(content, that.content) && Objects.equals(cost, that.cost) && statusAd == that.statusAd && Objects.equals(topRating, that.topRating);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, user, category, title, content, cost, datePublication, statusAd);
+        return Objects.hash(id, category, title, content, cost, datePublicationOff, statusAd, topRating, dateTopOff);
     }
 }

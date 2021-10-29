@@ -3,6 +3,7 @@ package com.privateadvertisements.dataTest;
 import com.privateadvertisements.model.Comment;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class CommentTestData {
 
@@ -16,4 +17,10 @@ public class CommentTestData {
             "Супер",
             LocalDateTime.of(2021,10,12,18,46,23));
 
+    public static final Comment NEW_COMMENT = new Comment(100010,
+            UserTestData.USER_1,
+            "Test",
+            LocalDateTime.now());
+
+    public static final List<Comment> COMMENT_LIST_AD_1 = List.of(COMMENT_1);
 }
