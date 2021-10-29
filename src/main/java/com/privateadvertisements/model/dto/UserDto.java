@@ -5,9 +5,13 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.privateadvertisements.util.LocalDateTimeDeserializer;
 import com.privateadvertisements.util.LocalDateTimeSerializer;
+import com.sun.istack.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
@@ -17,12 +21,20 @@ import java.util.Set;
 @NoArgsConstructor
 public class UserDto {
 
+    @Email
+    @NotBlank
     private String login;
+
+    @NotNull
     private Integer id;
+
+
     private Set<RoleDto> roles;
     private Integer rating;
     private Boolean enabled;
     @JsonIgnore
+    @Size(min = 8, max = 20)
+    @NotBlank
     private String passwords;
 
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)

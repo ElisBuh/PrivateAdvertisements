@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Size;
+
 @RestController
 @RequestMapping(value = "/profiles")
 public class ProfileController {
@@ -33,7 +36,7 @@ public class ProfileController {
 
     @PostMapping("/{id}/updatePassword")
     public ResponseEntity<?> updatePasswords(@PathVariable(name = "id") Integer id,
-                                             @RequestBody String password) {
+                                             @RequestBody @Size(min = 8, max = 20) String password) {
         log.info("updatePasswords idUser{}", id);
         userService.updatePasswords(id, password);
         return new ResponseEntity<>(HttpStatus.OK);
@@ -41,7 +44,7 @@ public class ProfileController {
 
     @PostMapping("/{id}/changeAddress")
     public ResponseEntity<?> changeAddress(@PathVariable(name = "id") Integer id,
-                                           @RequestBody AddressDto addressDto) {
+                                           @RequestBody @Valid AddressDto addressDto) {
         log.info("changeAddress idUser{}:", id);
         Address address = mapper.convertAddressDtoToAddress(addressDto);
         userService.changeAddress(address, id);
@@ -50,7 +53,7 @@ public class ProfileController {
 
     @PostMapping("/{id}/changePersonalInfo")
     private ResponseEntity<?> changePersonalInfo(@PathVariable(name = "id") Integer id,
-                                                 @RequestBody PersonalUserInfoDto personalUserInfoDto) {
+                                                 @RequestBody @Valid PersonalUserInfoDto personalUserInfoDto) {
         log.info("changePersonalInfo UserId{}", id);
         PersonalUserInfo personalUserInfo = mapper.convertPersonalUserInfoDtoToPersonalUserInfo(personalUserInfoDto);
         userService.changePersonalInfo(personalUserInfo, id);
@@ -59,7 +62,7 @@ public class ProfileController {
 
     @PostMapping("/{id}/changeCreditCard")
     private ResponseEntity<?> changeCreditCard(@PathVariable(name = "id") Integer id,
-                                               @RequestBody CreditCardDto creditCardDto) {
+                                               @RequestBody @Valid CreditCardDto creditCardDto) {
         log.info("changeCreditCard UserId{}", id);
         CreditCard creditCard = mapper.convertCreditCardDtoToCreditCard(creditCardDto);
         userService.changeCreditCard(id, creditCard);

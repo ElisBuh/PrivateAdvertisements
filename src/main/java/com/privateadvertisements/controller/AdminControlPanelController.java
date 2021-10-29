@@ -20,6 +20,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @RestController
@@ -37,7 +42,7 @@ public class AdminControlPanelController {
 
     @PostMapping("/{id}/updateRating")
     public ResponseEntity<?> updateRating(@PathVariable(name = "id") Integer id,
-                                          @RequestParam(name = "rating") Integer rating) {
+                                          @RequestParam(name = "rating") @Size(min = 1, max = 100) Integer rating) {
         log.info("update rating to UserId: {} on {}", id, rating);
         userService.updateRating(id, rating);
         return new ResponseEntity<>(HttpStatus.OK);
@@ -67,7 +72,7 @@ public class AdminControlPanelController {
     }
 
     @GetMapping("/find")
-    public ResponseEntity<UserDto> findByUserLogin(@RequestParam(name = "login") String login) {
+    public ResponseEntity<UserDto> findByUserLogin(@RequestParam(name = "login") @Email String login) {
         log.info("get user: {}", login);
         User user = userService.findByUserLogin(login);
         UserDto userDto = mapper.convertUserToUserDto(user);
@@ -76,7 +81,7 @@ public class AdminControlPanelController {
 
     @PostMapping("/{id}/changeRole")
     private ResponseEntity<?> changeRole(@PathVariable(name = "id") Integer id,
-                                         @RequestParam(name = "role") String role) {
+                                         @RequestParam(name = "role") @NotBlank String role) {
         log.info("add role to userId: {}, on {}", id, role);
 
         userService.changeRole(id, role);
@@ -84,8 +89,8 @@ public class AdminControlPanelController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<UserDto>> getAllPagesAndSort(@RequestParam(name = "page", defaultValue = "0") Integer page,
-                                                            @RequestParam(name = "size", defaultValue = "10") Integer size,
+    public ResponseEntity<List<UserDto>> getAllPagesAndSort(@RequestParam(name = "page", defaultValue = "0") @Min(0) Integer page,
+                                                            @RequestParam(name = "size", defaultValue = "10") @Max(100) Integer size,
                                                             @RequestParam(name = "sort", defaultValue = "login") String sort) {
         log.info("get all users");
         Pageable pageable = PageRequest.of(page, size, Sort.by(sort));

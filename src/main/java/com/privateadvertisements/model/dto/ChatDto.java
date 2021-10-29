@@ -11,6 +11,7 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ChatDto {
 
+
     private String name;
 
     private List<MessagesDto> messagesDtoList;

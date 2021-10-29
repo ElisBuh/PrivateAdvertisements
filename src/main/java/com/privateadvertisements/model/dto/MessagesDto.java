@@ -8,6 +8,7 @@ import com.privateadvertisements.util.LocalDateTimeSerializer;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 @Data
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class MessagesDto {
 
+    @NotBlank
     private String content;
 
     private Integer idUser;

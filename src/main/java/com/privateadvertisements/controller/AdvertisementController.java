@@ -26,6 +26,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Past;
 import java.util.List;
 
 @RestController
@@ -42,7 +47,7 @@ public class AdvertisementController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<?> create(@RequestBody AdvertisementNewDto advertisementNewDto,
+    public ResponseEntity<?> create(@RequestBody @Valid AdvertisementNewDto advertisementNewDto,
                                     @RequestParam(value = "idUser") Integer userId) {
         log.info("creat adTitle: {}", advertisementNewDto.getTitle());
         Advertisement advertisement = mapper.convertAdvertisementNewDtoToAdvertisement(advertisementNewDto);
@@ -53,7 +58,7 @@ public class AdvertisementController {
 
     @PostMapping(value = "/{id}")
     private ResponseEntity<?> update(@PathVariable(name = "id") Integer id,
-                                     @RequestBody AdvertisementNewDto advertisementNewDto) {
+                                     @RequestBody @Valid AdvertisementNewDto advertisementNewDto) {
         log.info("update adID: {}", id);
         Advertisement advertisement = mapper.convertAdvertisementNewDtoToAdvertisement(advertisementNewDto);
         advertisementService.update(advertisement, id);
@@ -77,7 +82,7 @@ public class AdvertisementController {
     }
 
     @GetMapping("/find")
-    public ResponseEntity<AdvertisementDto> findAdvertisementByTitle(@RequestParam(name = "title") String title) {
+    public ResponseEntity<AdvertisementDto> findAdvertisementByTitle(@RequestParam(name = "title") @NotBlank String title) {
         log.info("Get ad with title: {}", title);
         Advertisement advertisement = advertisementService.findAdvertisementByTitle(title);
         AdvertisementDto advertisementDto = mapper.convertAdvertisementToAdvertisementDto(advertisement);
@@ -86,7 +91,7 @@ public class AdvertisementController {
 
     @PostMapping(value = "/{id}/addComment")
     private ResponseEntity<?> addComment(@PathVariable(name = "id") Integer id,
-                                         @RequestBody CommentDto commentDto,
+                                         @RequestBody @Valid CommentDto commentDto,
                                          @RequestParam(name = "userId") Integer userId) {
         log.info("add Comment to adId: {}", id);
         Comment comment = mapper.convertCommentDtoToConvert(commentDto);
@@ -105,9 +110,9 @@ public class AdvertisementController {
 
     @GetMapping("/")
     public ResponseEntity<List<AdvertisementDto>> readAll(@RequestParam(name = "page", defaultValue = "0") Integer page,
-                                                          @RequestParam(name = "size", defaultValue = "10") Integer size,
+                                                          @RequestParam(name = "size", defaultValue = "10") @Max(100) Integer size,
                                                           @RequestParam(name = "sort", defaultValue = "title") String sort,
-                                                          @RequestParam(name = "dateStart", defaultValue = "31.01.1000") String starDate,
+                                                          @RequestParam(name = "dateStart", defaultValue = "31.01.1000") @Past String starDate,
                                                           @RequestParam(name = "dateEnd", defaultValue = "31.01.3000") String endDate,
                                                           @RequestParam(name = "idUser", defaultValue = "0") Integer userId) {
         log.info("ReadAll ad");
@@ -128,7 +133,7 @@ public class AdvertisementController {
 
     @PostMapping(value = "/{id}/top")
     public ResponseEntity<?> topUpAd(@PathVariable(name = "id") Integer id,
-                                     @RequestParam(name = "day") Integer day) {
+                                     @RequestParam(name = "day") @Min(1) Integer day) {
         log.info("topUpAd {} on day: {}", id, day);
         advertisementService.topUpAdvertisement(id, day);
         return new ResponseEntity<>(HttpStatus.OK);
@@ -137,7 +142,7 @@ public class AdvertisementController {
 
     @PostMapping(value = "/{id}/addPhoto")
     private ResponseEntity<?> addPhoto(@PathVariable(name = "id") Integer id,
-                                       @RequestBody PhotographNewDto photographNewDto) {
+                                       @RequestBody @Valid PhotographNewDto photographNewDto) {
         log.info("Add photo adId: {}", id);
         advertisementService.addPhoto(id, photographNewDto.getPaths());
         return new ResponseEntity<>(HttpStatus.OK);

@@ -67,6 +67,36 @@ public class GlobalJavaExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
     }
 
+
+////    @ResponseBody
+//    @ExceptionHandler(ConstraintViolationException.class)
+////    @ResponseStatus(HttpStatus.BAD_REQUEST)
+//    protected ValidationErrorResponse onConstraintValidationException(
+//            ConstraintViolationException e
+//    ) {
+//        final List<Violation> violations = e.getConstraintViolations().stream()
+//                .map(
+//                        violation -> new Violation(
+//                                violation.getPropertyPath().toString(),
+//                                violation.getMessage()
+//                        )
+//                )
+//                .collect(Collectors.toList());
+//        return new ValidationErrorResponse(violations);
+//    }
+//
+//    @ExceptionHandler(MethodArgumentNotValidException.class)
+////    @ResponseStatus(HttpStatus.BAD_REQUEST)
+////    @ResponseBody
+//    protected ValidationErrorResponse onMethodArgumentNotValidException(
+//            MethodArgumentNotValidException e
+//    ) {
+//        final List<Violation> violations = e.getBindingResult().getFieldErrors().stream()
+//                .map(error -> new Violation(error.getField(), error.getDefaultMessage()))
+//                .collect(Collectors.toList());
+//        return new ValidationErrorResponse(violations);
+//    }
+
     @ExceptionHandler(Exception.class)
     protected ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request) {
         ApiError apiError = new ApiError("Internal Exception", ex.getMessage());

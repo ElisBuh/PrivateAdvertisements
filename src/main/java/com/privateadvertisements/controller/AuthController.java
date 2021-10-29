@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/auth")
 public class AuthController {
@@ -32,7 +34,7 @@ public class AuthController {
     }
 
     @PostMapping("/registration")
-    public ResponseEntity<?> registerUser(@RequestBody UserNewDto userNewDto) {
+    public ResponseEntity<?> registerUser(@Valid @RequestBody UserNewDto userNewDto) {
         log.info("create new user with login: {}", userNewDto.getLogin());
         User user = new User();
         user.setPasswords(userNewDto.getPasswords());
@@ -42,7 +44,7 @@ public class AuthController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<JwtResponse> auth(@RequestBody UserNewDto userNewDto) {
+    public ResponseEntity<JwtResponse> auth(@Valid @RequestBody UserNewDto userNewDto) {
         log.info("Auntification user: {}", userNewDto.getLogin());
         User user = userService.findByUserLoginAndPassword(userNewDto.getLogin(), userNewDto.getPasswords());
         String token = jwtProvider.generateToken(user.getLogin());

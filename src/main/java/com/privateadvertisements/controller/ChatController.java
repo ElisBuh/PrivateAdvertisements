@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -67,7 +68,7 @@ public class ChatController {
 
     @PostMapping("/{id}")
     public ResponseEntity<?> addMessage(@PathVariable(name = "id") Integer idChat,
-                                        @RequestBody MessagesDto messagesDto) {
+                                        @RequestBody @Valid MessagesDto messagesDto) {
         log.info("addMessage to chat id: {} by userId: {}", idChat, messagesDto.getIdUser());
         chatService.addMessage(messagesDto.getIdUser(), idChat, messagesDto.getContent());
         return new ResponseEntity<>(HttpStatus.OK);
@@ -77,7 +78,7 @@ public class ChatController {
     @PostMapping("/{id}/{idMessage}")
     public ResponseEntity<?> editMessage(@PathVariable(name = "id") Integer idChat,
                                          @PathVariable(name = "idMessage") Integer idMessage,
-                                         @RequestBody MessagesDto messagesDto) {
+                                         @RequestBody @Valid MessagesDto messagesDto) {
         log.info("editMessage id: {}", idMessage);
         chatService.editMessage(idMessage, messagesDto.getIdUser(), idChat, messagesDto.getContent());
         return new ResponseEntity<>(HttpStatus.OK);
