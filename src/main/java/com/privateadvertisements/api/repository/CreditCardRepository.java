@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.math.BigDecimal;
 
-public interface CrudCreditCard extends JpaRepository<CreditCard, Integer> {
+public interface CreditCardRepository extends JpaRepository<CreditCard, Integer> {
 
     CreditCard getByNumber(BigDecimal number);
 }

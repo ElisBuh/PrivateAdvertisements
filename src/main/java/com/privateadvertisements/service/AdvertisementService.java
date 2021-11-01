@@ -1,10 +1,10 @@
 package com.privateadvertisements.service;
 
-import com.privateadvertisements.api.repository.CrudAdvertisement;
-import com.privateadvertisements.api.repository.CrudCategory;
-import com.privateadvertisements.api.repository.CrudComment;
-import com.privateadvertisements.api.repository.CrudPhotograph;
-import com.privateadvertisements.api.repository.CrudUser;
+import com.privateadvertisements.api.repository.AdvertisementRepository;
+import com.privateadvertisements.api.repository.CategoryRepository;
+import com.privateadvertisements.api.repository.CommentRepository;
+import com.privateadvertisements.api.repository.PhotographRepository;
+import com.privateadvertisements.api.repository.UserRepository;
 import com.privateadvertisements.api.service.IAdvertisementService;
 import com.privateadvertisements.exception.NotEntityException;
 import com.privateadvertisements.model.Advertisement;
@@ -32,17 +32,17 @@ import java.util.stream.Collectors;
 public class AdvertisementService implements IAdvertisementService {
     private static final Logger log = LoggerFactory.getLogger(AdvertisementService.class);
 
-    private final CrudAdvertisement advertisementRepository;
-    private final CrudUser userRepository;
-    private final CrudCategory categoryRepository;
-    private final CrudComment commentRepository;
-    private final CrudPhotograph photographRepository;
+    private final AdvertisementRepository advertisementRepository;
+    private final UserRepository userRepository;
+    private final CategoryRepository categoryRepository;
+    private final CommentRepository commentRepository;
+    private final PhotographRepository photographRepository;
 
-    public AdvertisementService(CrudAdvertisement advertisementRepository,
-                                CrudUser userRepository,
-                                CrudCategory categoryRepository,
-                                CrudComment commentRepository,
-                                CrudPhotograph photographRepository) {
+    public AdvertisementService(AdvertisementRepository advertisementRepository,
+                                UserRepository userRepository,
+                                CategoryRepository categoryRepository,
+                                CommentRepository commentRepository,
+                                PhotographRepository photographRepository) {
         this.advertisementRepository = advertisementRepository;
         this.userRepository = userRepository;
         this.categoryRepository = categoryRepository;

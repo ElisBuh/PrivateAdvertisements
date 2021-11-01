@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface CrudComment extends JpaRepository<Comment, Integer> {
+public interface CommentRepository extends JpaRepository<Comment, Integer> {
 
     @Query("SELECT c from Comment c WHERE c.advertisement.id=:adId ORDER BY c.dateCreate DESC ")
     List<Comment> getAllCommentByAd(@Param("adId") int adId);

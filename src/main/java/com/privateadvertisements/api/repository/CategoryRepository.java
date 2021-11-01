@@ -4,6 +4,6 @@ import com.privateadvertisements.model.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
-public interface CrudCategory extends JpaRepository<Category, Integer> {
+public interface CategoryRepository extends JpaRepository<Category, Integer> {
     Category getByCategory(String category);
 }

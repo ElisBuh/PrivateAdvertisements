@@ -1,8 +1,8 @@
 package com.privateadvertisements.service;
 
-import com.privateadvertisements.api.repository.CrudChat;
-import com.privateadvertisements.api.repository.CrudMessages;
-import com.privateadvertisements.api.repository.CrudUser;
+import com.privateadvertisements.api.repository.ChatRepository;
+import com.privateadvertisements.api.repository.MessagesRepository;
+import com.privateadvertisements.api.repository.UserRepository;
 import com.privateadvertisements.api.service.IChatService;
 import com.privateadvertisements.exception.NotEntityException;
 import com.privateadvertisements.exception.ServiceException;
@@ -27,13 +27,13 @@ import java.util.stream.Collectors;
 public class ChatService implements IChatService {
     private static final Logger log = LoggerFactory.getLogger(ChatService.class);
 
-    private final CrudChat chatRepository;
-    private final CrudUser userRepository;
-    private final CrudMessages messagesRepository;
+    private final ChatRepository chatRepository;
+    private final UserRepository userRepository;
+    private final MessagesRepository messagesRepository;
 
-    public ChatService(CrudChat chatRepository,
-                       CrudUser userRepository,
-                       CrudMessages messagesRepository) {
+    public ChatService(ChatRepository chatRepository,
+                       UserRepository userRepository,
+                       MessagesRepository messagesRepository) {
         this.chatRepository = chatRepository;
         this.userRepository = userRepository;
         this.messagesRepository = messagesRepository;

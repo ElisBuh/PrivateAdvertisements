@@ -1,22 +1,20 @@
 package com.privateadvertisements.api.repository;
 
-import com.privateadvertisements.model.User;
+import com.privateadvertisements.model.Chat;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface CrudUser extends JpaRepository<User, Integer> {
+import java.util.Optional;
 
 
-    User getByLogin(String login);
+public interface ChatRepository extends JpaRepository<Chat, Integer> {
 
-    @Query("SELECT u FROM User u JOIN FETCH u.advertisements WHERE u.id = ?1")
-    User getWithAdvertisement(int id);
+    @Query("SELECT c FROM Chat c JOIN FETCH c.messages WHERE c.id = ?1")
+    Optional<Chat> getWithMessages(int id);
 
     @Modifying
-    @Query("DELETE FROM User u WHERE u.id=:id")
+    @Query("DELETE FROM Chat c WHERE c.id=:id")
     int delete(@Param("id") int id);
-
-
 }

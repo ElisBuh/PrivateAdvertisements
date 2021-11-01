@@ -11,7 +11,7 @@ import org.springframework.data.repository.query.Param;
 import java.time.LocalDate;
 import java.util.List;
 
-public interface CrudAdvertisement extends JpaRepository<Advertisement, Integer> {
+public interface AdvertisementRepository extends JpaRepository<Advertisement, Integer> {
 
     @Query("SELECT a from Advertisement a WHERE a.user.id=:userId AND a.datePublication >= :startDate AND a.datePublication < :endDate ORDER BY a.datePublication DESC")
     Page<Advertisement> getBetweenHalfOpenOfUser(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate, @Param("userId") int userId, Pageable pageable);

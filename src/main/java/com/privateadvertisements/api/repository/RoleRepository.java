@@ -4,7 +4,7 @@ import com.privateadvertisements.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
-public interface CrudRole extends JpaRepository<Role, Integer> {
+public interface RoleRepository extends JpaRepository<Role, Integer> {
 
     Role getByName(String name);
 }

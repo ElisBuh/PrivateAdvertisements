@@ -1,12 +1,12 @@
 package com.privateadvertisements.service;
 
-import com.privateadvertisements.api.repository.CrudAddress;
-import com.privateadvertisements.api.repository.CrudCity;
-import com.privateadvertisements.api.repository.CrudCountry;
-import com.privateadvertisements.api.repository.CrudCreditCard;
-import com.privateadvertisements.api.repository.CrudPersonalUserInfo;
-import com.privateadvertisements.api.repository.CrudRole;
-import com.privateadvertisements.api.repository.CrudUser;
+import com.privateadvertisements.api.repository.AddressRepository;
+import com.privateadvertisements.api.repository.CityRepository;
+import com.privateadvertisements.api.repository.CountryRepository;
+import com.privateadvertisements.api.repository.CreditCardRepository;
+import com.privateadvertisements.api.repository.PersonalUserInfoRepository;
+import com.privateadvertisements.api.repository.RoleRepository;
+import com.privateadvertisements.api.repository.UserRepository;
 import com.privateadvertisements.api.service.IUserService;
 import com.privateadvertisements.exception.NotEntityException;
 import com.privateadvertisements.exception.ServiceException;
@@ -35,22 +35,22 @@ import java.util.Set;
 public class UserService implements IUserService {
     private static final Logger log = LoggerFactory.getLogger(UserService.class);
 
-    private final CrudUser userRepository;
-    private final CrudRole roleRepository;
-    private final CrudCountry countryRepository;
-    private final CrudCity cityRepository;
-    private final CrudAddress addressRepository;
-    private final CrudPersonalUserInfo personalUserInfoRepository;
-    private final CrudCreditCard creditCardRepository;
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
+    private final CountryRepository countryRepository;
+    private final CityRepository cityRepository;
+    private final AddressRepository addressRepository;
+    private final PersonalUserInfoRepository personalUserInfoRepository;
+    private final CreditCardRepository creditCardRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public UserService(CrudUser userRepository,
-                       CrudRole roleRepository,
-                       CrudCountry countryRepository,
-                       CrudCity cityRepository,
-                       CrudAddress addressRepository,
-                       CrudPersonalUserInfo personalUserInfoRepository,
-                       CrudCreditCard creditCardRepository,
+    public UserService(UserRepository userRepository,
+                       RoleRepository roleRepository,
+                       CountryRepository countryRepository,
+                       CityRepository cityRepository,
+                       AddressRepository addressRepository,
+                       PersonalUserInfoRepository personalUserInfoRepository,
+                       CreditCardRepository creditCardRepository,
                        PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
