@@ -1,4 +1,4 @@
-package com.privateadvertisements.dataTest;
+package com.privateadvertisements.datatest;
 
 import com.privateadvertisements.model.User;
 
