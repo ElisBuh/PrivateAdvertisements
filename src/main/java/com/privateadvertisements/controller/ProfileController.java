@@ -52,7 +52,7 @@ public class ProfileController {
     }
 
     @PostMapping("/{id}/changePersonalInfo")
-    private ResponseEntity<?> changePersonalInfo(@PathVariable(name = "id") Integer id,
+    public ResponseEntity<?> changePersonalInfo(@PathVariable(name = "id") Integer id,
                                                  @RequestBody @Valid PersonalUserInfoDto personalUserInfoDto) {
         log.info("changePersonalInfo UserId{}", id);
         PersonalUserInfo personalUserInfo = mapper.convertPersonalUserInfoDtoToPersonalUserInfo(personalUserInfoDto);
@@ -61,7 +61,7 @@ public class ProfileController {
     }
 
     @PostMapping("/{id}/changeCreditCard")
-    private ResponseEntity<?> changeCreditCard(@PathVariable(name = "id") Integer id,
+    public ResponseEntity<?> changeCreditCard(@PathVariable(name = "id") Integer id,
                                                @RequestBody @Valid CreditCardDto creditCardDto) {
         log.info("changeCreditCard UserId{}", id);
         CreditCard creditCard = mapper.convertCreditCardDtoToCreditCard(creditCardDto);

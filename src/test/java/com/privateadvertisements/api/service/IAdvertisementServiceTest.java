@@ -18,15 +18,15 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static com.privateadvertisements.dataTest.AdvertisementTestData.ADVERTISEMENT_1;
-import static com.privateadvertisements.dataTest.AdvertisementTestData.ADVERTISEMENT_LIST;
-import static com.privateadvertisements.dataTest.AdvertisementTestData.NEW_ADVERTISEMENT;
-import static com.privateadvertisements.dataTest.AdvertisementTestData.UPDATE_ADVERTISEMENT;
-import static com.privateadvertisements.dataTest.CommentTestData.COMMENT_LIST_AD_1;
-import static com.privateadvertisements.dataTest.CommentTestData.NEW_COMMENT;
-import static com.privateadvertisements.dataTest.PhotographTestData.NEW_PHOTOGRAPH;
-import static com.privateadvertisements.dataTest.PhotographTestData.PHOTOGRAPH_1;
-import static com.privateadvertisements.dataTest.PhotographTestData.PHOTOGRAPH_3;
+import static com.privateadvertisements.datatest.AdvertisementTestData.ADVERTISEMENT_1;
+import static com.privateadvertisements.datatest.AdvertisementTestData.ADVERTISEMENT_LIST;
+import static com.privateadvertisements.datatest.AdvertisementTestData.NEW_ADVERTISEMENT;
+import static com.privateadvertisements.datatest.AdvertisementTestData.UPDATE_ADVERTISEMENT;
+import static com.privateadvertisements.datatest.CommentTestData.COMMENT_LIST_AD_1;
+import static com.privateadvertisements.datatest.CommentTestData.NEW_COMMENT;
+import static com.privateadvertisements.datatest.PhotographTestData.NEW_PHOTOGRAPH;
+import static com.privateadvertisements.datatest.PhotographTestData.PHOTOGRAPH_1;
+import static com.privateadvertisements.datatest.PhotographTestData.PHOTOGRAPH_3;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 

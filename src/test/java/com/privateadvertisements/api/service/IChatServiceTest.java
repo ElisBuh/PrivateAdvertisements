@@ -14,12 +14,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
-import static com.privateadvertisements.dataTest.ChatTestData.CHAT_1;
-import static com.privateadvertisements.dataTest.ChatTestData.CHAT_LIST_USER_1;
-import static com.privateadvertisements.dataTest.ChatTestData.NEW_CHAT;
-import static com.privateadvertisements.dataTest.MessageTestData.MESSAGES_1;
-import static com.privateadvertisements.dataTest.MessageTestData.NEW_MESSAGES;
-import static com.privateadvertisements.dataTest.MessageTestData.UPDATE_MESSAGES;
+import static com.privateadvertisements.datatest.ChatTestData.CHAT_1;
+import static com.privateadvertisements.datatest.ChatTestData.CHAT_LIST_USER_1;
+import static com.privateadvertisements.datatest.ChatTestData.NEW_CHAT;
+import static com.privateadvertisements.datatest.MessageTestData.MESSAGES_1;
+import static com.privateadvertisements.datatest.MessageTestData.NEW_MESSAGES;
+import static com.privateadvertisements.datatest.MessageTestData.UPDATE_MESSAGES;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 

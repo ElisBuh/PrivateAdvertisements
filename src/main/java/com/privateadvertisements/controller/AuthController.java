@@ -28,7 +28,7 @@ public class AuthController {
     private final JwtProvider jwtProvider;
 
 
-    public AuthController(IUserService userService, JwtProvider jwtProvider, Mapper mapper) {
+    public AuthController(IUserService userService, JwtProvider jwtProvider) {
         this.userService = userService;
         this.jwtProvider = jwtProvider;
     }

@@ -57,7 +57,7 @@ public class AdvertisementController {
     }
 
     @PostMapping(value = "/{id}")
-    private ResponseEntity<?> update(@PathVariable(name = "id") Integer id,
+    public ResponseEntity<?> update(@PathVariable(name = "id") Integer id,
                                      @RequestBody @Valid AdvertisementNewDto advertisementNewDto) {
         log.info("update adID: {}", id);
         Advertisement advertisement = mapper.convertAdvertisementNewDtoToAdvertisement(advertisementNewDto);
@@ -90,7 +90,7 @@ public class AdvertisementController {
     }
 
     @PostMapping(value = "/{id}/addComment")
-    private ResponseEntity<?> addComment(@PathVariable(name = "id") Integer id,
+    public ResponseEntity<?> addComment(@PathVariable(name = "id") Integer id,
                                          @RequestBody @Valid CommentDto commentDto,
                                          @RequestParam(name = "userId") Integer userId) {
         log.info("add Comment to adId: {}", id);
@@ -141,7 +141,7 @@ public class AdvertisementController {
     }
 
     @PostMapping(value = "/{id}/addPhoto")
-    private ResponseEntity<?> addPhoto(@PathVariable(name = "id") Integer id,
+    public ResponseEntity<?> addPhoto(@PathVariable(name = "id") Integer id,
                                        @RequestBody @Valid PhotographNewDto photographNewDto) {
         log.info("Add photo adId: {}", id);
         advertisementService.addPhoto(id, photographNewDto.getPaths());

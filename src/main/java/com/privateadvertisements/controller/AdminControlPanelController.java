@@ -80,7 +80,7 @@ public class AdminControlPanelController {
     }
 
     @PostMapping("/{id}/changeRole")
-    private ResponseEntity<?> changeRole(@PathVariable(name = "id") Integer id,
+    public ResponseEntity<?> changeRole(@PathVariable(name = "id") Integer id,
                                          @RequestParam(name = "role") @NotBlank String role) {
         log.info("add role to userId: {}, on {}", id, role);
 
