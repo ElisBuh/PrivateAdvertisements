@@ -15,6 +15,7 @@ import com.privateadvertisements.model.CreditCard;
 import com.privateadvertisements.model.PersonalUserInfo;
 import com.privateadvertisements.model.Role;
 import com.privateadvertisements.model.User;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -32,6 +33,7 @@ import java.util.Set;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class UserService implements IUserService {
     private static final Logger log = LoggerFactory.getLogger(UserService.class);
 
@@ -44,23 +46,6 @@ public class UserService implements IUserService {
     private final CreditCardRepository creditCardRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository,
-                       RoleRepository roleRepository,
-                       CountryRepository countryRepository,
-                       CityRepository cityRepository,
-                       AddressRepository addressRepository,
-                       PersonalUserInfoRepository personalUserInfoRepository,
-                       CreditCardRepository creditCardRepository,
-                       PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
-        this.countryRepository = countryRepository;
-        this.cityRepository = cityRepository;
-        this.addressRepository = addressRepository;
-        this.personalUserInfoRepository = personalUserInfoRepository;
-        this.creditCardRepository = creditCardRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
 
     @Override
     public User save(User user) {

@@ -14,6 +14,7 @@ import com.privateadvertisements.model.Comment;
 import com.privateadvertisements.model.Photograph;
 import com.privateadvertisements.model.StatusAd;
 import com.privateadvertisements.model.User;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -38,6 +39,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class AdvertisementService implements IAdvertisementService {
     private static final Logger log = LoggerFactory.getLogger(AdvertisementService.class);
 
@@ -50,17 +52,6 @@ public class AdvertisementService implements IAdvertisementService {
     @Value("${upload.path}")
     private String uploadPath = "upload-dir";
 
-    public AdvertisementService(AdvertisementRepository advertisementRepository,
-                                UserRepository userRepository,
-                                CategoryRepository categoryRepository,
-                                CommentRepository commentRepository,
-                                PhotographRepository photographRepository) {
-        this.advertisementRepository = advertisementRepository;
-        this.userRepository = userRepository;
-        this.categoryRepository = categoryRepository;
-        this.commentRepository = commentRepository;
-        this.photographRepository = photographRepository;
-    }
 
     @Override
     public Advertisement save(Advertisement advertisement, Integer userId, String nameCategory) {
