@@ -24,9 +24,6 @@ import static com.privateadvertisements.datatest.AdvertisementTestData.NEW_ADVER
 import static com.privateadvertisements.datatest.AdvertisementTestData.UPDATE_ADVERTISEMENT;
 import static com.privateadvertisements.datatest.CommentTestData.COMMENT_LIST_AD_1;
 import static com.privateadvertisements.datatest.CommentTestData.NEW_COMMENT;
-import static com.privateadvertisements.datatest.PhotographTestData.NEW_PHOTOGRAPH;
-import static com.privateadvertisements.datatest.PhotographTestData.PHOTOGRAPH_1;
-import static com.privateadvertisements.datatest.PhotographTestData.PHOTOGRAPH_3;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 
@@ -83,13 +80,13 @@ public class IAdvertisementServiceTest {
 
     }
 
-    @Test
-    public void addPhoto() {
-        Advertisement advertisement = advertisementService.addPhoto(100002, "Test");
-        Advertisement advertisementUpdate = new Advertisement(ADVERTISEMENT_1);
-        advertisementUpdate.setPhotographs(List.of(PHOTOGRAPH_1, PHOTOGRAPH_3, NEW_PHOTOGRAPH));
-        assertEquals(advertisementUpdate.getPhotographs(), advertisement.getPhotographs());
-    }
+//    @Test
+//    public void addPhoto() {
+//        Advertisement advertisement = advertisementService.addPhoto(100002, "Test");
+//        Advertisement advertisementUpdate = new Advertisement(ADVERTISEMENT_1);
+//        advertisementUpdate.setPhotographs(List.of(PHOTOGRAPH_1, PHOTOGRAPH_3, NEW_PHOTOGRAPH));
+//        assertEquals(advertisementUpdate.getPhotographs(), advertisement.getPhotographs());
+//    }
 
     @Test
     public void addComment() {

@@ -7,7 +7,6 @@ import com.privateadvertisements.model.Comment;
 import com.privateadvertisements.model.dto.AdvertisementDto;
 import com.privateadvertisements.model.dto.AdvertisementNewDto;
 import com.privateadvertisements.model.dto.CommentDto;
-import com.privateadvertisements.model.dto.PhotographNewDto;
 import com.privateadvertisements.util.DateTimeUtil;
 import com.privateadvertisements.util.Mapper;
 import org.slf4j.Logger;
@@ -25,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Max;
@@ -37,6 +37,7 @@ import java.util.List;
 @RequestMapping(value = "/advertisements")
 public class AdvertisementController {
     private static final Logger log = LoggerFactory.getLogger(AdvertisementController.class);
+
 
     private final Mapper mapper;
     private final IAdvertisementService advertisementService;
@@ -58,7 +59,7 @@ public class AdvertisementController {
 
     @PostMapping(value = "/{id}")
     public ResponseEntity<?> update(@PathVariable(name = "id") Integer id,
-                                     @RequestBody @Valid AdvertisementNewDto advertisementNewDto) {
+                                    @RequestBody @Valid AdvertisementNewDto advertisementNewDto) {
         log.info("update adID: {}", id);
         Advertisement advertisement = mapper.convertAdvertisementNewDtoToAdvertisement(advertisementNewDto);
         advertisementService.update(advertisement, id);
@@ -91,8 +92,8 @@ public class AdvertisementController {
 
     @PostMapping(value = "/{id}/addComment")
     public ResponseEntity<?> addComment(@PathVariable(name = "id") Integer id,
-                                         @RequestBody @Valid CommentDto commentDto,
-                                         @RequestParam(name = "userId") Integer userId) {
+                                        @RequestBody @Valid CommentDto commentDto,
+                                        @RequestParam(name = "userId") Integer userId) {
         log.info("add Comment to adId: {}", id);
         Comment comment = mapper.convertCommentDtoToConvert(commentDto);
         advertisementService.addComment(comment, id, userId);
@@ -142,9 +143,9 @@ public class AdvertisementController {
 
     @PostMapping(value = "/{id}/addPhoto")
     public ResponseEntity<?> addPhoto(@PathVariable(name = "id") Integer id,
-                                       @RequestBody @Valid PhotographNewDto photographNewDto) {
+                                      @RequestParam("file") MultipartFile file) {
         log.info("Add photo adId: {}", id);
-        advertisementService.addPhoto(id, photographNewDto.getPaths());
+        advertisementService.addPhoto(id, file);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

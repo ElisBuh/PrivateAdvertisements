@@ -9,6 +9,7 @@ import com.privateadvertisements.exception.ServiceException;
 import com.privateadvertisements.model.Chat;
 import com.privateadvertisements.model.Messages;
 import com.privateadvertisements.model.User;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class ChatService implements IChatService {
     private static final Logger log = LoggerFactory.getLogger(ChatService.class);
 
@@ -31,13 +33,6 @@ public class ChatService implements IChatService {
     private final UserRepository userRepository;
     private final MessagesRepository messagesRepository;
 
-    public ChatService(ChatRepository chatRepository,
-                       UserRepository userRepository,
-                       MessagesRepository messagesRepository) {
-        this.chatRepository = chatRepository;
-        this.userRepository = userRepository;
-        this.messagesRepository = messagesRepository;
-    }
 
     @Override
     public Chat creat(Integer... id) {

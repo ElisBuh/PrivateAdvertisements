@@ -4,7 +4,6 @@ import com.privateadvertisements.model.Chat;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
@@ -15,6 +14,6 @@ public interface ChatRepository extends JpaRepository<Chat, Integer> {
     Optional<Chat> getWithMessages(int id);
 
     @Modifying
-    @Query("DELETE FROM Chat c WHERE c.id=:id")
-    int delete(@Param("id") int id);
+    @Query("DELETE FROM Chat c WHERE c.id=?1")
+    int delete(int id);
 }

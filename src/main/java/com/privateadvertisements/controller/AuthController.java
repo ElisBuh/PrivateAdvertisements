@@ -4,7 +4,6 @@ package com.privateadvertisements.controller;
 import com.privateadvertisements.api.service.IUserService;
 import com.privateadvertisements.model.User;
 import com.privateadvertisements.model.dto.UserNewDto;
-import com.privateadvertisements.util.Mapper;
 import com.privateadvertisements.util.jwt.JwtProvider;
 import com.privateadvertisements.util.jwt.JwtResponse;
 import org.slf4j.Logger;

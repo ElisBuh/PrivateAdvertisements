@@ -7,21 +7,31 @@ import com.privateadvertisements.api.repository.PhotographRepository;
 import com.privateadvertisements.api.repository.UserRepository;
 import com.privateadvertisements.api.service.IAdvertisementService;
 import com.privateadvertisements.exception.NotEntityException;
+import com.privateadvertisements.exception.StorageException;
 import com.privateadvertisements.model.Advertisement;
 import com.privateadvertisements.model.Category;
 import com.privateadvertisements.model.Comment;
 import com.privateadvertisements.model.Photograph;
 import com.privateadvertisements.model.StatusAd;
 import com.privateadvertisements.model.User;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -29,6 +39,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class AdvertisementService implements IAdvertisementService {
     private static final Logger log = LoggerFactory.getLogger(AdvertisementService.class);
 
@@ -38,17 +49,9 @@ public class AdvertisementService implements IAdvertisementService {
     private final CommentRepository commentRepository;
     private final PhotographRepository photographRepository;
 
-    public AdvertisementService(AdvertisementRepository advertisementRepository,
-                                UserRepository userRepository,
-                                CategoryRepository categoryRepository,
-                                CommentRepository commentRepository,
-                                PhotographRepository photographRepository) {
-        this.advertisementRepository = advertisementRepository;
-        this.userRepository = userRepository;
-        this.categoryRepository = categoryRepository;
-        this.commentRepository = commentRepository;
-        this.photographRepository = photographRepository;
-    }
+    @Value("${upload.path}")
+    private String uploadPath = "upload-dir";
+
 
     @Override
     public Advertisement save(Advertisement advertisement, Integer userId, String nameCategory) {
@@ -160,19 +163,49 @@ public class AdvertisementService implements IAdvertisementService {
     }
 
     @Override
-    public Advertisement addPhoto(Integer adId, String... path) {
-        log.info("add photos to adId: {}", adId);
+    public Advertisement addPhoto(Integer adId, MultipartFile file) {
+        log.info("add photo to adId: {}", adId);
         Advertisement advertisement = get(adId);
-        List<Photograph> photographList = advertisement.getPhotographs();
-        for (String s : path) {
-            Photograph photograph = new Photograph();
-            photograph.setPath(s);
-            photograph.setAdvertisement(advertisement);
-            photographList.add(photographRepository.save(photograph));
+        Path rootLocation = Paths.get(uploadPath);
+        if (!Files.exists(rootLocation)) {
+            try {
+                Files.createDirectories(rootLocation);
+            } catch (IOException e) {
+                throw new StorageException("Could not initialize storage", e);
+            }
         }
-        advertisement.setPhotographs(photographList);
-        return advertisementRepository.save(advertisement);
+        try {
+            if (file.isEmpty()) {
+                throw new StorageException("Failed to store empty file.");
+            }
+            Path destinationFile = rootLocation.resolve(
+                            Paths.get(file.getOriginalFilename()))
+                    .normalize().toAbsolutePath();
+            if (!destinationFile.getParent().equals(rootLocation.toAbsolutePath())) {
+                // This is a security check
+                throw new StorageException(
+                        "Cannot store file outside current directory.");
+            }
+            try (InputStream inputStream = file.getInputStream()) {
+                Files.copy(inputStream, destinationFile,
+                        StandardCopyOption.REPLACE_EXISTING);
+            }
+            Photograph photograph = new Photograph();
+            photograph.setPath(destinationFile.toString());
+            photograph.setAdvertisement(advertisement);
+            List<Photograph> photographList = advertisement.getPhotographs();
+            photographList.add(photographRepository.save(photograph));
+            advertisement.setPhotographs(photographList);
+            advertisementRepository.save(advertisement);
+        } catch (IOException e) {
+            throw new StorageException("Failed to store file.", e);
+        }
+        return null;
     }
+
+//    public Path load(String filename) {
+//        return rootLocation.resolve(filename);
+//    }
 
     @Override
     @Transactional(readOnly = true)
