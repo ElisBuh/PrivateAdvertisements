@@ -19,15 +19,15 @@ public interface AdvertisementRepository extends JpaRepository<Advertisement, In
     @Query("SELECT a from Advertisement a WHERE a.datePublication >= :startDate AND a.datePublication < :endDate ORDER BY a.datePublication DESC")
     Page<Advertisement> getAllBetweenHalfOpen(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate, Pageable pageable);
 
-    @Query("SELECT a from Advertisement a WHERE a.user.id=:userId")
-    List<Advertisement> getAllByUserId(@Param("userId") int userId);
+    @Query("SELECT a from Advertisement a WHERE a.user.id=?1")
+    List<Advertisement> getAllByUserId(int userId);
 
     @Query("SELECT a FROM Advertisement a JOIN FETCH a.comments")
     Advertisement getWithComments();
 
     @Modifying
-    @Query("DELETE FROM Advertisement a WHERE a.id=:id AND a.user.id=:userId")
-    int delete(@Param("id") int id, @Param("userId") int userId);
+    @Query("DELETE FROM Advertisement a WHERE a.id=?1 AND a.user.id=?2")
+    int delete(int id, int userId);
 
     Advertisement getByTitle(String title);
 }
